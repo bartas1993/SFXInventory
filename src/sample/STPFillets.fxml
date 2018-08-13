@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="stpPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #efefef;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSTPFillets">
+   <children>
+      <MenuBar prefHeight="25.0" prefWidth="800.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Choose Product">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Input Product Details" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="-&gt; RECORD">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Click 'RECORD' to print" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <GridPane focusTraversable="true" layoutY="22.0" prefHeight="429.0" prefWidth="800.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="214.66665649414062" minHeight="50.0" prefHeight="36.66667175292969" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="214.66665649414062" minHeight="20.0" prefHeight="36.66667175292969" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="214.66665649414062" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="214.66665649414062" minHeight="20.0" prefHeight="48.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="214.66665649414062" minHeight="30.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="214.66665649414062" minHeight="30.0" prefHeight="50.666656494140625" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="52.333343505859375" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="331.6666564941406" minHeight="100.0" prefHeight="206.66665649414062" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <DatePicker editable="false" prefHeight="27.0" prefWidth="400.0" promptText="Kill Date" showWeekNumbers="true" GridPane.rowIndex="4" />
+            <DatePicker editable="false" prefHeight="27.0" prefWidth="407.0" promptText="Cut Date" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <DatePicker prefHeight="27.0" prefWidth="400.0" promptText="Pack Date" GridPane.rowIndex="5" />
+            <DatePicker prefHeight="27.0" prefWidth="400.0" promptText="Use by" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Pane prefHeight="149.0" prefWidth="386.0" GridPane.rowIndex="7">
+               <children>
+                  <Label layoutX="23.0" layoutY="31.0" text="Tare" />
+                  <Label layoutX="22.0" layoutY="68.0" text="Case" />
+                  <TextField layoutX="237.0" layoutY="27.0" prefHeight="25.0" prefWidth="37.0" promptText="KG" />
+                  <TextField layoutX="237.0" layoutY="64.0" prefHeight="25.0" prefWidth="37.0" promptText="KG" />
+                  <TextField alignment="CENTER" layoutX="240.0" layoutY="95.0" prefHeight="25.0" prefWidth="68.0" promptText="TOTAL" />
+                  <Label layoutX="75.0" layoutY="98.0" prefHeight="19.0" prefWidth="95.0" text="TOTAL WEIGHT">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="282.0" layoutY="27.0" prefHeight="25.0" prefWidth="37.0" promptText="QTY" />
+                  <TextField layoutX="282.0" layoutY="64.0" prefHeight="25.0" prefWidth="37.0" promptText="QTY" />
+                  <ComboBox layoutX="75.0" layoutY="27.0" prefWidth="150.0" />
+                  <ComboBox layoutX="75.0" layoutY="64.0" prefWidth="150.0" />
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <children>
+                  <CheckBox fx:id="checkLab" layoutY="8.0" mnemonicParsing="false" onAction="#setCheckLab" text="Case Labels">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox layoutY="35.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="156.0" text="Case End Label">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </CheckBox>
+                  <Button layoutX="20.0" layoutY="204.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="365.0" text="RECORD">
+                     <font>
+                        <Font size="39.0" />
+                     </font>
+                  </Button>
+                  <Pane fx:id="panePrevLab" layoutX="4.0" layoutY="88.0" prefHeight="89.0" prefWidth="391.0" style="-fx-border-color: black;">
+                     <children>
+                        <Label layoutX="6.0" text="Product:" />
+                        <Label layoutX="7.0" layoutY="17.0" text="Kill Date:" />
+                        <Label layoutX="227.0" layoutY="1.0" text="BATCH:" />
+                        <Label layoutX="294.0" layoutY="2.0" text="FLOCK CODE:" />
+                        <Label layoutX="63.0" layoutY="52.0" prefHeight="17.0" prefWidth="274.0" text="|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" />
+                        <Label fx:id="name" layoutX="56.0" layoutY="3.0" prefHeight="12.0" prefWidth="166.0" text="Name">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="55.0" layoutY="20.0" prefHeight="12.0" prefWidth="55.0" text="11/08/2018">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="batchLB" layoutX="271.0" layoutY="4.0" text="Batch">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="flockLB" layoutX="369.0" layoutY="5.0" prefHeight="12.0" prefWidth="27.0" text="flock">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="226.0" layoutY="35.0" text="USE BY:" />
+                        <Label layoutX="273.0" layoutY="38.0" prefHeight="12.0" prefWidth="46.0" text="16/08/2018">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="7.0" layoutY="35.0" prefHeight="17.0" prefWidth="27.0" text="Cut:" />
+                        <Label layoutX="32.0" layoutY="39.0" prefHeight="12.0" prefWidth="46.0" text="12/08/2018">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="227.0" layoutY="18.0" text="PACK:" />
+                        <Label layoutX="264.0" layoutY="21.0" prefHeight="12.0" prefWidth="46.0" text="13/08/2018">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="scan" layoutX="63.0" layoutY="69.0" prefHeight="12.0" prefWidth="44.0" text="ProductNumber">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="flockk" layoutX="104.0" layoutY="69.0" prefHeight="12.0" prefWidth="55.0" text="Flock">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+               <children>
+                  <Label layoutX="14.0" layoutY="15.0" text="BATCH" />
+                  <Label layoutX="198.0" layoutY="15.0" text="FLOCK" />
+                  <ComboBox fx:id="batch" layoutX="54.0" layoutY="11.0" onAction="#getBATCH" onKeyPressed="#getBATCH" prefHeight="25.0" prefWidth="139.0" />
+                  <ComboBox fx:id="flockCode" layoutX="236.0" layoutY="11.0" onAction="#getFC" onKeyPressed="#getFC" prefWidth="150.0" />
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <children>
+                  <Label layoutY="28.0" text="PRINT OPTIONS" />
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Pane onMouseClicked="#getLabel" onMouseReleased="#getLabel" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <Label alignment="CENTER" layoutX="8.0" layoutY="14.0" prefHeight="23.0" prefWidth="379.0" style="-fx-border-color: black; -fx-background-color: red;" text="ERROR - DEVICE NOT CONNECTED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
+            <ComboBox fx:id="product" onAction="#getLabel" onKeyPressed="#getLabel" prefHeight="25.0" prefWidth="449.0" promptText="Product" GridPane.rowIndex="1" />
+            <ComboBox fx:id="location" prefHeight="25.0" prefWidth="416.0" promptText="Target Location" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="update" mnemonicParsing="false" onAction="#updateBTN" prefHeight="25.0" prefWidth="399.0" text="LOAD DATA">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </GridPane>
+      <Button fx:id="exit" layoutX="420.0" layoutY="552.0" mnemonicParsing="false" onAction="#exitSTP" onMouseClicked="#exitSTP" prefHeight="43.0" prefWidth="365.0" text="BACK" />
+      <Pane layoutX="9.0" layoutY="417.0" prefHeight="176.0" prefWidth="372.0" style="-fx-background-color: red; -fx-border-color: black;">
+         <children>
+            <Label layoutX="294.0" layoutY="7.0" prefHeight="96.0" prefWidth="72.0" text="KG">
+               <font>
+                  <Font size="41.0" />
+               </font>
+            </Label>
+            <Label layoutX="57.0" layoutY="5.0" prefHeight="100.0" prefWidth="235.0" text="000.000">
+               <font>
+                  <Font size="68.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="84.0" prefHeight="17.0" prefWidth="251.0" style="-fx-border-color: black; -fx-background-color: orange;" text="MANUAL WEIGHT INPUT MODE" textAlignment="CENTER" />
+            <Label layoutX="109.0" layoutY="105.0" text="MIN &gt;0.5 MAX &gt;999.999" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

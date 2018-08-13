@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="myINOVA:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/myINOVA_jar</output-path>
+    <root id="archive" name="myINOVA.jar">
+      <element id="module-output" name="myINOVA" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/sqlite-jdbc-3.23.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
