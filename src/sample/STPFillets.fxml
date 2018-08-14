@@ -59,7 +59,7 @@
                   <Label layoutX="22.0" layoutY="68.0" text="Case" />
                   <TextField layoutX="237.0" layoutY="27.0" prefHeight="25.0" prefWidth="37.0" promptText="KG" />
                   <TextField layoutX="237.0" layoutY="64.0" prefHeight="25.0" prefWidth="37.0" promptText="KG" />
-                  <TextField alignment="CENTER" layoutX="240.0" layoutY="95.0" prefHeight="25.0" prefWidth="68.0" promptText="TOTAL" />
+                  <TextField fx:id="WeightInput" alignment="CENTER" layoutX="240.0" layoutY="95.0" onAction="#weightInputAction" prefHeight="25.0" prefWidth="68.0" promptText="TOTAL" />
                   <Label layoutX="75.0" layoutY="98.0" prefHeight="19.0" prefWidth="95.0" text="TOTAL WEIGHT">
                      <font>
                         <Font size="13.0" />
@@ -69,6 +69,7 @@
                   <TextField layoutX="282.0" layoutY="64.0" prefHeight="25.0" prefWidth="37.0" promptText="QTY" />
                   <ComboBox layoutX="75.0" layoutY="27.0" prefWidth="150.0" />
                   <ComboBox layoutX="75.0" layoutY="64.0" prefWidth="150.0" />
+                  <Label fx:id="weightHelp" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="124.0" prefHeight="19.0" prefWidth="391.0" style="-fx-border-color: black; -fx-background-color: yellow;" text="MANUAL WEIGHT INPUT MODE ENTER VALUE (000.000) AND ENTER" textAlignment="CENTER" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
@@ -179,19 +180,19 @@
          </children>
       </GridPane>
       <Button fx:id="exit" layoutX="420.0" layoutY="552.0" mnemonicParsing="false" onAction="#exitSTP" onMouseClicked="#exitSTP" prefHeight="43.0" prefWidth="365.0" text="BACK" />
-      <Pane layoutX="9.0" layoutY="417.0" prefHeight="176.0" prefWidth="372.0" style="-fx-background-color: red; -fx-border-color: black;">
+      <Pane fx:id="weightPane" layoutX="9.0" layoutY="417.0" prefHeight="176.0" prefWidth="372.0" style="-fx-background-color: red; -fx-border-color: black;">
          <children>
             <Label layoutX="294.0" layoutY="7.0" prefHeight="96.0" prefWidth="72.0" text="KG">
                <font>
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label layoutX="57.0" layoutY="5.0" prefHeight="100.0" prefWidth="235.0" text="000.000">
+            <Label fx:id="WeightOutput" layoutX="57.0" layoutY="5.0" prefHeight="100.0" prefWidth="235.0" text="000.000">
                <font>
                   <Font size="68.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="84.0" prefHeight="17.0" prefWidth="251.0" style="-fx-border-color: black; -fx-background-color: orange;" text="MANUAL WEIGHT INPUT MODE" textAlignment="CENTER" />
+            <Label fx:id="manual" alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="84.0" prefHeight="17.0" prefWidth="251.0" style="-fx-border-color: black; -fx-background-color: orange;" text="MANUAL WEIGHT INPUT MODE" textAlignment="CENTER" />
             <Label layoutX="109.0" layoutY="105.0" text="MIN &gt;0.5 MAX &gt;999.999" />
          </children>
       </Pane>

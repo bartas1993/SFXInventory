@@ -3,17 +3,18 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,6 +56,16 @@ public class ControllerSTPFillets implements Initializable {
     @FXML Label batchLB;
     @FXML
     CheckBox checkLab;
+    @FXML
+    TextField WeightInput;
+    @FXML
+    Label WeightOutput;
+    @FXML
+    Label weightHelp;
+    @FXML
+    Pane weightPane;
+    @FXML
+    Label manual;
 
     public void exitSTP()
     {
@@ -208,6 +219,28 @@ public void setBatchName() throws ClassNotFoundException {
         {
             panePrevLab.setVisible(false);
         }
+    }
+
+    public void weightInputAction()
+    {
+        String out = WeightInput.getText();
+        WeightInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode()==KeyCode.ENTER)
+                {
+
+                    weightPane.setStyle("-fx-background-color: #5ced4b;");
+                    weightPane.setStyle("-fx-border-color: black;");
+                    WeightOutput.setText(out);
+                    manual.setStyle("-fx-background-color: #5ced4b;");
+                    manual.setText("GOT WEIGHT");
+                    weightHelp.setText("WEIGHT ENTERED");
+
+
+                }
+            }
+        });
     }
 }
 
