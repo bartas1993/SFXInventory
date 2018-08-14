@@ -83,6 +83,8 @@ public class Controller implements Initializable {
             catch(IOException a)
             {
                 System.out.println("Something went wrong");
+                stpFillets.setStyle("-fx-border-color: red;");
+                System.err.println(a);
             }
         });
         hwfFillets.setOnMouseEntered(e->{
