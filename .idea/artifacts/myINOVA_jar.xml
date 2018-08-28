@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/myINOVA_jar</output-path>
     <root id="archive" name="myINOVA.jar">
       <element id="module-output" name="myINOVA" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/core-3.3.3.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/sqlite-jdbc-3.23.1.jar" path-in-jar="/" />
     </root>
   </artifact>

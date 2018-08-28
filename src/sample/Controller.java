@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -38,11 +39,12 @@ public class Controller implements Initializable {
 
 
 
-    public void handleExit(ActionEvent a)
-    {
-        System.exit(1);
-    }
+    public void handleExit(ActionEvent a) {
+        exitApp.setOnMouseClicked(e -> {
 
+System.exit(1);
+        });
+    }
     public void handleWIP(ActionEvent a)
     {
         WIP.setOnMouseClicked(e->{
@@ -82,7 +84,8 @@ public class Controller implements Initializable {
             stpFillets.setStyle("-fx-border-color: yellow;");}
             catch(IOException a)
             {
-                System.out.println("Something went wrong");
+                System.out.println("Can't open Fillet Products");
+                System.out.println(a);
                 stpFillets.setStyle("-fx-border-color: red;");
                 System.err.println(a);
             }

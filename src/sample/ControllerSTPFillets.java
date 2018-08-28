@@ -22,7 +22,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -33,14 +32,10 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class ControllerSTPFillets implements Initializable {
-
-
     private ObservableList<String> batchList = FXCollections.observableArrayList();
     private ObservableList<String> productList = FXCollections.observableArrayList();
     private ObservableList<String> flockList = FXCollections.observableArrayList();
     private ObservableList<String> locationList = FXCollections.observableArrayList();
-
-
     @FXML
     private Button exit;
     @FXML
@@ -112,7 +107,6 @@ public class ControllerSTPFillets implements Initializable {
     public void exitSTP() {
         exit.setOnMouseClicked(this::handle);
     }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
@@ -125,23 +119,25 @@ public class ControllerSTPFillets implements Initializable {
 
         }
     }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setProductName() throws ClassNotFoundException {
         Connection connect = null;
         try {
             Class.forName("org.sqlite.JDBC");
             connect = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
 
-            String s = "SELECT Name FROM STPFillets";
+            String s = "SELECT Name,ScanCode FROM STPFillets";
             PreparedStatement pst = connect.prepareStatement(s);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
 
 
-                productList.add(rs.getString("Name").toUpperCase());
+                productList.add(rs.getString("Name").toUpperCase() + " " + rs.getString("ScanCode"));
 
 
-                System.out.println("Fetching Column Label element:Scancode from STPFillets Database");
+
+                System.out.println("Fetching Column Label element:" +
+                        " Name,ScanCode from STPFillets Database");
                 product.setItems(productList);
 
             }
@@ -151,7 +147,102 @@ public class ControllerSTPFillets implements Initializable {
         }
 
     }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void handleRecord() throws ClassNotFoundException {
+        Record.setOnAction(e -> {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            String myWeb;
+            myWeb = "Product: " + name.getText() + "\n"
+                    + "Kill date: " + killDate.getText() + "\n" +
+                    "Pack date: " + packDate.getText() +
+                    "\n" + "Cut date: " + cutDate.getText() + "\n"
+                    + "Use by date: " + useDate.getText() + "\n"
+                    + "Pallet ID: " +  scan.getText() + flockk.getText();
+            int width = 400;
+            int height = 400;
+            String fileType = "png";
+            BufferedImage bufferedImage = null;
+            try {
+                BitMatrix byteMatrix = qrCodeWriter.encode(myWeb, BarcodeFormat.QR_CODE, width, height);
+                bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+                bufferedImage.createGraphics();
 
+                Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
+                graphics.setColor(Color.WHITE);
+                graphics.fillRect(0, 0, width, height);
+                graphics.setColor(Color.BLACK);
+
+                for (int i = 0; i < height; i++) {
+                    for (int j = 0; j < width; j++) {
+                        if (byteMatrix.get(i, j)) {
+                            graphics.fillRect(i, j, 1, 1);
+                        }
+                    }
+                }
+                Connection conWIP = null;
+
+                try {
+                    Class.forName("org.sqlite.JDBC");
+                    conWIP = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+                    String s = "INSERT INTO wipchill(Product,Kill,Cut,Pack,Use,ID) VALUES (?,?,?,?,?,?) ";
+
+                    PreparedStatement pst2 = conWIP.prepareStatement(s);
+                    pst2.setString(1, name.getText());
+                    pst2.setString(2, killDate.getText());
+                    pst2.setString(3, packDate.getText());
+                    pst2.setString(4, useDate.getText());
+                    pst2.setString(5, cutDate.getText());
+                    pst2.setString(6, scan.getText()+flockk.getText());
+                    pst2.executeUpdate();
+                    System.out.println("Product Added");
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Product Added");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Product added to specified location (WIPCHILL)");
+                    alert.showAndWait();
+                } catch (SQLException a) {
+                    System.err.println(a);
+                    System.out.println("Something went wrong");
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("DATABASE MESSAGE");
+                    alert.setHeight(600);
+                    alert.setWidth(400);
+
+                    alert.setHeaderText("ERROR \n" + a);
+                    alert.setContentText("PRODUCT NOT ADDED" +
+                            "CHECK: \n" +
+                            "-IF ID ALREADY EXIST(UNIQUE CONSTRAINT FAILED) \n" +
+                            "-CORRECT PATH TO DATABASE(ERROR OR MISSING DATABASE) \n" +
+                            "-DATABASE MIGHT BE EDITED BY ADMINISTRATOR(DATABASE BUSY) \n" +
+                            "-RE-ENTER PRODUCT NAME AND CLICK RECORD AGAIN OR CHECK DATABASE PATH \n"
+                    + "PLEASE CONTACT YOUR IT DEP FOR MORE INFORMATION");
+                    alert.showAndWait();
+                } catch (ClassNotFoundException e1) {
+                    e1.printStackTrace();
+                } finally {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("IMPORTANT!");
+                    alert.setHeight(400);
+                    alert.setHeaderText(null);
+                    alert.setContentText("PLEASE BE AWARE THAT ALL PRODUCTS ARE SAVED IN WIPCHILL DATABASE, " +
+                            "NO OTHER DATABASES EXIST " +
+                            "THIS IS DEMO VERSION");
+
+                    alert.showAndWait();
+                }
+                scan.setVisible(true);
+                locc.setVisible(true);
+                loccc.setVisible(true);
+                flockk.setVisible(true);
+
+            } catch (WriterException e1) {
+                e1.printStackTrace();
+            }
+            recordDetails.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
+
+        });
+        }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void getLabel(ActionEvent event) {
         int barcodeOne;
         String get = product.getValue();
@@ -182,7 +273,7 @@ public class ControllerSTPFillets implements Initializable {
             System.out.println("Something went wrong");
         }
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void getFC(ActionEvent event) {
 
         String getF = flockCode.getValue();
@@ -215,7 +306,7 @@ public class ControllerSTPFillets implements Initializable {
             System.out.println("Something went wrong");
         }
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void getBATCH(ActionEvent event) {
         String getB = batch.getValue();
         batchLB.setText(getB);
@@ -250,7 +341,7 @@ public class ControllerSTPFillets implements Initializable {
         update.setDisable(true);
         update.setText("DATA LOADED");
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setCheckLab() {
         if (checkLab.isSelected()) {
             panePrevLab.setVisible(true);
@@ -259,7 +350,7 @@ public class ControllerSTPFillets implements Initializable {
             panePrevLab.setVisible(false);
         }
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void weightInputAction() {
         String out = WeightInput.getText();
         WeightInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -279,7 +370,7 @@ public class ControllerSTPFillets implements Initializable {
             }
         });
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setLoc() throws ClassNotFoundException {
         Connection connecttt;
         connecttt = null;
@@ -301,9 +392,8 @@ public class ControllerSTPFillets implements Initializable {
             System.out.println("Something went wrong");
         }
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void getLocLab(ActionEvent event) {
-
         String getFo = (String) location.getValue();
         flockLB.setText(getFo);
         Random barcodeGenOneF = new Random();
@@ -312,79 +402,31 @@ public class ControllerSTPFillets implements Initializable {
         locc.setText(String.valueOf(barcodeOneF));
         loccc.setText(String.valueOf(barcodeOneF));
         locccc.setText(String.valueOf(barcodeOneF));
-
-
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setKillDate() {
         LocalDate dateofkill = kill.getValue();
         String dk = dateofkill.toString();
         killDate.setText(dk);
-
-
     }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setPackDate() {
         LocalDate dateofpack = pack.getValue();
         String pk = dateofpack.toString();
         packDate.setText(pk);
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setCutDate() {
         LocalDate dateofcut = cut.getValue();
         String ck = dateofcut.toString();
         cutDate.setText(ck);
     }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setUseDate() {
         LocalDate dateofuse = useby.getValue();
         String uk = dateofuse.toString();
         useDate.setText(uk);
     }
-
-    public void handleRecord() {
-        Record.setOnAction(e -> {
-
-            savedRecord.setText("RECORD SAVED ->");
-            QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            String myWeb ="Product: "+ name.getText() + "\n"
-                    +"Kill date: "+ killDate.getText() +"\n"+
-                    "Pack date: "+ packDate.getText() +
-                    "\n" + "Cut date: "+cutDate.getText() + "\n"
-                    +"Use by date: "+ useDate.getText();
-            int width = 400;
-            int height = 400;
-            String fileType = "png";
-
-            BufferedImage bufferedImage = null;
-            try {
-                BitMatrix byteMatrix = qrCodeWriter.encode(myWeb, BarcodeFormat.QR_CODE, width, height);
-                bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-                bufferedImage.createGraphics();
-
-                Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
-                graphics.setColor(Color.WHITE);
-                graphics.fillRect(0, 0, width, height);
-                graphics.setColor(Color.BLACK);
-
-                for (int i = 0; i < height; i++) {
-                    for (int j = 0; j < width; j++) {
-                        if (byteMatrix.get(i, j)) {
-                            graphics.fillRect(i, j, 1, 1);
-                        }
-                    }
-                }
-
-                System.out.println("Success...");
-
-
-            } catch (WriterException e1) {
-                e1.printStackTrace();
-            }
-            recordDetails.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
-
-        });
-
-    }
 }
+
 
