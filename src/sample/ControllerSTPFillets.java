@@ -45,7 +45,7 @@ public class ControllerSTPFillets implements Initializable {
     @FXML
     private ComboBox<String> flockCode;
     @FXML
-    private ComboBox location;
+    private ComboBox locationn;
     @FXML
     private Pane panePrevLab;
     @FXML
@@ -103,12 +103,107 @@ public class ControllerSTPFillets implements Initializable {
     ImageView recordDetails;
     @FXML
     private Label savedRecord;
+    @FXML private ImageView exitApp;
+    @FXML private ImageView back;
 
     public void exitSTP() {
         exit.setOnMouseClicked(this::handle);
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Connection connect = null;
+        batch.setEditable(true);
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connect = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+
+            String s = "SELECT Name,ScanCode FROM STPFillets";
+            PreparedStatement pst = connect.prepareStatement(s);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+
+
+                productList.add(rs.getString("Name").toUpperCase() + " " + rs.getString("ScanCode"));
+
+
+
+                System.out.println("Fetching Column Label element:" +
+                        " Name,ScanCode from STPFillets Database");
+                product.setItems(productList);
+
+            }
+        } catch (SQLException a) {
+            System.err.println(a);
+            System.out.println("Something went wrong");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Connection connectt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connectt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+
+            String s = "SELECT FlockCode FROM FlockCodes";
+            PreparedStatement pstt = connectt.prepareStatement(s);
+            ResultSet rss = pstt.executeQuery();
+            while (rss.next()) {
+                flockList.add(rss.getString("FlockCode").toUpperCase());
+                System.out.println("Fetching Column Label element:FlockCode from FlockCodes Database");
+                flockCode.setItems(flockList);
+
+
+            }
+        } catch (SQLException a) {
+            System.err.println(a);
+            System.out.println("Something went wrong");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Connection connecttt;
+        connecttt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connecttt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+
+            String s = "SELECT * FROM BatchCodes";
+            PreparedStatement psttt = connecttt.prepareStatement(s);
+            ResultSet rsss = psttt.executeQuery();
+            while (rsss.next()) {
+                batchList.add(rsss.getString("BatchID").toUpperCase());
+                System.out.println("Fetching Column Label element:Batch from BatchCodes Database");
+                batch.setItems(batchList);
+
+            }
+        } catch (SQLException a) {
+            System.err.println(a);
+            System.out.println("Something went wrong");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Connection connectttt;
+        connectttt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connectttt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+
+            String s = "SELECT * FROM Locations";
+            PreparedStatement psttttt = connecttt.prepareStatement(s);
+            ResultSet rsssss = psttttt.executeQuery();
+            while (rsssss.next()) {
+                locationList.add(rsssss.getString("LocationName").toUpperCase());
+                System.out.println("Fetching Column Label element:LocationName from BatchCodes Database");
+                locationn.setItems(locationList);
+
+            }
+        } catch (SQLException a) {
+            System.err.println(a);
+            System.out.println("Something went wrong");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void handle(MouseEvent e) {
@@ -119,6 +214,22 @@ public class ControllerSTPFillets implements Initializable {
 
         }
     }
+
+
+    public void handleBack(MouseEvent e) {
+        try {
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("Inova.fxml"));
+            stpPane.getChildren().addAll(pane);
+        } catch (IOException a) {
+
+        }
+    }
+    public void exitX(MouseEvent e) {
+
+            System.exit(1);
+
+    }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setProductName() throws ClassNotFoundException {
         Connection connect = null;
@@ -131,6 +242,9 @@ public class ControllerSTPFillets implements Initializable {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
 
+
+
+                productList.removeAll(rs.getString("Name").toUpperCase() + " " + rs.getString("ScanCode"));
 
                 productList.add(rs.getString("Name").toUpperCase() + " " + rs.getString("ScanCode"));
 
@@ -184,15 +298,16 @@ public class ControllerSTPFillets implements Initializable {
                 try {
                     Class.forName("org.sqlite.JDBC");
                     conWIP = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
-                    String s = "INSERT INTO wipchill(Product,Kill,Cut,Pack,Use,ID) VALUES (?,?,?,?,?,?) ";
+                    String s = "INSERT INTO wipchill(Product,Kill,Cut,Pack,Use,Amount,ID) VALUES (?,?,?,?,?,?,?) ";
 
                     PreparedStatement pst2 = conWIP.prepareStatement(s);
                     pst2.setString(1, name.getText());
                     pst2.setString(2, killDate.getText());
-                    pst2.setString(3, packDate.getText());
-                    pst2.setString(4, useDate.getText());
-                    pst2.setString(5, cutDate.getText());
-                    pst2.setString(6, scan.getText()+flockk.getText());
+                    pst2.setString(4, packDate.getText());
+                    pst2.setString(5, useDate.getText());
+                    pst2.setString(3, cutDate.getText());
+                    pst2.setString(7, scan.getText()+flockk.getText());
+                    pst2.setString(6,WeightOutput.getText());
                     pst2.executeUpdate();
                     System.out.println("Product Added");
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -263,9 +378,13 @@ public class ControllerSTPFillets implements Initializable {
             PreparedStatement pstt = connectt.prepareStatement(s);
             ResultSet rss = pstt.executeQuery();
             while (rss.next()) {
+                flockList.removeAll(rss.getString("FlockCode").toUpperCase());
+                System.out.println("Fetching Column Label element:FlockCode from FlockCodes Database");
                 flockList.add(rss.getString("FlockCode").toUpperCase());
                 System.out.println("Fetching Column Label element:FlockCode from FlockCodes Database");
                 flockCode.setItems(flockList);
+
+
 
             }
         } catch (SQLException a) {
@@ -296,9 +415,12 @@ public class ControllerSTPFillets implements Initializable {
             PreparedStatement psttt = connecttt.prepareStatement(s);
             ResultSet rsss = psttt.executeQuery();
             while (rsss.next()) {
+                batchList.removeAll(rsss.getString("BatchID").toUpperCase());
+                System.out.println("Fetching Column Label element:Batch from BatchCodes Database");
                 batchList.add(rsss.getString("BatchID").toUpperCase());
                 System.out.println("Fetching Column Label element:Batch from BatchCodes Database");
                 batch.setItems(batchList);
+
 
             }
         } catch (SQLException a) {
@@ -338,8 +460,8 @@ public class ControllerSTPFillets implements Initializable {
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
-        update.setDisable(true);
-        update.setText("DATA LOADED");
+
+        update.setText("DATA REFRESHED");
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setCheckLab() {
@@ -384,7 +506,7 @@ public class ControllerSTPFillets implements Initializable {
             while (rssss.next()) {
                 locationList.add(rssss.getString("LocationName").toUpperCase());
                 System.out.println("Fetching Column Label element:LocationName from BatchCodes Database");
-                location.setItems(locationList);
+                locationn.setItems(locationList);
 
             }
         } catch (SQLException a) {
@@ -394,7 +516,7 @@ public class ControllerSTPFillets implements Initializable {
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void getLocLab(ActionEvent event) {
-        String getFo = (String) location.getValue();
+        String getFo = (String) locationn.getValue();
         flockLB.setText(getFo);
         Random barcodeGenOneF = new Random();
         int barcodeOneF;

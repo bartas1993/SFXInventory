@@ -2,9 +2,12 @@
   <artifact type="jar" name="myINOVA:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/myINOVA_jar</output-path>
     <root id="archive" name="myINOVA.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
       <element id="module-output" name="myINOVA" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/core-3.3.3.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/sqlite-jdbc-3.23.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/core-3.3.3.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

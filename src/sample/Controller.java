@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -30,20 +31,29 @@ public class Controller implements Initializable {
     @FXML
     ToggleButton hwfBirds;
     @FXML
-    Button exitApp;
+    ImageView exitApp;
     @FXML
     Button WIP;
     @FXML
     Pane wipPane;
+    @FXML
+    MenuItem stock;
 
 
+    public void handleStock(ActionEvent b) throws IOException {
+        Pane pane = FXMLLoader.load(getClass().getResource("Stock.fxml"));
+        rootPane.getChildren().addAll(pane);
+
+    }
 
 
-    public void handleExit(ActionEvent a) {
-        exitApp.setOnMouseClicked(e -> {
+    public void handleExit() {
+    exitApp.setOnMouseClicked(e ->
+    {
+        System.exit(1);
 
-System.exit(1);
-        });
+    });
+
     }
     public void handleWIP(ActionEvent a)
     {
@@ -89,6 +99,7 @@ System.exit(1);
                 stpFillets.setStyle("-fx-border-color: red;");
                 System.err.println(a);
             }
+
         });
         hwfFillets.setOnMouseEntered(e->{
 
