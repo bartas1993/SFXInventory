@@ -22,8 +22,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -266,6 +270,7 @@ public class ControllerSTPFillets implements Initializable {
         Record.setOnAction(e -> {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             String myWeb;
+            String status = "Pending";
             myWeb = "Product: " + name.getText() + "\n"
                     + "Kill date: " + killDate.getText() + "\n" +
                     "Pack date: " + packDate.getText() +
@@ -294,56 +299,117 @@ public class ControllerSTPFillets implements Initializable {
                     }
                 }
                 Connection conWIP = null;
+                Connection conHold = null;
 
-                try {
-                    Class.forName("org.sqlite.JDBC");
-                    conWIP = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
-                    String s = "INSERT INTO wipchill(Product,Kill,Cut,Pack,Use,Amount,ID) VALUES (?,?,?,?,?,?,?) ";
+                if(locationn.getValue().equals("HOLDING CHILL")){
+                    try {
 
-                    PreparedStatement pst2 = conWIP.prepareStatement(s);
-                    pst2.setString(1, name.getText());
-                    pst2.setString(2, killDate.getText());
-                    pst2.setString(4, packDate.getText());
-                    pst2.setString(5, useDate.getText());
-                    pst2.setString(3, cutDate.getText());
-                    pst2.setString(7, scan.getText()+flockk.getText());
-                    pst2.setString(6,WeightOutput.getText());
-                    pst2.executeUpdate();
-                    System.out.println("Product Added");
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Product Added");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Product added to specified location (WIPCHILL)");
-                    alert.showAndWait();
-                } catch (SQLException a) {
-                    System.err.println(a);
-                    System.out.println("Something went wrong");
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("DATABASE MESSAGE");
-                    alert.setHeight(600);
-                    alert.setWidth(400);
 
-                    alert.setHeaderText("ERROR \n" + a);
-                    alert.setContentText("PRODUCT NOT ADDED" +
-                            "CHECK: \n" +
-                            "-IF ID ALREADY EXIST(UNIQUE CONSTRAINT FAILED) \n" +
-                            "-CORRECT PATH TO DATABASE(ERROR OR MISSING DATABASE) \n" +
-                            "-DATABASE MIGHT BE EDITED BY ADMINISTRATOR(DATABASE BUSY) \n" +
-                            "-RE-ENTER PRODUCT NAME AND CLICK RECORD AGAIN OR CHECK DATABASE PATH \n"
-                    + "PLEASE CONTACT YOUR IT DEP FOR MORE INFORMATION");
-                    alert.showAndWait();
-                } catch (ClassNotFoundException e1) {
-                    e1.printStackTrace();
-                } finally {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("IMPORTANT!");
-                    alert.setHeight(400);
-                    alert.setHeaderText(null);
-                    alert.setContentText("PLEASE BE AWARE THAT ALL PRODUCTS ARE SAVED IN WIPCHILL DATABASE, " +
-                            "NO OTHER DATABASES EXIST " +
-                            "THIS IS DEMO VERSION");
+                        Class.forName("org.sqlite.JDBC");
+                        conHold = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+                        String h = "INSERT INTO holdingchill(Product,Kill,Cut,Pack,Use,Amount,ID,Status) VALUES (?,?,?,?,?,?,?,?) ";
 
-                    alert.showAndWait();
+                        PreparedStatement psth = conHold.prepareStatement(h);
+                        psth.setString(1, name.getText());
+                        psth.setString(2, killDate.getText());
+                        psth.setString(4, packDate.getText());
+                        psth.setString(5, useDate.getText());
+                        psth.setString(3, cutDate.getText());
+                        psth.setString(7, scan.getText()+flockk.getText());
+                        psth.setString(6,WeightOutput.getText());
+                        psth.setString(8,status);
+                        psth.executeUpdate();
+                        String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
+                        Media sound1 = new Media(new File(musicFile1).toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(sound1);
+                        mediaPlayer.play();
+                        System.out.println("Product Added");
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Product Added");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Product added to specified location (HOLDING CHILL)");
+                        alert.showAndWait();
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                    finally {
+                        try {
+                            conHold.close();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+
+                }
+                else {
+                    try {
+
+
+                        Class.forName("org.sqlite.JDBC");
+                        conWIP = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+                        String s = "INSERT INTO wipchill(Product,Kill,Cut,Pack,Use,Amount,ID,Status) VALUES (?,?,?,?,?,?,?,?) ";
+
+                        PreparedStatement pst2 = conWIP.prepareStatement(s);
+                        pst2.setString(1, name.getText());
+                        pst2.setString(2, killDate.getText());
+                        pst2.setString(4, packDate.getText());
+                        pst2.setString(5, useDate.getText());
+                        pst2.setString(3, cutDate.getText());
+                        pst2.setString(7, scan.getText() + flockk.getText());
+                        pst2.setString(6, WeightOutput.getText());
+                        pst2.setString(8, status);
+                        pst2.executeUpdate();
+                        String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
+                        Media sound1 = new Media(new File(musicFile1).toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(sound1);
+                        mediaPlayer.play();
+                        System.out.println("Product Added");
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Product Added");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Product added to specified location (WIPCHILL)");
+                        alert.showAndWait();
+                    } catch (SQLException a) {
+                        String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
+                        Media sound = new Media(new File(musicFile).toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                        mediaPlayer.play();
+                        System.err.println(a);
+                        System.out.println("Something went wrong");
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("DATABASE MESSAGE");
+                        alert.setHeight(600);
+                        alert.setWidth(400);
+
+                        alert.setHeaderText("ERROR \n" + a);
+                        alert.setContentText("PRODUCT NOT ADDED" +
+                                "CHECK: \n" +
+                                "-IF ID ALREADY EXIST(UNIQUE CONSTRAINT FAILED) \n" +
+                                "-CORRECT PATH TO DATABASE(ERROR OR MISSING DATABASE) \n" +
+                                "-DATABASE MIGHT BE EDITED BY ADMINISTRATOR(DATABASE BUSY) \n" +
+                                "-RE-ENTER PRODUCT NAME AND CLICK RECORD AGAIN OR CHECK DATABASE PATH \n"
+                                + "PLEASE CONTACT YOUR IT DEP FOR MORE INFORMATION");
+                        alert.showAndWait();
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    } finally {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("IMPORTANT!");
+                        alert.setHeight(400);
+                        alert.setHeaderText(null);
+                        alert.setContentText("PLEASE BE AWARE THAT ALL PRODUCTS ARE SAVED IN WIPCHILL DATABASE, " +
+                                "NO OTHER DATABASES EXIST " +
+                                "THIS IS DEMO VERSION");
+
+                        alert.showAndWait();
+                        try {
+                            conHold.close();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
                 }
                 scan.setVisible(true);
                 locc.setVisible(true);
@@ -357,6 +423,7 @@ public class ControllerSTPFillets implements Initializable {
 
         });
         }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void getLabel(ActionEvent event) {
         int barcodeOne;

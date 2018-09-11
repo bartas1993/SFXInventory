@@ -5,7 +5,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>
-      <element id="module-output" name="myINOVA" />
+      <element id="module-output" name="SimpleStockFX" />
       <element id="extracted-dir" path="$PROJECT_DIR$/sqlite-jdbc-3.23.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/core-3.3.3.jar" path-in-jar="/" />
     </root>

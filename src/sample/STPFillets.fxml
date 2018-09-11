@@ -69,7 +69,7 @@
                         <Font size="18.0" />
                      </font>
                   </CheckBox>
-                  <Button fx:id="Record" layoutX="20.0" layoutY="204.0" mnemonicParsing="false" onAction="#handleRecord" prefHeight="36.0" prefWidth="365.0" text="RECORD">
+                  <Button fx:id="Record" layoutX="20.0" layoutY="209.0" mnemonicParsing="false" onAction="#handleRecord" prefHeight="100.0" prefWidth="365.0" text="RECORD">
                      <font>
                         <Font size="39.0" />
                      </font>
@@ -214,7 +214,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="back" fitHeight="25.0" fitWidth="22.0" layoutX="745.0" layoutY="5.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="back" fitHeight="19.0" fitWidth="27.0" layoutX="5.0" layoutY="7.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Resources/left-arrow.png" />
                </image>

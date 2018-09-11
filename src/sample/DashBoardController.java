@@ -1,7 +1,8 @@
 package sample;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,15 +13,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Properties;
+import java.util.Random;
 import java.util.ResourceBundle;
 public class DashBoardController implements Initializable {
 
@@ -36,73 +40,141 @@ public class DashBoardController implements Initializable {
     Label register;
     @FXML
     ImageView exitApp;
-    @FXML Pane regiPane;
-    @FXML Button regbtn;
-    @FXML ImageView face;
-    @FXML ImageView git;
+    @FXML
+    Pane regiPane;
+    @FXML
+    Button regbtn;
+    @FXML
+    ImageView face;
+    @FXML
+    ImageView git;
+    @FXML
+    ImageView minimize;
+    @FXML
+    ImageView plus;
+    @FXML ImageView regExit;
+    @FXML TextField textUser;
+    @FXML PasswordField textPass;
+    @FXML TextField textEmail;
 
 
-
-public void handleLogin()
-{
-    login.setOnAction(e ->{
-
-        try {
-                AnchorPane pane = FXMLLoader.load(getClass().getResource("Inova.fxml"));
-                stpPane.getChildren().addAll(pane);
-            } catch (IOException ab) {
-            }
-            System.out.println("LOGGED IN!");
-    });
-}
-public void handleRegister()
-{
-    register.setOnMouseClicked(e->
+    public void handleExitReg(javafx.scene.input.MouseEvent a)
     {
-        regiPane.setVisible(true);
-    });
+        regExit.setOnMouseClicked(event -> {
 
-}
+            regiPane.setVisible(false);
 
-public void handleregbtnexit()
-{
-    regbtn.setOnMouseClicked(e->{
 
-        regiPane.setVisible(false);
+        });
+    }
 
-    });
-}
 
-public void handleFace()
-{
-    face.setOnMouseClicked(e->
-    {
-        Desktop desktop = Desktop.getDesktop();
-        try {
-            desktop.browse(new URI("https://www.facebook.com/bepositiv3"));
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } catch (URISyntaxException e1) {
-            e1.printStackTrace();
-        }
-    });
-}
-    public void handleGit()
-    {
-        git.setOnMouseClicked(e->
+    public void handleRegister() {
+        register.setOnMouseClicked(e ->
+        {
+            regiPane.setVisible(true);
+
+        });
+        register.setOnMouseEntered(e ->
+        {
+            register.setText("Click now to Register");
+
+        });
+        register.setOnMouseExited(e ->
+        {
+            register.setText("Need account? Register here");
+
+        });
+
+    }
+
+    public void handleregbtnexit() {
+        regbtn.setOnMouseClicked(e -> {
+
+            regiPane.setVisible(false);
+
+        });
+    }
+
+    public void handleFace(javafx.scene.input.MouseEvent a) {
+        face.setOnMouseClicked(e ->
         {
             Desktop desktop = Desktop.getDesktop();
             try {
-                desktop.browse(new URI("https://github.com/bartas1993"));
+                desktop.browse(new URI("https://www.facebook.com/bepositiv3"));
             } catch (IOException e1) {
                 e1.printStackTrace();
             } catch (URISyntaxException e1) {
                 e1.printStackTrace();
             }
         });
+        face.setOnMouseEntered(e ->
+        {
+            face.setScaleX(1.1);
+            face.setScaleY(1.1);
+
+        });
+        face.setOnMouseExited(e ->
+        {
+            face.setScaleX(1);
+            face.setScaleY(1);
+
+        });
     }
 
 
+    public void handlePlus(javafx.scene.input.MouseEvent a) {
+        plus.setOnMouseClicked(e ->
+        {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.browse(new URI("https://www.facebook.com/bepositiv3"));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (URISyntaxException e1) {
+                e1.printStackTrace();
+            }
+        });
+        plus.setOnMouseEntered(e ->
+        {
+            plus.setScaleX(1.1);
+            plus.setScaleY(1.1);
+
+        });
+        plus.setOnMouseExited(e ->
+        {
+            plus.setScaleX(1);
+            plus.setScaleY(1);
+
+        });
+    }
+
+
+    public void handleGit(javafx.scene.input.MouseEvent a) {
+        git.setOnMouseClicked(e ->
+        {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.browse(new URI("https://plus.google.com/u/0/+BartekKepke?tab=wX"));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (URISyntaxException e1) {
+                e1.printStackTrace();
+            }
+        });
+        git.setOnMouseEntered(e ->
+        {
+            git.setScaleX(1.1);
+            git.setScaleY(1.1);
+
+        });
+        git.setOnMouseExited(e ->
+        {
+            git.setScaleX(1);
+            git.setScaleY(1);
+
+        });
+    }
 
 
     @Override
@@ -118,18 +190,176 @@ public void handleFace()
 
     }
 
-    public Connection connectUsers() throws ClassNotFoundException
 
+    public void setLoginM() {
+        login.setOnMouseClicked(event -> {
+            try {
+
+                String username = user.getText();
+                String password = pass.getText();
+                String id = user.getText();
+                Connection getData = UserDataBaseModel.connectUsers();
+                Statement st = getData.createStatement();
+                ResultSet rs = st.executeQuery("SELECT * FROM Users where UserID='"+username+"' OR Username='"+username+"' AND Password='"+password+"'");
+                if (rs.next())
+                {
+                    try {
+
+                        user.setStyle("-fx-background-color: #69ff59;");
+                        pass.setStyle("-fx-background-color: #69ff59;");
+                        String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 3.mp3";
+                        Media sound = new Media(new File(musicFile).toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                        mediaPlayer.play();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("WELCOME " + username.toUpperCase() + " !");
+                        alert.setHeight(100);
+                        alert.setWidth(200);
+                        alert.setContentText("You gained access to the Stock");
+                        alert.showAndWait();
+                        AnchorPane pane = FXMLLoader.load(getClass().getResource("Inova.fxml"));
+                        stpPane.getChildren().addAll(pane);
+                        String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
+                        Media sound1 = new Media(new File(musicFile1).toURI().toString());
+                        mediaPlayer = new MediaPlayer(sound1);
+                        mediaPlayer.play();
+
+
+                    } catch (IOException ab) {
+                    }
+                }
+                else
+                    {
+                        String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
+                        Media sound = new Media(new File(musicFile).toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                        mediaPlayer.play();
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("USER!");
+                        alert.setHeight(100);
+                        alert.setWidth(200);
+                        alert.setContentText("Check if your Username and Password are correct");
+                        alert.showAndWait();
+                        user.setText("");
+                        user.setStyle("-fx-background-color: RED;");
+                        pass.setText("");
+                        pass.setStyle("-fx-background-color: RED;");
+
+                    }
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        });
+    }
+    public void handlemin()
     {
-        Connection con = null;
-        Class.forName("org.sqlite.JDBC");
-        try {
-            con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
-            return con;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        minimize.setOnMouseClicked(event -> {
 
+            Stage stage = (Stage)((ImageView)event.getSource()).getScene().getWindow();
+            // is stage minimizable into task bar. (true | false)
+            stage.setIconified(true);
+
+
+        });
+    }
+
+    public void registerUser() throws ClassNotFoundException {
+        Connection connectt = null;
+        String username = textUser.getText();
+        String password = textPass.getText();
+        String email = textEmail.getText();
+        Random rd= new Random();
+        int ID = rd.nextInt(999999999);
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connectt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+            String s = "INSERT INTO Users(Username,Password,Email,UserID)  VALUES (?,?,?,?) ";
+            PreparedStatement register = connectt.prepareStatement(s);
+            register.setString(1,username);
+            register.setString(2,password);
+            register.setString(3,email);
+            register.setInt(4,ID);
+            register.executeUpdate();
+            System.out.println(username);
+            System.out.println(password);
+            System.out.println(email);
+            System.out.println(ID);
+
+            String USER_NAME = "stockfxteam";
+            String from = USER_NAME;
+            String PASSWORD = "stockFX09";
+            String pass = PASSWORD;
+            String RECIPT = email;
+            String TOPIC = "Welcome " + username + "!";
+            String BODY = "Dear user! " +
+                    "You can sign into StockFX by your ID/Username and password" +
+                    "User ID: " + ID +"\n" + "Password: " + password + "\n" +
+                    "Our team would like to thank you for using our Software!";
+            String [] to = {RECIPT};
+            Properties props = System.getProperties();
+            String host = "smtp.gmail.com";
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", host);
+            props.put("mail.smtp.user", from);
+            props.put("mail.smtp.password", pass);
+            props.put("mail.smtp.port", "587");
+            props.put("mail.smtp.auth", "true");
+            Session session = Session.getDefaultInstance(props);
+            MimeMessage message = new MimeMessage(session);
+
+            try {
+                message.setFrom(new InternetAddress(from));
+                InternetAddress[] toAddress = new InternetAddress[to.length];
+
+                // To get the array of addresses
+                for( int i = 0; i < to.length; i++ ) {
+                    toAddress[i] = new InternetAddress(to[i]);
+                }
+
+                for( int i = 0; i < toAddress.length; i++) {
+                    message.addRecipient(Message.RecipientType.TO, toAddress[i]);
+                }
+
+                message.setSubject(TOPIC);
+                message.setText(BODY);
+                Transport transport = session.getTransport("smtp");
+                transport.connect(host, from, pass);
+                transport.sendMessage(message, message.getAllRecipients());
+                System.out.println("Email Sent Successfully!");
+                transport.close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(username);
+                alert.setHeaderText("Account Created!");
+                alert.setContentText("Your account has been created \n" +
+                        "Email has been sent out, check your mail box \n" +
+                        "Check for your details and save it somewhere save");
+
+                alert.showAndWait();
+            }
+            catch (AddressException ae) {
+                ae.printStackTrace();
+            }
+            catch (MessagingException me) {
+                me.printStackTrace();
+            }
+
+
+
+
+        } catch (SQLException a) {
+            System.err.println(a);
+            System.out.println("Something went wrong");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Dear User!");
+            alert.setHeaderText("Validation");
+            alert.setContentText("Email or Password already Exist");
+
+            alert.showAndWait();
+        }
     }
 }
