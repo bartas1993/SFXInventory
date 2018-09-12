@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="myINOVA:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/myINOVA_jar</output-path>
-    <root id="archive" name="myINOVA.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/newww</output-path>
+    <root id="archive" name="myINOVA_jar.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>

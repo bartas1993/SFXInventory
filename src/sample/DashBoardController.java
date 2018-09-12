@@ -1,5 +1,4 @@
 package sample;
-import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javafx.fxml.FXML;
@@ -271,7 +270,7 @@ public class DashBoardController implements Initializable {
         });
     }
 
-    public void registerUser() throws ClassNotFoundException,javax.mail.MessagingException {
+    public  void registerUser() throws ClassNotFoundException,javax.mail.MessagingException {
         Connection connectt = null;
         String username = textUser.getText();
         String password = textPass.getText();
@@ -346,6 +345,8 @@ public class DashBoardController implements Initializable {
             } catch (MessagingException me) {
                 me.printStackTrace();
             }
+
+
 
         } catch (SQLException a) {
             System.err.println(a);
