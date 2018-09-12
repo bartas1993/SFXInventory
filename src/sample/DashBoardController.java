@@ -2,7 +2,6 @@ package sample;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +25,10 @@ import java.sql.*;
 import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
+
+
+
+
 public class DashBoardController implements Initializable {
 
     @FXML
@@ -268,7 +271,7 @@ public class DashBoardController implements Initializable {
         });
     }
 
-    public void registerUser() throws ClassNotFoundException {
+    public void registerUser() throws ClassNotFoundException,javax.mail.MessagingException {
         Connection connectt = null;
         String username = textUser.getText();
         String password = textPass.getText();
@@ -289,7 +292,6 @@ public class DashBoardController implements Initializable {
             System.out.println(password);
             System.out.println(email);
             System.out.println(ID);
-
             String USER_NAME = "stockfxteam";
             String from = USER_NAME;
             String PASSWORD = "stockFX09";
@@ -298,9 +300,9 @@ public class DashBoardController implements Initializable {
             String TOPIC = "Welcome " + username + "!";
             String BODY = "Dear user! " +
                     "You can sign into StockFX by your ID/Username and password" +
-                    "User ID: " + ID +"\n" + "Password: " + password + "\n" +
+                    "User ID: " + ID + "\n" + "Password: " + password + "\n" +
                     "Our team would like to thank you for using our Software!";
-            String [] to = {RECIPT};
+            String[] to = {RECIPT};
             Properties props = System.getProperties();
             String host = "smtp.gmail.com";
             props.put("mail.smtp.starttls.enable", "true");
@@ -317,11 +319,11 @@ public class DashBoardController implements Initializable {
                 InternetAddress[] toAddress = new InternetAddress[to.length];
 
                 // To get the array of addresses
-                for( int i = 0; i < to.length; i++ ) {
+                for (int i = 0; i < to.length; i++) {
                     toAddress[i] = new InternetAddress(to[i]);
                 }
 
-                for( int i = 0; i < toAddress.length; i++) {
+                for (int i = 0; i < toAddress.length; i++) {
                     message.addRecipient(Message.RecipientType.TO, toAddress[i]);
                 }
 
@@ -331,25 +333,19 @@ public class DashBoardController implements Initializable {
                 transport.connect(host, from, pass);
                 transport.sendMessage(message, message.getAllRecipients());
                 System.out.println("Email Sent Successfully!");
-                transport.close();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle(username);
                 alert.setHeaderText("Account Created!");
                 alert.setContentText("Your account has been created \n" +
                         "Email has been sent out, check your mail box \n" +
                         "Check for your details and save it somewhere save");
-
                 alert.showAndWait();
-            }
-            catch (AddressException ae) {
+                transport.close();
+            } catch (AddressException ae) {
                 ae.printStackTrace();
-            }
-            catch (MessagingException me) {
+            } catch (MessagingException me) {
                 me.printStackTrace();
             }
-
-
-
 
         } catch (SQLException a) {
             System.err.println(a);
@@ -360,6 +356,7 @@ public class DashBoardController implements Initializable {
             alert.setContentText("Email or Password already Exist");
 
             alert.showAndWait();
+
         }
     }
 }
