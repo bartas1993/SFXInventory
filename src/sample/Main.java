@@ -5,9 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-
 import java.io.IOException;
 
 public class Main extends Application {
