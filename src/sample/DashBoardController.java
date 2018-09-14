@@ -1,5 +1,12 @@
 package sample;
 import javax.mail.*;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Message;
+import javax.mail.internet.MimeMessage;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -130,7 +137,7 @@ public class DashBoardController implements Initializable {
         {
             Desktop desktop = Desktop.getDesktop();
             try {
-                desktop.browse(new URI("https://www.facebook.com/bepositiv3"));
+                desktop.browse(new URI("https://plus.google.com/u/0/+BartekKepke?tab=wX"));
             } catch (IOException e1) {
                 e1.printStackTrace();
             } catch (URISyntaxException e1) {
@@ -157,7 +164,7 @@ public class DashBoardController implements Initializable {
         {
             Desktop desktop = Desktop.getDesktop();
             try {
-                desktop.browse(new URI("https://plus.google.com/u/0/+BartekKepke?tab=wX"));
+                desktop.browse(new URI("https://github.com/bartas1993"));
             } catch (IOException e1) {
                 e1.printStackTrace();
             } catch (URISyntaxException e1) {
@@ -311,7 +318,7 @@ public class DashBoardController implements Initializable {
             props.put("mail.smtp.port", "587");
             props.put("mail.smtp.auth", "true");
             Session session = Session.getDefaultInstance(props);
-            MimeMessage message = new MimeMessage(session);
+            Message message = new MimeMessage(session);
 
             try {
                 message.setFrom(new InternetAddress(from));
@@ -347,8 +354,8 @@ public class DashBoardController implements Initializable {
             }
 
 
-
         } catch (SQLException a) {
+            a.printStackTrace();
             System.err.println(a);
             System.out.println("Something went wrong");
             Alert alert = new Alert(Alert.AlertType.WARNING);

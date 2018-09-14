@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="SimpleFX">
+    <output-path>$PROJECT_DIR$/out/artifacts/SimpleFX</output-path>
+    <root id="archive" name="SimpleFX.jar">
+      <element id="module-output" name="SimpleStockFX" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/core-3.3.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/javax.mail.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/sqlite-jdbc-3.23.1.jar" path-in-jar="/" />
+      <element id="dir-copy" path="$PROJECT_DIR$" />
+    </root>
+  </artifact>
+</component>
