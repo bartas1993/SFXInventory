@@ -74,7 +74,6 @@ public class ControllerSTPFillets implements Initializable {
     private Label batchLB;
     @FXML
     private CheckBox checkLab;
-
     @FXML
     private TextField WeightInput;
     @FXML
@@ -266,7 +265,7 @@ public class ControllerSTPFillets implements Initializable {
 
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public void handleRecord() throws ClassNotFoundException {
+    public void handleRecord() {
         Record.setOnAction(e -> {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             String myWeb;
@@ -298,15 +297,10 @@ public class ControllerSTPFillets implements Initializable {
                         }
                     }
                 }
-                Connection conWIP = null;
-                Connection conHold = null;
-
-                if(locationn.getValue().equals("HOLDING CHILL")){
+                Connection conHold = StockWindowDbConnectionModel.getConnection();
+                if(locationn.getValue().equals("HOLDING CHILL")) {
                     try {
-
-
                         Class.forName("org.sqlite.JDBC");
-                        conHold = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
                         String h = "INSERT INTO holdingchill(Product,Kill,Cut,Pack,Use,Amount,ID,Status) VALUES (?,?,?,?,?,?,?,?) ";
 
                         PreparedStatement psth = conHold.prepareStatement(h);
@@ -315,10 +309,10 @@ public class ControllerSTPFillets implements Initializable {
                         psth.setString(4, packDate.getText());
                         psth.setString(5, useDate.getText());
                         psth.setString(3, cutDate.getText());
-                        psth.setString(7, scan.getText()+flockk.getText());
-                        psth.setString(6,WeightOutput.getText());
-                        psth.setString(8,status);
-                        psth.executeUpdate();
+                        psth.setString(7, scan.getText() + flockk.getText());
+                        psth.setString(6, WeightOutput.getText());
+                        psth.setString(8, status);
+                        psth.execute();
                         String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
                         Media sound1 = new Media(new File(musicFile1).toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound1);
@@ -329,9 +323,8 @@ public class ControllerSTPFillets implements Initializable {
                         alert.setHeaderText(null);
                         alert.setContentText("Product added to specified location (HOLDING CHILL)");
                         alert.showAndWait();
-                    } catch (ClassNotFoundException e1) {
-                        e1.printStackTrace();
-                    } catch (SQLException e1) {
+
+                    } catch (ClassNotFoundException | SQLException e1) {
                         e1.printStackTrace();
                     }
                     finally {
@@ -343,14 +336,11 @@ public class ControllerSTPFillets implements Initializable {
                     }
 
                 }
-                else {
+                Connection conWIP = StockWindowDbConnectionModel.getConnection();
+                if(locationn.getValue().equals("WIP")){
                     try {
 
-
-                        Class.forName("org.sqlite.JDBC");
-                        conWIP = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
                         String s = "INSERT INTO wipchill(Product,Kill,Cut,Pack,Use,Amount,ID,Status) VALUES (?,?,?,?,?,?,?,?) ";
-
                         PreparedStatement pst2 = conWIP.prepareStatement(s);
                         pst2.setString(1, name.getText());
                         pst2.setString(2, killDate.getText());
@@ -360,7 +350,7 @@ public class ControllerSTPFillets implements Initializable {
                         pst2.setString(7, scan.getText() + flockk.getText());
                         pst2.setString(6, WeightOutput.getText());
                         pst2.setString(8, status);
-                        pst2.executeUpdate();
+                        pst2.execute();
                         String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
                         Media sound1 = new Media(new File(musicFile1).toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound1);
@@ -371,6 +361,7 @@ public class ControllerSTPFillets implements Initializable {
                         alert.setHeaderText(null);
                         alert.setContentText("Product added to specified location (WIPCHILL)");
                         alert.showAndWait();
+                        conWIP.close();
                     } catch (SQLException a) {
                         String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
                         Media sound = new Media(new File(musicFile).toURI().toString());
@@ -382,7 +373,6 @@ public class ControllerSTPFillets implements Initializable {
                         alert.setTitle("DATABASE MESSAGE");
                         alert.setHeight(600);
                         alert.setWidth(400);
-
                         alert.setHeaderText("ERROR \n" + a);
                         alert.setContentText("PRODUCT NOT ADDED" +
                                 "CHECK: \n" +
@@ -392,9 +382,12 @@ public class ControllerSTPFillets implements Initializable {
                                 "-RE-ENTER PRODUCT NAME AND CLICK RECORD AGAIN OR CHECK DATABASE PATH \n"
                                 + "PLEASE CONTACT YOUR IT DEP FOR MORE INFORMATION");
                         alert.showAndWait();
-                    } catch (ClassNotFoundException e1) {
-                        e1.printStackTrace();
                     } finally {
+                        try {
+                            conWIP.close();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("IMPORTANT!");
                         alert.setHeight(400);
@@ -404,11 +397,6 @@ public class ControllerSTPFillets implements Initializable {
                                 "THIS IS DEMO VERSION");
 
                         alert.showAndWait();
-                        try {
-                            conHold.close();
-                        } catch (SQLException e1) {
-                            e1.printStackTrace();
-                        }
                     }
                 }
                 scan.setVisible(true);

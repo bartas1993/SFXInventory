@@ -304,10 +304,11 @@ public class DashBoardController implements Initializable {
             String pass = PASSWORD;
             String RECIPT = email;
             String TOPIC = "Welcome " + username + "!";
-            String BODY = "Dear user! " +
-                    "You can sign into StockFX by your ID/Username and password" +
+            String BODY = "Dear user! \n" +
+                    "You can sign into StockFX by your ID/Username and password \n" +
                     "User ID: " + ID + "\n" + "Password: " + password + "\n" +
-                    "Our team would like to thank you for using our Software!";
+                    "Our team would like to thank you for using our Software! \n"+
+                    "If you have any more questions or any difficulties using out Application feel free to contact us";
             String[] to = {RECIPT};
             Properties props = System.getProperties();
             String host = "smtp.gmail.com";
