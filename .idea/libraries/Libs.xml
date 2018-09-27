@@ -6,6 +6,7 @@
       <root url="jar://$PROJECT_DIR$/javax.mail.jar!/" />
       <root url="jar://$PROJECT_DIR$/rxtx-2.1-7-bins-r2.zip!/" />
       <root url="jar://$PROJECT_DIR$/sqlite-jdbc-3.23.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/mysql-connector-java-5.1.47-bin.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

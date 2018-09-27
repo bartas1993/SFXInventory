@@ -285,9 +285,9 @@ public class DashBoardController implements Initializable {
         Random rd= new Random();
         int ID = rd.nextInt(999999999);
         try {
-            Class.forName("org.sqlite.JDBC");
-            connectt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
-            String s = "INSERT INTO Users(Username,Password,Email,UserID)  VALUES (?,?,?,?) ";
+            Class.forName("com.mysql.jdbc.Driver");
+            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            String s = "INSERT INTO Users VALUES (?,?,?,?) ";
             PreparedStatement register = connectt.prepareStatement(s);
             register.setString(1,username);
             register.setString(2,password);

@@ -1,18 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="SimpleStockFX:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/SimpleStockFX_jar</output-path>
-    <root id="archive" name="SimpleStockFX.jar">
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/META-INF/MANIFEST.MF" />
-      </element>
+  <artifact type="jar" build-on-make="true" name="SFX">
+    <output-path>$PROJECT_DIR$/out/artifacts/SFX</output-path>
+    <root id="archive" name="SFX.jar">
       <element id="module-output" name="SimpleStockFX" />
       <element id="extracted-dir" path="$PROJECT_DIR$/activation.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/core-3.3.3.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/javax.mail.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/activation.jar.zip" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/rxtx-2.1-7-bins-r2.zip" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/sqlite-jdbc-3.23.1.jar" path-in-jar="/" />
-      <element id="library" level="project" name="Libs" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/mysql-connector-java-5.1.47-bin.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

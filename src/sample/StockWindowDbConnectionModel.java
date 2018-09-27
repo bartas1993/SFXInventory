@@ -10,9 +10,9 @@ public class StockWindowDbConnectionModel {
     public static Connection getConnection() {
         Connection con = null;
         try {
-            String connectToDB = "jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db";
-            Class.forName("org.sqlite.JDBC");
-            con = DriverManager.getConnection(connectToDB);
+
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
             return con;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

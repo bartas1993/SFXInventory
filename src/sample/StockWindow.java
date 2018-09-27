@@ -39,6 +39,8 @@ public class StockWindow implements Initializable {
     @FXML private Pane stpPane;
     @FXML private ImageView exitApp;
     @FXML private ImageView back;
+    @FXML private Button wipbtn;
+    @FXML private Button holdingbtn;
     ObservableList <StockTableModel> obList = FXCollections.observableArrayList();
 
     public void handleWIpStock(ActionEvent ea)
@@ -103,6 +105,46 @@ public class StockWindow implements Initializable {
 
     }
 
+    public void handleWipClick(){
+        wipbtn.setOnMouseClicked(e->{try
+        {
+            ResultSet rs;
+            Connection con = StockWindowDbConnectionModel.getConnection();
+            rs = con.createStatement().executeQuery("Select * From wipchill");
 
+            while(rs.next())
+            {
+                obList.removeAll(new StockTableModel(rs.getString("Product"),rs.getString("Kill"),rs.getString("Cut"),
+                        rs.getString("Pack"),rs.getString("Use"),rs.getString("Amount"),rs.getString("ID")));
+                Table.setItems(obList);
+                obList.addAll(new StockTableModel(rs.getString("Product"),rs.getString("Kill"),rs.getString("Cut"),
+                        rs.getString("Pack"),rs.getString("Use"),rs.getString("Amount"),rs.getString("ID")));
+                Table.setItems(obList);
+            }
+        }
+        catch(SQLException a)
+        {
+        }
+        });
 
+    }
+    public void handleHoldingClick() {
+        holdingbtn.setOnMouseClicked(e -> {
+            try {
+                ResultSet rs;
+                Connection con = StockWindowDbConnectionModel.getConnection();
+                rs = con.createStatement().executeQuery("Select * From holdingchill");
+
+                while (rs.next()) {
+                    obList.removeAll(new StockTableModel(rs.getString("Product"), rs.getString("Kill"), rs.getString("Cut"),
+                            rs.getString("Pack"), rs.getString("Use"), rs.getString("Amount"), rs.getString("ID")));
+                    Table.setItems(obList);
+                    obList.addAll(new StockTableModel(rs.getString("Product"), rs.getString("Kill"), rs.getString("Cut"),
+                            rs.getString("Pack"), rs.getString("Use"), rs.getString("Amount"), rs.getString("ID")));
+                    Table.setItems(obList);
+                }
+            } catch (SQLException a) {
+            }
+        });
+    }
 }

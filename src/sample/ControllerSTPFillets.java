@@ -24,7 +24,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -118,16 +117,16 @@ public class ControllerSTPFillets implements Initializable {
         batch.setEditable(true);
 
         try {
-            Class.forName("org.sqlite.JDBC");
-            connect = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
 
-            String s = "SELECT Name,ScanCode FROM STPFillets";
+            String s = "SELECT ProductName FROM stpfillets";
             PreparedStatement pst = connect.prepareStatement(s);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
 
 
-                productList.add(rs.getString("Name").toUpperCase() + " " + rs.getString("ScanCode"));
+                productList.add(rs.getString("ProductName"));
 
 
 
@@ -145,8 +144,8 @@ public class ControllerSTPFillets implements Initializable {
 
         Connection connectt = null;
         try {
-            Class.forName("org.sqlite.JDBC");
-            connectt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT FlockCode FROM FlockCodes";
             PreparedStatement pstt = connectt.prepareStatement(s);
@@ -167,8 +166,8 @@ public class ControllerSTPFillets implements Initializable {
         Connection connecttt;
         connecttt = null;
         try {
-            Class.forName("org.sqlite.JDBC");
-            connecttt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT * FROM BatchCodes";
             PreparedStatement psttt = connecttt.prepareStatement(s);
@@ -188,15 +187,14 @@ public class ControllerSTPFillets implements Initializable {
         Connection connectttt;
         connectttt = null;
         try {
-            Class.forName("org.sqlite.JDBC");
-            connectttt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
-
+            Class.forName("com.mysql.jdbc.Driver");
+            connectttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
             String s = "SELECT * FROM Locations";
             PreparedStatement psttttt = connecttt.prepareStatement(s);
             ResultSet rsssss = psttttt.executeQuery();
             while (rsssss.next()) {
                 locationList.add(rsssss.getString("LocationName").toUpperCase());
-                System.out.println("Fetching Column Label element:LocationName from BatchCodes Database");
+                System.out.println("Fetching Column Label element:LocationName");
                 locationn.setItems(locationList);
 
             }
@@ -237,8 +235,8 @@ public class ControllerSTPFillets implements Initializable {
     public void setProductName() throws ClassNotFoundException {
         Connection connect = null;
         try {
-            Class.forName("org.sqlite.JDBC");
-            connect = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT Name,ScanCode FROM STPFillets";
             PreparedStatement pst = connect.prepareStatement(s);
@@ -297,11 +295,12 @@ public class ControllerSTPFillets implements Initializable {
                         }
                     }
                 }
-                Connection conHold = StockWindowDbConnectionModel.getConnection();
-                if(locationn.getValue().equals("HOLDING CHILL")) {
+                Connection conHold = null;
+                if(locationn.getValue().equals("LOCATION 2")) {
                     try {
-                        Class.forName("org.sqlite.JDBC");
-                        String h = "INSERT INTO holdingchill(Product,Kill,Cut,Pack,Use,Amount,ID,Status) VALUES (?,?,?,?,?,?,?,?) ";
+                        conHold = StockWindowDbConnectionModel.getConnection();
+                        Class.forName("com.mysql.jdbc.Driver");
+                        String h = "INSERT INTO holdingchill values (?,?,?,?,?,?,?,?) ";
 
                         PreparedStatement psth = conHold.prepareStatement(h);
                         psth.setString(1, name.getText());
@@ -312,7 +311,7 @@ public class ControllerSTPFillets implements Initializable {
                         psth.setString(7, scan.getText() + flockk.getText());
                         psth.setString(6, WeightOutput.getText());
                         psth.setString(8, status);
-                        psth.execute();
+                        psth.executeUpdate();
                         String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
                         Media sound1 = new Media(new File(musicFile1).toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound1);
@@ -323,24 +322,22 @@ public class ControllerSTPFillets implements Initializable {
                         alert.setHeaderText(null);
                         alert.setContentText("Product added to specified location (HOLDING CHILL)");
                         alert.showAndWait();
-
+                        conHold.close();
                     } catch (ClassNotFoundException | SQLException e1) {
                         e1.printStackTrace();
                     }
                     finally {
-                        try {
-                            conHold.close();
-                        } catch (SQLException e1) {
-                            e1.printStackTrace();
-                        }
+
+
                     }
 
                 }
-                Connection conWIP = StockWindowDbConnectionModel.getConnection();
-                if(locationn.getValue().equals("WIP")){
+                Connection conWIP = null;
+                if(locationn.getValue().equals("LOCATION")){
                     try {
-
-                        String s = "INSERT INTO wipchill(Product,Kill,Cut,Pack,Use,Amount,ID,Status) VALUES (?,?,?,?,?,?,?,?) ";
+                        conWIP = StockWindowDbConnectionModel.getConnection();
+                        Class.forName("com.mysql.jdbc.Driver");
+                        String s = "INSERT INTO wipchill values(?,?,?,?,?,?,?,?) ";
                         PreparedStatement pst2 = conWIP.prepareStatement(s);
                         pst2.setString(1, name.getText());
                         pst2.setString(2, killDate.getText());
@@ -382,21 +379,14 @@ public class ControllerSTPFillets implements Initializable {
                                 "-RE-ENTER PRODUCT NAME AND CLICK RECORD AGAIN OR CHECK DATABASE PATH \n"
                                 + "PLEASE CONTACT YOUR IT DEP FOR MORE INFORMATION");
                         alert.showAndWait();
-                    } finally {
                         try {
                             conWIP.close();
                         } catch (SQLException e1) {
                             e1.printStackTrace();
                         }
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("IMPORTANT!");
-                        alert.setHeight(400);
-                        alert.setHeaderText(null);
-                        alert.setContentText("PLEASE BE AWARE THAT ALL PRODUCTS ARE SAVED IN WIPCHILL DATABASE, " +
-                                "NO OTHER DATABASES EXIST " +
-                                "THIS IS DEMO VERSION");
-
-                        alert.showAndWait();
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    } finally {
                     }
                 }
                 scan.setVisible(true);
@@ -410,6 +400,7 @@ public class ControllerSTPFillets implements Initializable {
             recordDetails.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
 
         });
+
         }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -426,8 +417,8 @@ public class ControllerSTPFillets implements Initializable {
     public void setFlocksName() throws ClassNotFoundException {
         Connection connectt = null;
         try {
-            Class.forName("org.sqlite.JDBC");
-            connectt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT FlockCode FROM FlockCodes";
             PreparedStatement pstt = connectt.prepareStatement(s);
@@ -463,8 +454,8 @@ public class ControllerSTPFillets implements Initializable {
         Connection connecttt;
         connecttt = null;
         try {
-            Class.forName("org.sqlite.JDBC");
-            connecttt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT * FROM BatchCodes";
             PreparedStatement psttt = connecttt.prepareStatement(s);
@@ -480,7 +471,7 @@ public class ControllerSTPFillets implements Initializable {
             }
         } catch (SQLException a) {
             System.err.println(a);
-            System.out.println("Something went wrong");
+            System.out.println("Can't get Batch Codes");
         }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -552,8 +543,8 @@ public class ControllerSTPFillets implements Initializable {
         Connection connecttt;
         connecttt = null;
         try {
-            Class.forName("org.sqlite.JDBC");
-            connecttt = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+            Class.forName("com.mysql.jdbc.Driver");
+            connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT * FROM Locations";
             PreparedStatement pstttt = connecttt.prepareStatement(s);

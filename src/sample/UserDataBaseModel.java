@@ -10,9 +10,9 @@ public class UserDataBaseModel {
 
     {
         Connection con = null;
-        Class.forName("org.sqlite.JDBC");
+        Class.forName("com.mysql.jdbc.Driver");
         try {
-            con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\barte\\OneDrive\\Desktop\\sqlite databases\\PRODUCTS\\Products.db");
+            con = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
             return con;
         } catch (SQLException e) {
             e.printStackTrace();

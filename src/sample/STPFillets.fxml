@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="stpPane" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSTPFillets">
+<AnchorPane fx:id="stpPane" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSTPFillets">
    <children>
       <GridPane focusTraversable="true" layoutY="22.0" prefHeight="429.0" prefWidth="800.0">
         <columnConstraints>
@@ -34,52 +34,52 @@
             <RowConstraints maxHeight="331.6666564941406" minHeight="100.0" prefHeight="206.66665649414062" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <DatePicker fx:id="kill" editable="false" onAction="#setKillDate" prefHeight="27.0" prefWidth="400.0" promptText="Kill Date" showWeekNumbers="true" GridPane.rowIndex="4" />
-            <DatePicker fx:id="cut" editable="false" onAction="#setCutDate" prefHeight="27.0" prefWidth="407.0" promptText="Cut Date" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <DatePicker fx:id="pack" onAction="#setPackDate" prefHeight="27.0" prefWidth="400.0" promptText="Pack Date" GridPane.rowIndex="5" />
-            <DatePicker fx:id="useby" onAction="#setUseDate" prefHeight="27.0" prefWidth="400.0" promptText="Use by" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Pane prefHeight="149.0" prefWidth="386.0" GridPane.rowIndex="7">
+            <DatePicker fx:id="kill" editable="false" onAction="#setKillDate" prefHeight="1.0" prefWidth="400.0" promptText="KILL DATE" showWeekNumbers="true" GridPane.rowIndex="4" />
+            <DatePicker fx:id="cut" editable="false" onAction="#setCutDate" prefHeight="0.0" prefWidth="400.0" promptText="CUT DATE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <DatePicker fx:id="pack" editable="false" onAction="#setPackDate" prefHeight="0.0" prefWidth="400.0" promptText="PACK DATE" GridPane.rowIndex="5" />
+            <DatePicker fx:id="useby" editable="false" onAction="#setUseDate" prefHeight="3.0" prefWidth="400.0" promptText="USE BY" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Pane prefHeight="187.0" prefWidth="400.0" GridPane.rowIndex="7">
                <children>
-                  <Label layoutX="23.0" layoutY="31.0" text="Tare" />
-                  <Label layoutX="22.0" layoutY="68.0" text="Case" />
-                  <TextField layoutX="237.0" layoutY="27.0" prefHeight="25.0" prefWidth="37.0" promptText="KG" />
-                  <TextField layoutX="237.0" layoutY="64.0" prefHeight="25.0" prefWidth="37.0" promptText="KG" />
-                  <TextField fx:id="WeightInput" alignment="CENTER" layoutX="240.0" layoutY="95.0" onAction="#weightInputAction" prefHeight="25.0" prefWidth="68.0" promptText="TOTAL" />
-                  <Label layoutX="75.0" layoutY="98.0" prefHeight="19.0" prefWidth="95.0" text="TOTAL WEIGHT">
+                  <Label layoutX="9.0" layoutY="31.0" text="Case Transport" />
+                  <Label layoutX="9.0" layoutY="63.0" text="Case Tare" />
+                  <TextField layoutX="256.0" layoutY="27.0" prefHeight="25.0" prefWidth="37.0" promptText="KG" />
+                  <TextField layoutX="256.0" layoutY="59.0" prefHeight="25.0" prefWidth="37.0" promptText="KG" />
+                  <TextField fx:id="WeightInput" alignment="CENTER" layoutX="270.0" layoutY="112.0" onAction="#weightInputAction" prefHeight="25.0" prefWidth="68.0" promptText="TOTAL" />
+                  <Label layoutX="9.0" layoutY="115.0" prefHeight="19.0" prefWidth="95.0" text="TOTAL WEIGHT">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="282.0" layoutY="27.0" prefHeight="25.0" prefWidth="37.0" promptText="QTY" />
-                  <TextField layoutX="282.0" layoutY="64.0" prefHeight="25.0" prefWidth="37.0" promptText="QTY" />
-                  <ComboBox editable="true" layoutX="75.0" layoutY="27.0" prefWidth="150.0" />
-                  <ComboBox editable="true" layoutX="75.0" layoutY="64.0" prefWidth="150.0" />
-                  <Label fx:id="weightHelp" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="124.0" prefHeight="19.0" prefWidth="391.0" style="-fx-border-color: black; -fx-background-color: yellow;" text="MANUAL WEIGHT INPUT MODE ENTER VALUE (000.000) AND ENTER" textAlignment="CENTER" />
+                  <TextField layoutX="301.0" layoutY="27.0" prefHeight="25.0" prefWidth="37.0" promptText="QTY" />
+                  <TextField layoutX="301.0" layoutY="59.0" prefHeight="25.0" prefWidth="37.0" promptText="QTY" />
+                  <ComboBox editable="true" layoutX="100.0" layoutY="27.0" prefWidth="150.0" />
+                  <ComboBox editable="true" layoutX="100.0" layoutY="59.0" prefWidth="150.0" />
+                  <Label fx:id="weightHelp" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="140.0" prefHeight="19.0" prefWidth="384.0" style="-fx-border-color: black; -fx-background-color: yellow;" text="MANUAL WEIGHT INPUT MODE ENTER VALUE (000.000) AND ENTER" textAlignment="CENTER" />
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <Pane prefHeight="216.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <children>
-                  <CheckBox fx:id="checkLab" layoutY="8.0" mnemonicParsing="false" onAction="#setCheckLab" selected="true" text="Case Labels">
+                  <CheckBox fx:id="checkLab" layoutX="4.0" layoutY="8.0" mnemonicParsing="false" onAction="#setCheckLab" selected="true" text="Case Labels">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox layoutY="35.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="156.0" text="Case End Label">
+                  <CheckBox layoutX="168.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="156.0" text="Case End Label">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </CheckBox>
-                  <Button fx:id="Record" layoutX="20.0" layoutY="209.0" mnemonicParsing="false" onAction="#handleRecord" prefHeight="100.0" prefWidth="365.0" text="RECORD">
+                  <Button fx:id="Record" layoutY="243.0" mnemonicParsing="false" onAction="#handleRecord" prefHeight="81.0" prefWidth="391.0" text="RECORD">
                      <font>
                         <Font size="39.0" />
                      </font>
                   </Button>
-                  <Pane fx:id="panePrevLab" layoutX="4.0" layoutY="88.0" prefHeight="89.0" prefWidth="391.0" style="-fx-border-color: black; -fx-border-width: 2;">
+                  <Pane fx:id="panePrevLab" layoutX="4.0" layoutY="40.0" prefHeight="100.0" prefWidth="391.0" style="-fx-border-color: black; -fx-border-width: 2;">
                      <children>
                         <Label layoutX="9.0" layoutY="3.0" text="D.O.K:" />
                         <Label layoutX="124.0" layoutY="2.0" text="BATCH:" />
                         <Label layoutX="125.0" layoutY="21.0" text="FLOCK CODE:" />
-                        <Label fx:id="name" alignment="CENTER" layoutX="8.0" layoutY="62.0" prefHeight="17.0" prefWidth="191.0" style="-fx-border-color: black; -fx-border-width: 0.7;">
+                        <Label fx:id="name" alignment="CENTER" layoutX="8.0" layoutY="62.0" prefHeight="17.0" prefWidth="199.0" style="-fx-border-color: black; -fx-border-width: 0.7;">
                            <font>
                               <Font size="7.0" />
                            </font>
@@ -117,12 +117,12 @@
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <Label fx:id="scan" layoutX="278.0" layoutY="65.0" prefHeight="12.0" prefWidth="23.0" text="1">
+                        <Label fx:id="scan" layoutX="278.0" layoutY="65.0" prefHeight="12.0" prefWidth="23.0">
                            <font>
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <Label fx:id="flockk" layoutX="300.0" layoutY="65.0" prefHeight="12.0" prefWidth="35.0" text="2">
+                        <Label fx:id="flockk" layoutX="300.0" layoutY="65.0" prefHeight="12.0" prefWidth="35.0">
                            <font>
                               <Font size="8.0" />
                            </font>
@@ -158,29 +158,25 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
                <children>
-                  <Label layoutX="14.0" layoutY="15.0" text="BATCH" />
-                  <Label layoutX="198.0" layoutY="15.0" text="FLOCK" />
-                  <ComboBox fx:id="batch" editable="true" layoutX="54.0" layoutY="11.0" onAction="#getBATCH" onKeyPressed="#getBATCH" prefHeight="25.0" prefWidth="139.0" />
-                  <ComboBox fx:id="flockCode" editable="true" layoutX="236.0" layoutY="11.0" onAction="#getFC" onKeyPressed="#getFC" prefWidth="150.0" />
+                  <Label layoutX="3.0" layoutY="10.0" text="BATCH/QUALITY" />
+                  <Label layoutX="186.0" layoutY="10.0" text="FLOCK/GROUP NO" />
+                  <ComboBox fx:id="batch" editable="true" layoutX="94.0" layoutY="6.0" onAction="#getBATCH" onKeyPressed="#getBATCH" prefHeight="12.0" prefWidth="85.0" />
+                  <ComboBox fx:id="flockCode" editable="true" layoutX="290.0" layoutY="6.0" onAction="#getFC" onKeyPressed="#getFC" prefHeight="25.0" prefWidth="85.0" />
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <children>
-                  <Label layoutY="28.0" text="PRINT OPTIONS" />
-               </children>
-            </Pane>
+            <Pane prefHeight="16.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Pane onMouseClicked="#getLabel" onMouseReleased="#getLabel" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="update" defaultButton="true" layoutX="49.0" layoutY="15.0" mnemonicParsing="false" onAction="#updateBTN" prefHeight="21.0" prefWidth="303.0" text="REFRESH DATABASE">
+                  <Button fx:id="update" defaultButton="true" disable="true" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#updateBTN" prefHeight="25.0" prefWidth="372.0" text="REFRESH">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
                </children></Pane>
-            <ComboBox fx:id="product" editable="true" onAction="#getLabel" onKeyPressed="#getLabel" prefHeight="25.0" prefWidth="449.0" promptText="Product" GridPane.rowIndex="1" />
-            <ComboBox fx:id="locationn" editable="true" onAction="#getLocLab" prefHeight="25.0" prefWidth="416.0" promptText="Target Location" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" prefHeight="23.0" prefWidth="773.0" style="-fx-border-color: black; -fx-background-color: red;" text="ERROR - DEVICE NOT CONNECTED">
+            <ComboBox fx:id="product" editable="true" onAction="#getLabel" onKeyPressed="#getLabel" prefHeight="5.0" prefWidth="400.0" promptText="PRODUCT" GridPane.rowIndex="1" />
+            <ComboBox fx:id="locationn" editable="true" onAction="#getLocLab" prefHeight="2.0" prefWidth="400.0" promptText="LOCATION" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" prefHeight="23.0" prefWidth="400.0" style="-fx-border-color: black;" text="BUTCHERY DEP">
                <font>
                   <Font size="15.0" />
                </font>
@@ -188,20 +184,20 @@
          </children>
       </GridPane>
       <Button fx:id="exit" layoutX="421.0" layoutY="626.0" mnemonicParsing="false" onAction="#exitSTP" onMouseClicked="#exitSTP" prefHeight="43.0" prefWidth="365.0" text="BACK" visible="false" />
-      <Pane fx:id="weightPane" layoutX="9.0" layoutY="417.0" prefHeight="176.0" prefWidth="372.0" style="-fx-background-color: red; -fx-border-color: black;">
+      <Pane fx:id="weightPane" layoutX="9.0" layoutY="464.0" prefHeight="115.0" prefWidth="372.0" style="-fx-background-color: cyan; -fx-border-color: black;">
          <children>
-            <Label layoutX="294.0" layoutY="7.0" prefHeight="96.0" prefWidth="72.0" text="KG">
+            <Label layoutX="294.0" layoutY="-5.0" prefHeight="96.0" prefWidth="72.0" text="KG">
                <font>
                   <Font size="41.0" />
                </font>
             </Label>
-            <Label fx:id="WeightOutput" layoutX="57.0" layoutY="5.0" prefHeight="100.0" prefWidth="235.0" text="000.000">
+            <Label fx:id="WeightOutput" layoutX="57.0" layoutY="-11.0" prefHeight="100.0" prefWidth="235.0" text="000.000">
                <font>
                   <Font size="68.0" />
                </font>
             </Label>
-            <Label fx:id="manual" alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="84.0" prefHeight="17.0" prefWidth="251.0" style="-fx-border-color: black; -fx-background-color: orange;" text="MANUAL WEIGHT INPUT MODE" textAlignment="CENTER" />
-            <Label layoutX="109.0" layoutY="105.0" text="MIN &gt;0.5 MAX &gt;999.999" />
+            <Label fx:id="manual" alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="74.0" prefHeight="17.0" prefWidth="251.0" style="-fx-border-color: black; -fx-background-color: yellow;" text="MANUAL WEIGHT INPUT MODE" textAlignment="CENTER" />
+            <Label layoutX="109.0" layoutY="94.0" text="MIN &gt;0.5 MAX &gt;999.999" />
          </children>
       </Pane>
       <Pane layoutY="-4.0" prefHeight="29.0" prefWidth="800.0" style="-fx-background-color: black;">
@@ -224,6 +220,6 @@
             </ImageView>
          </children>
       </Pane>
-      <Label fx:id="savedRecord" layoutX="393.0" layoutY="488.0" text="-&gt;" />
+      <Label fx:id="savedRecord" layoutX="386.0" layoutY="508.0" text="-&gt;" />
    </children>
 </AnchorPane>
