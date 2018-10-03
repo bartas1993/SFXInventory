@@ -84,14 +84,6 @@ public class Controller implements Initializable {
         stpFillets.setOnMouseClicked(e->{
 
             try{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("DATABASE MESSAGE");
-                alert.setHeight(600);
-                alert.setWidth(400);
-                alert.setHeaderText("DEAR USER");
-                alert.setContentText("Please let us know about any issues technical and visual you have with the application \n" +
-                        "If you are a tester please run application in command line \n");
-                alert.showAndWait();
             AnchorPane pane = FXMLLoader.load(getClass().getResource("STPFillets.fxml"));
             rootPane.getChildren().addAll(pane);
             stpFillets.setScaleX(1.1);

@@ -239,6 +239,10 @@ public class DashBoardController implements Initializable {
                 }
                 else
                     {
+                        user.setText("");
+                        user.setStyle("-fx-background-color: RED;");
+                        pass.setText("");
+                        pass.setStyle("-fx-background-color: RED;");
                         String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
                         Media sound = new Media(new File(musicFile).toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound);
@@ -250,9 +254,10 @@ public class DashBoardController implements Initializable {
                         alert.setContentText("Check if your Username and Password are correct");
                         alert.showAndWait();
                         user.setText("");
-                        user.setStyle("-fx-background-color: RED;");
+                        user.setStyle("-fx-background-color: CYAN;");
                         pass.setText("");
-                        pass.setStyle("-fx-background-color: RED;");
+                        pass.setStyle("-fx-background-color: CYAN;");
+
 
                     }
 
@@ -306,9 +311,7 @@ public class DashBoardController implements Initializable {
             String TOPIC = "Welcome " + username + "!";
             String BODY = "Dear user! \n" +
                     "You can sign into StockFX by your ID/Username and password \n" +
-                    "User ID: " + ID + "\n" + "Password: " + password + "\n" +
-                    "Our team would like to thank you for using our Software! \n"+
-                    "If you have any more questions or any difficulties using out Application feel free to contact us";
+                    "User ID: " + ID + "\n" + "Password: " + password + "\n";
             String[] to = {RECIPT};
             Properties props = System.getProperties();
             String host = "smtp.gmail.com";

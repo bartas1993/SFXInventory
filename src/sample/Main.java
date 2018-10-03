@@ -25,7 +25,7 @@ public class Main extends Application {
         alert.setHeight(600);
         alert.setWidth(400);
         alert.setHeaderText("Login Details");
-        alert.setContentText("Username: 'awsRDS' \n" +
+        alert.setContentText("Username: '1' \n" +
                 "Password: 'test' \n");
         alert.showAndWait();
         UI.setFullScreenExitHint("Press 'ESC' to exit full screen");

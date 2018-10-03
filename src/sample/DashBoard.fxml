@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="stpPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DashBoardController">
+<AnchorPane fx:id="stpPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DashBoardController">
    <children>
-      <ImageView fitHeight="606.0" fitWidth="800.0" layoutX="1.0" layoutY="-5.0" pickOnBounds="true">
+      <ImageView fitHeight="606.0" fitWidth="800.0" layoutX="1.0" layoutY="-5.0" pickOnBounds="true" visible="false">
          <image>
             <Image url="@../Resources/69120019-technology-wallpapers.jpg" />
          </image>
@@ -45,7 +45,7 @@
          </children>
       </GridPane>
       <Button fx:id="login" layoutX="283.0" layoutY="250.0" mnemonicParsing="false" onAction="#setLoginM" prefHeight="25.0" prefWidth="235.0" text="Login" AnchorPane.leftAnchor="283.0" AnchorPane.rightAnchor="282.0" />
-      <Label fx:id="register" layoutX="310.0" layoutY="282.0" onMouseClicked="#handleRegister" onMouseEntered="#handleRegister" onMouseExited="#handleRegister" prefHeight="20.0" prefWidth="182.0" text="Need account? Register here" underline="true" AnchorPane.bottomAnchor="298.0" AnchorPane.rightAnchor="308.0">
+      <Label fx:id="register" layoutX="310.0" layoutY="282.0" onMouseClicked="#handleRegister" onMouseEntered="#handleRegister" onMouseExited="#handleRegister" prefHeight="20.0" prefWidth="182.0" text="Need account? Click here" underline="true" AnchorPane.bottomAnchor="298.0" AnchorPane.rightAnchor="308.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -53,7 +53,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Label layoutX="533.0" layoutY="167.0" text="Inventory Managerr" textFill="WHITE">
+      <Label layoutX="471.0" layoutY="167.0" text="Inventory Manager Demo Online" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="14.0" />
          </font></Label>
@@ -67,15 +67,15 @@
       </ImageView>
       <Pane fx:id="regiPane" layoutX="265.0" layoutY="29.0" onMouseClicked="#handleRegister" prefHeight="434.0" prefWidth="270.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 2;" visible="false">
          <children>
-            <TextField fx:id="textname" layoutX="21.0" layoutY="59.0" prefWidth="149.0" promptText="Name(Optional)" style="-fx-border-color: cyan;" />
-            <TextField fx:id="textsurname" layoutX="21.0" layoutY="88.0" promptText="Surname(Optional)" style="-fx-border-color: cyan;" />
-            <TextField layoutX="23.0" layoutY="123.0" prefHeight="25.0" prefWidth="40.0" promptText="DD" style="-fx-border-color: cyan;" />
-            <TextField layoutX="76.0" layoutY="123.0" prefHeight="25.0" prefWidth="40.0" promptText="MM" style="-fx-border-color: cyan;" />
-            <TextField layoutX="132.0" layoutY="123.0" prefHeight="25.0" prefWidth="40.0" promptText="YY" style="-fx-border-color: cyan;" />
-            <TextField layoutX="23.0" layoutY="162.0" promptText="Company(Optional)" style="-fx-border-color: cyan;" />
-            <TextField layoutX="23.0" layoutY="192.0" promptText="Position(Optional)" style="-fx-border-color: cyan;" />
-            <TextField layoutX="23.0" layoutY="223.0" promptText="Contact Number(Optional)" style="-fx-border-color: cyan;" />
-            <TextField fx:id="textEmail" layoutX="23.0" layoutY="254.0" onAction="#registerUser" promptText="Email(Optional)" style="-fx-border-color: cyan;" />
+            <TextField fx:id="textname" disable="true" layoutX="21.0" layoutY="59.0" prefWidth="149.0" promptText="Name(Optional)" style="-fx-border-color: cyan;" />
+            <TextField fx:id="textsurname" disable="true" layoutX="21.0" layoutY="88.0" promptText="Surname(Optional)" style="-fx-border-color: cyan;" />
+            <TextField disable="true" layoutX="23.0" layoutY="123.0" prefHeight="25.0" prefWidth="40.0" promptText="DD" style="-fx-border-color: cyan;" />
+            <TextField disable="true" layoutX="76.0" layoutY="123.0" prefHeight="25.0" prefWidth="40.0" promptText="MM" style="-fx-border-color: cyan;" />
+            <TextField disable="true" layoutX="132.0" layoutY="123.0" prefHeight="25.0" prefWidth="40.0" promptText="YY" style="-fx-border-color: cyan;" />
+            <TextField disable="true" layoutX="23.0" layoutY="162.0" promptText="Company(Optional)" style="-fx-border-color: cyan;" />
+            <TextField disable="true" layoutX="23.0" layoutY="192.0" promptText="Position(Optional)" style="-fx-border-color: cyan;" />
+            <TextField disable="true" layoutX="23.0" layoutY="223.0" promptText="Contact Number(Optional)" style="-fx-border-color: cyan;" />
+            <TextField fx:id="textEmail" layoutX="23.0" layoutY="254.0" onAction="#registerUser" promptText="Email" />
             <TextField fx:id="textUser" layoutX="24.0" layoutY="286.0" onAction="#registerUser" promptText="Username" />
             <Label layoutX="67.0" layoutY="127.0" text="/" />
             <Label layoutX="123.0" layoutY="127.0" text="/" />
@@ -83,31 +83,31 @@
                <font>
                   <Font size="9.0" />
                </font></Button>
-            <Label layoutX="174.0" layoutY="63.0" text="User First Name">
+            <Label disable="true" layoutX="174.0" layoutY="63.0" text="User First Name">
                <font>
                   <Font size="9.0" />
                </font></Label>
-            <Label layoutX="174.0" layoutY="94.0" text="User Second Name">
+            <Label disable="true" layoutX="174.0" layoutY="94.0" text="User Second Name">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
-            <Label layoutX="174.0" layoutY="127.0" text="User DOB">
+            <Label disable="true" layoutX="174.0" layoutY="127.0" text="User DOB">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
-            <Label layoutX="174.0" layoutY="166.0" text="Company/Business">
+            <Label disable="true" layoutX="174.0" layoutY="166.0" text="Company/Business">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
-            <Label layoutX="174.0" layoutY="196.0" text="User Position">
+            <Label disable="true" layoutX="174.0" layoutY="196.0" text="User Position">
                <font>
                   <Font size="9.0" />
                </font>
             </Label>
-            <Label layoutX="174.0" layoutY="227.0" text="Telephone Number">
+            <Label disable="true" layoutX="174.0" layoutY="227.0" text="Telephone Number">
                <font>
                   <Font size="9.0" />
                </font>
@@ -149,7 +149,7 @@
                   <Font name="Corbel" size="11.0" />
                </font>
             </Label>
-            <TextField fx:id="textPassRep" layoutX="25.0" layoutY="350.0" promptText="Repeat Password(Developement" />
+            <TextField fx:id="textPassRep" disable="true" editable="false" layoutX="25.0" layoutY="350.0" promptText="Repeat Password(Developement" />
             <Label layoutX="175.0" layoutY="356.0" text="Repeat Password">
                <font>
                   <Font size="9.0" />
@@ -166,7 +166,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fx:id="plus" fitHeight="43.0" fitWidth="37.0" layoutX="283.0" layoutY="469.0" onMouseClicked="#handlePlus" onMouseEntered="#handlePlus" onMouseExited="#handlePlus" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="plus" fitHeight="43.0" fitWidth="37.0" layoutX="283.0" layoutY="469.0" onMouseClicked="#handlePlus" onMouseEntered="#handlePlus" onMouseExited="#handlePlus" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../Resources/google-plus%20(1).png" />
          </image>
@@ -177,7 +177,7 @@
             <Glow />
          </effect>
       </ImageView>
-      <ImageView fx:id="git" fitHeight="37.0" fitWidth="37.0" layoutX="383.0" layoutY="469.0" onMouseClicked="#handleGit" onMouseEntered="#handleGit" onMouseExited="#handleGit" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="git" fitHeight="37.0" fitWidth="37.0" layoutX="383.0" layoutY="469.0" onMouseClicked="#handleGit" onMouseEntered="#handleGit" onMouseExited="#handleGit" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../Resources/github-sign.png" />
          </image>
@@ -188,7 +188,7 @@
             <Glow />
          </effect>
       </ImageView>
-      <ImageView fx:id="face" fitHeight="37.0" fitWidth="40.0" layoutX="481.0" layoutY="469.0" onMouseClicked="#handleFace" onMouseEntered="#handleFace" onMouseExited="#handleFace" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="face" fitHeight="37.0" fitWidth="40.0" layoutX="481.0" layoutY="469.0" onMouseClicked="#handleFace" onMouseEntered="#handleFace" onMouseExited="#handleFace" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../Resources/facebook.png" />
          </image>

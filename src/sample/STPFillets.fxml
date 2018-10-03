@@ -176,7 +176,7 @@
                </children></Pane>
             <ComboBox fx:id="product" editable="true" onAction="#getLabel" onKeyPressed="#getLabel" prefHeight="5.0" prefWidth="400.0" promptText="PRODUCT" GridPane.rowIndex="1" />
             <ComboBox fx:id="locationn" editable="true" onAction="#getLocLab" prefHeight="2.0" prefWidth="400.0" promptText="LOCATION" GridPane.rowIndex="3" />
-            <Label alignment="CENTER" prefHeight="23.0" prefWidth="400.0" style="-fx-border-color: black;" text="BUTCHERY DEP">
+            <Label alignment="CENTER" prefHeight="23.0" prefWidth="400.0" style="-fx-border-color: black;" text="DEPARTMENT 1">
                <font>
                   <Font size="15.0" />
                </font>
@@ -186,14 +186,14 @@
       <Button fx:id="exit" layoutX="421.0" layoutY="626.0" mnemonicParsing="false" onAction="#exitSTP" onMouseClicked="#exitSTP" prefHeight="43.0" prefWidth="365.0" text="BACK" visible="false" />
       <Pane fx:id="weightPane" layoutX="9.0" layoutY="464.0" prefHeight="115.0" prefWidth="372.0" style="-fx-background-color: cyan; -fx-border-color: black;">
          <children>
-            <Label layoutX="294.0" layoutY="-5.0" prefHeight="96.0" prefWidth="72.0" text="KG">
+            <Label layoutX="311.0" layoutY="14.0" prefHeight="50.0" prefWidth="40.0" text="KG">
                <font>
-                  <Font size="41.0" />
+                  <Font size="26.0" />
                </font>
             </Label>
-            <Label fx:id="WeightOutput" layoutX="57.0" layoutY="-11.0" prefHeight="100.0" prefWidth="235.0" text="000.000">
+            <Label fx:id="WeightOutput" layoutX="46.0" layoutY="17.0" prefHeight="70.0" prefWidth="265.0" text="0000000000">
                <font>
-                  <Font size="68.0" />
+                  <Font size="48.0" />
                </font>
             </Label>
             <Label fx:id="manual" alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="74.0" prefHeight="17.0" prefWidth="251.0" style="-fx-border-color: black; -fx-background-color: yellow;" text="MANUAL WEIGHT INPUT MODE" textAlignment="CENTER" />
