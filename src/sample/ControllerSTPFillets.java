@@ -15,7 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,13 +26,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -107,6 +112,17 @@ public class ControllerSTPFillets implements Initializable {
     private Label savedRecord;
     @FXML private ImageView exitApp;
     @FXML private ImageView back;
+    @FXML private ImageView database;
+    @FXML private TextArea operationField;
+    @FXML private Button save;
+    @FXML private Button clear;
+
+    String im1 = "https://image.ibb.co/e5Jhr9/database1.png";
+    String im2 = "https://image.ibb.co/fNbP4U/database2.png";
+    String im3 = "https://image.ibb.co/fNbP4U/database3.png";
+    String im4 = "https://image.ibb.co/fNbP4U/database4.png";
+    FileChooser choose = new FileChooser();
+    private Desktop desk = Desktop.getDesktop();
 
     public void exitSTP() {
         exit.setOnMouseClicked(this::handle);
@@ -115,15 +131,171 @@ public class ControllerSTPFillets implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Connection connect = null;
         batch.setEditable(true);
+        Record.setOnAction(e -> {
+            database.setImage(new Image(im2));
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            String myWeb;
+            String status = "Pending";
+            myWeb = "Product: " + name.getText() + "\n"
+                    + "Kill date: " + killDate.getText() + "\n" +
+                    "Pack date: " + packDate.getText() +
+                    "\n" + "Cut date: " + cutDate.getText() + "\n"
+                    + "Use by date: " + useDate.getText() + "\n"
+                    + "Pallet ID: " +  scan.getText() + flockk.getText();
+            int width = 400;
+            int height = 400;
+            String fileType = "png";
+            BufferedImage bufferedImage = null;
+            try {
+                BitMatrix byteMatrix = qrCodeWriter.encode(myWeb, BarcodeFormat.QR_CODE, width, height);
+                bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+                bufferedImage.createGraphics();
+
+                Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
+                graphics.setColor(Color.WHITE);
+                graphics.fillRect(0, 0, width, height);
+                graphics.setColor(Color.BLACK);
+
+                for (int i = 0; i < height; i++) {
+                    for (int j = 0; j < width; j++) {
+                        if (byteMatrix.get(i, j)) {
+                            graphics.fillRect(i, j, 1, 1);
+                        }
+                    }
+                }
+                Connection conHold = null;
+                if(locationn.getValue().equals("LOCATION 2")) {
+
+                    try {
+                        database.setImage(new Image(im2));
+                        conHold = StockWindowDbConnectionModel.getConnection();
+                        Class.forName("com.mysql.jdbc.Driver");
+                        String h = "INSERT INTO holdingchill values (?,?,?,?,?,?,?,?) ";
+
+                        PreparedStatement psth = conHold.prepareStatement(h);
+                        psth.setString(1, name.getText());
+                        psth.setString(2, killDate.getText());
+                        psth.setString(4, packDate.getText());
+                        psth.setString(5, useDate.getText());
+                        psth.setString(3, cutDate.getText());
+                        psth.setString(7, scan.getText() + flockk.getText());
+                        psth.setString(6, WeightOutput.getText());
+                        psth.setString(8, status);
+                        psth.executeUpdate();
+                        String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
+                        Media sound1 = new Media(new File(musicFile1).toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(sound1);
+                        mediaPlayer.play();
+
+                        System.out.println("Product Added");
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Product Added");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Product added to specified location (HOLDING CHILL)");
+                        alert.showAndWait();
+                        conHold.close();
+                        database.setImage(new Image(im1));
+                        operationField.appendText("Product Name: "+name.getText() + "\n" +"Product ID: "+ scan.getText()+flockk.getText()+" Successfully Uploaded \n");
+                    } catch (ClassNotFoundException | SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                    finally {
+
+
+                    }
+
+                }
+                Connection conWIP = null;
+                if(locationn.getValue().equals("LOCATION")){
+
+                    try {
+                        database.setImage(new Image(im2));
+                        conWIP = StockWindowDbConnectionModel.getConnection();
+                        Class.forName("com.mysql.jdbc.Driver");
+                        String s = "INSERT INTO wipchill values(?,?,?,?,?,?,?,?) ";
+                        PreparedStatement pst2 = conWIP.prepareStatement(s);
+                        pst2.setString(1, name.getText());
+                        pst2.setString(2, killDate.getText());
+                        pst2.setString(4, packDate.getText());
+                        pst2.setString(5, useDate.getText());
+                        pst2.setString(3, cutDate.getText());
+                        pst2.setString(7, scan.getText() + flockk.getText());
+                        pst2.setString(6, WeightOutput.getText());
+                        pst2.setString(8, status);
+                        pst2.execute();
+                        String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
+                        Media sound1 = new Media(new File(musicFile1).toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(sound1);
+                        mediaPlayer.play();
+                        Date dat = new Date();
+                        System.out.println("Product Added");
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Product Added");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Product added to specified location (WIPCHILL)");
+                        alert.showAndWait();
+                        conWIP.close();
+                        database.setImage(new Image(im1));
+                        operationField.appendText("Product Name: "+name.getText() + "\n" +"Product ID: "+ scan.getText()+flockk.getText()+" Successfully Uploaded \n"
+                                + "Time Stamp: "+dat.toGMTString().toUpperCase());
+                        scan.setText(null);
+                        flockLB.setText(null);
+                        flockk.setText(null);
+                    } catch (SQLException a) {
+                        String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
+                        Media sound = new Media(new File(musicFile).toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                        mediaPlayer.play();
+                        System.err.println(a);
+                        System.out.println("Something went wrong");
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("DATABASE MESSAGE");
+                        alert.setHeight(300);
+                        alert.setWidth(400);
+                        alert.setHeaderText("ERROR \n" + a);
+                        alert.setContentText("PRODUCT NOT ADDED" +
+                                "CHECK: \n" +
+                                "-IF ID ALREADY EXIST(UNIQUE CONSTRAINT FAILED) \n" +
+                                "-CORRECT PATH TO DATABASE(ERROR OR MISSING DATABASE) \n" +
+                                "-DATABASE MIGHT BE EDITED BY ADMINISTRATOR(DATABASE BUSY) \n" +
+                                "-RE-ENTER PRODUCT NAME AND CLICK RECORD AGAIN OR CHECK DATABASE PATH \n"
+                                + "PLEASE CONTACT YOUR IT DEP FOR MORE INFORMATION");
+                        alert.showAndWait();
+                        try {
+                            conWIP.close();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    } finally {
+                    }
+                }
+                scan.setVisible(true);
+                locc.setVisible(true);
+                loccc.setVisible(true);
+                flockk.setVisible(true);
+
+            } catch (WriterException e1) {
+                e1.printStackTrace();
+            }
+            recordDetails.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
+
+        });
+
+
+
+
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            connect = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT ProductName FROM stpfillets";
             PreparedStatement pst = connect.prepareStatement(s);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
+
 
 
                 productList.add(rs.getString("ProductName"));
@@ -137,6 +309,7 @@ public class ControllerSTPFillets implements Initializable {
             }
         } catch (SQLException a) {
             System.err.println(a);
+            a.printStackTrace();
             System.out.println("Something went wrong");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -145,7 +318,7 @@ public class ControllerSTPFillets implements Initializable {
         Connection connectt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT FlockCode FROM FlockCodes";
             PreparedStatement pstt = connectt.prepareStatement(s);
@@ -166,8 +339,9 @@ public class ControllerSTPFillets implements Initializable {
         Connection connecttt;
         connecttt = null;
         try {
+
             Class.forName("com.mysql.jdbc.Driver");
-            connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT * FROM BatchCodes";
             PreparedStatement psttt = connecttt.prepareStatement(s);
@@ -188,7 +362,7 @@ public class ControllerSTPFillets implements Initializable {
         connectttt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connectttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            connectttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
             String s = "SELECT * FROM Locations";
             PreparedStatement psttttt = connecttt.prepareStatement(s);
             ResultSet rsssss = psttttt.executeQuery();
@@ -236,18 +410,18 @@ public class ControllerSTPFillets implements Initializable {
         Connection connect = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            connect = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
 
-            String s = "SELECT Name,ScanCode FROM STPFillets";
+            String s = "SELECT ProductName,ScanCode FROM stpfillets";
             PreparedStatement pst = connect.prepareStatement(s);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
 
 
 
-                productList.removeAll(rs.getString("Name").toUpperCase() + " " + rs.getString("ScanCode"));
+                productList.removeAll(rs.getString("ProductName").toUpperCase() + " " + rs.getString("ScanCode"));
 
-                productList.add(rs.getString("Name").toUpperCase() + " " + rs.getString("ScanCode"));
+                productList.add(rs.getString("ProductName").toUpperCase() + " " + rs.getString("ScanCode"));
 
 
 
@@ -264,142 +438,6 @@ public class ControllerSTPFillets implements Initializable {
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void handleRecord() {
-        Record.setOnAction(e -> {
-            QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            String myWeb;
-            String status = "Pending";
-            myWeb = "Product: " + name.getText() + "\n"
-                    + "Kill date: " + killDate.getText() + "\n" +
-                    "Pack date: " + packDate.getText() +
-                    "\n" + "Cut date: " + cutDate.getText() + "\n"
-                    + "Use by date: " + useDate.getText() + "\n"
-                    + "Pallet ID: " +  scan.getText() + flockk.getText();
-            int width = 400;
-            int height = 400;
-            String fileType = "png";
-            BufferedImage bufferedImage = null;
-            try {
-                BitMatrix byteMatrix = qrCodeWriter.encode(myWeb, BarcodeFormat.QR_CODE, width, height);
-                bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-                bufferedImage.createGraphics();
-
-                Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
-                graphics.setColor(Color.WHITE);
-                graphics.fillRect(0, 0, width, height);
-                graphics.setColor(Color.BLACK);
-
-                for (int i = 0; i < height; i++) {
-                    for (int j = 0; j < width; j++) {
-                        if (byteMatrix.get(i, j)) {
-                            graphics.fillRect(i, j, 1, 1);
-                        }
-                    }
-                }
-                Connection conHold = null;
-                if(locationn.getValue().equals("LOCATION 2")) {
-                    try {
-                        conHold = StockWindowDbConnectionModel.getConnection();
-                        Class.forName("com.mysql.jdbc.Driver");
-                        String h = "INSERT INTO holdingchill values (?,?,?,?,?,?,?,?) ";
-
-                        PreparedStatement psth = conHold.prepareStatement(h);
-                        psth.setString(1, name.getText());
-                        psth.setString(2, killDate.getText());
-                        psth.setString(4, packDate.getText());
-                        psth.setString(5, useDate.getText());
-                        psth.setString(3, cutDate.getText());
-                        psth.setString(7, scan.getText() + flockk.getText());
-                        psth.setString(6, WeightOutput.getText());
-                        psth.setString(8, status);
-                        psth.executeUpdate();
-                        String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
-                        Media sound1 = new Media(new File(musicFile1).toURI().toString());
-                        MediaPlayer mediaPlayer = new MediaPlayer(sound1);
-                        mediaPlayer.play();
-                        System.out.println("Product Added");
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Product Added");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Product added to specified location (HOLDING CHILL)");
-                        alert.showAndWait();
-                        conHold.close();
-                    } catch (ClassNotFoundException | SQLException e1) {
-                        e1.printStackTrace();
-                    }
-                    finally {
-
-
-                    }
-
-                }
-                Connection conWIP = null;
-                if(locationn.getValue().equals("LOCATION")){
-                    try {
-                        conWIP = StockWindowDbConnectionModel.getConnection();
-                        Class.forName("com.mysql.jdbc.Driver");
-                        String s = "INSERT INTO wipchill values(?,?,?,?,?,?,?,?) ";
-                        PreparedStatement pst2 = conWIP.prepareStatement(s);
-                        pst2.setString(1, name.getText());
-                        pst2.setString(2, killDate.getText());
-                        pst2.setString(4, packDate.getText());
-                        pst2.setString(5, useDate.getText());
-                        pst2.setString(3, cutDate.getText());
-                        pst2.setString(7, scan.getText() + flockk.getText());
-                        pst2.setString(6, WeightOutput.getText());
-                        pst2.setString(8, status);
-                        pst2.execute();
-                        String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
-                        Media sound1 = new Media(new File(musicFile1).toURI().toString());
-                        MediaPlayer mediaPlayer = new MediaPlayer(sound1);
-                        mediaPlayer.play();
-                        System.out.println("Product Added");
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Product Added");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Product added to specified location (WIPCHILL)");
-                        alert.showAndWait();
-                        conWIP.close();
-                    } catch (SQLException a) {
-                        String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
-                        Media sound = new Media(new File(musicFile).toURI().toString());
-                        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-                        mediaPlayer.play();
-                        System.err.println(a);
-                        System.out.println("Something went wrong");
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("DATABASE MESSAGE");
-                        alert.setHeight(600);
-                        alert.setWidth(400);
-                        alert.setHeaderText("ERROR \n" + a);
-                        alert.setContentText("PRODUCT NOT ADDED" +
-                                "CHECK: \n" +
-                                "-IF ID ALREADY EXIST(UNIQUE CONSTRAINT FAILED) \n" +
-                                "-CORRECT PATH TO DATABASE(ERROR OR MISSING DATABASE) \n" +
-                                "-DATABASE MIGHT BE EDITED BY ADMINISTRATOR(DATABASE BUSY) \n" +
-                                "-RE-ENTER PRODUCT NAME AND CLICK RECORD AGAIN OR CHECK DATABASE PATH \n"
-                                + "PLEASE CONTACT YOUR IT DEP FOR MORE INFORMATION");
-                        alert.showAndWait();
-                        try {
-                            conWIP.close();
-                        } catch (SQLException e1) {
-                            e1.printStackTrace();
-                        }
-                    } catch (ClassNotFoundException e1) {
-                        e1.printStackTrace();
-                    } finally {
-                    }
-                }
-                scan.setVisible(true);
-                locc.setVisible(true);
-                loccc.setVisible(true);
-                flockk.setVisible(true);
-
-            } catch (WriterException e1) {
-                e1.printStackTrace();
-            }
-            recordDetails.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
-
-        });
 
         }
 
@@ -418,16 +456,14 @@ public class ControllerSTPFillets implements Initializable {
         Connection connectt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT FlockCode FROM FlockCodes";
             PreparedStatement pstt = connectt.prepareStatement(s);
             ResultSet rss = pstt.executeQuery();
             while (rss.next()) {
-                flockList.removeAll(rss.getString("FlockCode").toUpperCase());
                 System.out.println("Fetching Column Label element:FlockCode from FlockCodes Database");
-                flockList.add(rss.getString("FlockCode").toUpperCase());
-                System.out.println("Fetching Column Label element:FlockCode from FlockCodes Database");
+                flockList.addAll(rss.getString("FlockCode").toUpperCase());
                 flockCode.setItems(flockList);
 
 
@@ -455,7 +491,7 @@ public class ControllerSTPFillets implements Initializable {
         connecttt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
 
             String s = "SELECT * FROM BatchCodes";
             PreparedStatement psttt = connecttt.prepareStatement(s);
@@ -486,28 +522,41 @@ public class ControllerSTPFillets implements Initializable {
     }
 
     public void handle2(MouseEvent e) {
+
+        database.setImage(new Image(im3));
         try {
+
             setLoc();
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
         try {
+
             setBatchName();
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
         try {
+
             setFlocksName();
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
         try {
+
             setProductName();
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
 
-        update.setText("DATA REFRESHED");
+        update.setText("Reload Database");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Product Added");
+        alert.setHeaderText(null);
+        alert.setContentText("Updated");
+        alert.showAndWait();
+        database.setImage(new Image(im1));
+
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setCheckLab() {

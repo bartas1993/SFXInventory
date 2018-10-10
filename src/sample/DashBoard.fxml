@@ -59,7 +59,7 @@
          </font></Label>
       <ImageView fx:id="exitApp" fitHeight="25.0" fitWidth="22.0" layoutX="774.0" layoutY="3.0" onMouseClicked="#handleExit" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Resources/x-button.png" />
+            <Image url="@../Resources/close-button.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -159,16 +159,16 @@
          </children>
       </Pane>
       <ImageView fx:id="minimize" fitHeight="22.0" fitWidth="22.0" layoutX="748.0" layoutY="3.0" onMouseClicked="#handlemin" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Resources/minimize%20(1).png" />
-         </image>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <image>
+            <Image url="@../Resources/minimize%20(2).png" />
+         </image>
       </ImageView>
       <ImageView fx:id="plus" fitHeight="43.0" fitWidth="37.0" layoutX="283.0" layoutY="469.0" onMouseClicked="#handlePlus" onMouseEntered="#handlePlus" onMouseExited="#handlePlus" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../Resources/google-plus%20(1).png" />
+            <Image url="https://image.ibb.co/mQCBJp/google_plus_1.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -198,6 +198,11 @@
          <effect>
             <Glow />
          </effect>
+      </ImageView>
+      <ImageView fx:id="stat" fitHeight="37.0" fitWidth="40.0" layoutX="762.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="https://image.ibb.co/d46z4U/database5.png" />
+         </image>
       </ImageView>
    </children>
 </AnchorPane>

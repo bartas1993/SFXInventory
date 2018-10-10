@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -28,6 +29,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.*;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -65,6 +67,7 @@ public class DashBoardController implements Initializable {
     @FXML TextField textUser;
     @FXML PasswordField textPass;
     @FXML TextField textEmail;
+    @FXML ImageView stat = new ImageView();
 
 
     public void handleExitReg(javafx.scene.input.MouseEvent a)
@@ -139,7 +142,7 @@ public class DashBoardController implements Initializable {
             try {
                 desktop.browse(new URI("https://plus.google.com/u/0/+BartekKepke?tab=wX"));
             } catch (IOException e1) {
-                e1.printStackTrace();
+
             } catch (URISyntaxException e1) {
                 e1.printStackTrace();
             }
@@ -188,6 +191,36 @@ public class DashBoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        UserDataBaseModel obj = new UserDataBaseModel();
+
+
+
+        try {
+            obj.connectUsers();
+
+
+            if(obj.connectUsers() == null)
+            {
+                stat.setImage(new Image("https://image.ibb.co/d46z4U/database5.png"));
+            }
+            else
+                {
+
+                    stat.setImage(new Image("https://image.ibb.co/e5Jhr9/database1.png"));
+
+                }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("User Information");
+            alert.setHeight(200);
+            alert.setWidth(400);
+            alert.setHeaderText("Can't connect to server ");
+            alert.setContentText(String.valueOf(e));
+            alert.showAndWait();
+            e.printStackTrace();
+
+    }
     }
 
     public void handleExit() {
@@ -202,6 +235,7 @@ public class DashBoardController implements Initializable {
 
     public void setLoginM() {
         login.setOnMouseClicked(event -> {
+
             try {
 
                 String username = user.getText();
@@ -235,37 +269,39 @@ public class DashBoardController implements Initializable {
 
 
                     } catch (IOException ab) {
+                        ab.printStackTrace();
                     }
                 }
                 else
-                    {
-                        user.setText("");
-                        user.setStyle("-fx-background-color: RED;");
-                        pass.setText("");
-                        pass.setStyle("-fx-background-color: RED;");
-                        String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
-                        Media sound = new Media(new File(musicFile).toURI().toString());
-                        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-                        mediaPlayer.play();
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("USER!");
-                        alert.setHeight(100);
-                        alert.setWidth(200);
-                        alert.setContentText("Check if your Username and Password are correct");
-                        alert.showAndWait();
-                        user.setText("");
-                        user.setStyle("-fx-background-color: CYAN;");
-                        pass.setText("");
-                        pass.setStyle("-fx-background-color: CYAN;");
+                {
+                    user.setText("");
+                    user.setStyle("-fx-background-color: RED;");
+                    pass.setText("");
+                    pass.setStyle("-fx-background-color: RED;");
+                    String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
+                    Media sound = new Media(new File(musicFile).toURI().toString());
+                    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                    mediaPlayer.play();
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("USER!");
+                    alert.setHeight(100);
+                    alert.setWidth(200);
+                    alert.setContentText("Check if your Username and Password are correct");
+                    alert.showAndWait();
+                    user.setText("");
+                    user.setStyle("-fx-background-color: CYAN;");
+                    pass.setText("");
+                    pass.setStyle("-fx-background-color: CYAN;");
 
 
-                    }
+                }
 
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
 
 
         });
@@ -291,7 +327,7 @@ public class DashBoardController implements Initializable {
         int ID = rd.nextInt(999999999);
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
             String s = "INSERT INTO Users VALUES (?,?,?,?) ";
             PreparedStatement register = connectt.prepareStatement(s);
             register.setString(1,username);

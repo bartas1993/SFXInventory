@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -19,6 +20,7 @@ public class Controller implements Initializable {
 
     @FXML
     AnchorPane rootPane;
+    @FXML AnchorPane anchpane;
     @FXML
     ToggleButton stpFillets;
     @FXML
@@ -35,6 +37,8 @@ public class Controller implements Initializable {
     Pane wipPane;
     @FXML
     MenuItem stock;
+    @FXML ImageView data;
+    @FXML Button startApp;
 
 
     public void handleStock(ActionEvent b) throws IOException {
@@ -42,36 +46,32 @@ public class Controller implements Initializable {
         rootPane.getChildren().addAll(pane);
 
     }
-
-
-    public void handleExit() {
-    exitApp.setOnMouseClicked(e ->
-    {
-        System.exit(1);
-
-    });
-
-    }
-    public void handleWIP(ActionEvent a)
+    public void handlelog(ActionEvent a)
     {
         WIP.setOnMouseClicked(e->{
-
-            wipPane.setVisible(true);
-        });
-
-        wipPane.setOnMouseExited(e->
-        {
-            wipPane.setVisible(false);
+            try{
+                wipPane.setVisible(true);}
+            catch(Exception as)
+            {
+                as.printStackTrace();
+            }
         });
     }
 
-    @FXML public void ToggleButtonsBehaviour()
-    {
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        exitApp.setOnMouseClicked(e ->
+        {
+            System.exit(1);
+
+        });
+
         stpFillets.setOnMouseEntered(e->{
 
-          stpFillets.setScaleX(1.1);
-          stpFillets.setScaleY(1.1);
-          stpFillets.setStyle("-fx-border-color: #7fffff;");
+            stpFillets.setScaleX(1.1);
+            stpFillets.setScaleY(1.1);
+            stpFillets.setStyle("-fx-border-color: #7fffff;");
 
         });
         stpFillets.setOnMouseExited(e->{
@@ -84,11 +84,13 @@ public class Controller implements Initializable {
         stpFillets.setOnMouseClicked(e->{
 
             try{
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("STPFillets.fxml"));
-            rootPane.getChildren().addAll(pane);
-            stpFillets.setScaleX(1.1);
-            stpFillets.setScaleY(1.1);
-            stpFillets.setStyle("-fx-border-color: yellow;");}
+
+                AnchorPane pane = FXMLLoader.load(getClass().getResource("STPFillets.fxml"));
+
+                rootPane.getChildren().addAll(pane);
+                stpFillets.setScaleX(1.1);
+                stpFillets.setScaleY(1.1);
+                stpFillets.setStyle("-fx-border-color: yellow;");}
             catch(IOException a)
             {
                 System.out.println("Can't open Fillet Products");
@@ -160,20 +162,14 @@ public class Controller implements Initializable {
         hwfBirds.setOnMouseClicked(e->{
 
 
-                hwfBirds.setScaleX(1.1);
-                hwfBirds.setScaleY(1.1);
-                hwfBirds.setStyle("-fx-border-color: red;");
+            hwfBirds.setScaleX(1.1);
+            hwfBirds.setScaleY(1.1);
+            hwfBirds.setStyle("-fx-border-color: red;");
 
 
 
 
         });
-
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
 
 
 
