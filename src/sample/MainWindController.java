@@ -5,8 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-
-import javax.swing.text.html.ImageView;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +28,8 @@ public class MainWindController implements Initializable {
     javafx.scene.image.ImageView home;
     @FXML
     javafx.scene.image.ImageView addUser;
+    @FXML
+    javafx.scene.image.ImageView stockHub;
 
 
     @Override
@@ -62,7 +63,7 @@ public class MainWindController implements Initializable {
             try {
                 pane = FXMLLoader.load(getClass().getResource("Main.fxml"));
                 anchpane.getChildren().addAll(pane);
-                stockLB.setText("Loading...");
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -91,7 +92,7 @@ public class MainWindController implements Initializable {
             try {
                 pane = FXMLLoader.load(getClass().getResource("DashBoard.fxml"));
                 anchpane.getChildren().addAll(pane);
-                stockLB.setText("Loading...");
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -104,7 +105,7 @@ public class MainWindController implements Initializable {
             try {
                 pane = FXMLLoader.load(getClass().getResource("DashBoard.fxml"));
                 anchpane.getChildren().addAll(pane);
-                stockLB.setText("Loading...");
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -115,7 +116,7 @@ public class MainWindController implements Initializable {
         startApp.setScaleY(1.1);
         startApp.setScaleX(1.1);
         startApp.setScaleZ(1.1);
-        stockLB.setText("Click to run Application");
+        stockLB.setText("Click to run");
 
 
         });
@@ -133,7 +134,7 @@ public class MainWindController implements Initializable {
             startApp.setScaleY(1.1);
             startApp.setScaleX(1.1);
             startApp.setScaleZ(1.1);
-            stockLB.setText("Click to run Application");
+            stockLB.setText("Click to run");
 
         });
         stockLB.setOnMouseExited(e->{
@@ -152,7 +153,7 @@ public class MainWindController implements Initializable {
             try {
                 pane = FXMLLoader.load(getClass().getResource("DatabaseSettings.fxml"));
                 anchorpane.getChildren().addAll(pane);
-                stockLB.setText("Loading...");
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -179,11 +180,45 @@ public class MainWindController implements Initializable {
             try {
                 pane = FXMLLoader.load(getClass().getResource("RegisterUser.fxml"));
                 anchorpane.getChildren().addAll(pane);
+
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+        });
+        addUser.setOnMouseEntered(e->{
+            addUser.setScaleZ(1.1);
+            addUser.setScaleY(1.1);
+            addUser.setScaleX(1.1);
+        });
+        addUser.setOnMouseExited(e->{
+            addUser.setScaleZ(1);
+            addUser.setScaleY(1);
+            addUser.setScaleX(1);
+        });
+        stockHub.setOnMouseClicked(e->{
+
+            Pane pane = null;
+            try {
+                pane = FXMLLoader.load(getClass().getResource("Stock.fxml"));
+                anchorpane.getChildren().addAll(pane);
                 stockLB.setText("Loading...");
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
 
+        });
+        stockHub.setOnMouseEntered(e->
+        {
+            stockHub.setScaleZ(1.1);
+            stockHub.setScaleX(1.1);
+            stockHub.setScaleY(1.1);
+        });
+        stockHub.setOnMouseExited(e->
+        {
+            stockHub.setScaleZ(1);
+            stockHub.setScaleX(1);
+            stockHub.setScaleY(1);
         });
 
     }

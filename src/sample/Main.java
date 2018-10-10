@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage UI) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-        UI.setTitle("DIREXT SCANNER (DEMO VER 0.7)");
+        UI.setTitle("DIREXT SCANNER (DEMO VER 1.0)");
         UI.setScene(new Scene(root, 800, 600));
         UI.initStyle(StageStyle.UNDECORATED);
 
