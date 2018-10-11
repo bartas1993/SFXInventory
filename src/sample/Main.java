@@ -14,9 +14,8 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
         UI.setTitle("DIREXT SCANNER (DEMO VER 1.0)");
-        UI.setScene(new Scene(root, 800, 600));
-        UI.initStyle(StageStyle.UNDECORATED);
-
+        UI.setScene(new Scene(root, 789, 588));
+        UI.initStyle(StageStyle.DECORATED);
         UI.setResizable(false);
         UI.show();
 

@@ -37,7 +37,6 @@
             <RowConstraints maxHeight="331.6666564941406" minHeight="100.0" prefHeight="206.66665649414062" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <DatePicker fx:id="kill" editable="false" onAction="#setKillDate" prefHeight="25.0" prefWidth="193.0" promptText="KILL DATE" showWeekNumbers="true" GridPane.rowIndex="6" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                <children>
                   <ComboBox fx:id="locationn" editable="true" layoutX="201.0" layoutY="-2.0" onAction="#getLocLab" prefHeight="25.0" prefWidth="199.0" promptText="LOCATION" />
@@ -197,6 +196,7 @@
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
                <children>
+                  <DatePicker fx:id="kill" editable="false" onAction="#setKillDate" prefHeight="25.0" prefWidth="193.0" promptText="KILL DATE" showWeekNumbers="true" />
                   <DatePicker fx:id="pack" editable="false" layoutX="200.0" onAction="#setPackDate" prefHeight="25.0" prefWidth="199.0" promptText="PACK DATE" />
                </children>
             </Pane>
@@ -242,7 +242,7 @@
       </Pane>
       <Pane layoutY="-4.0" prefHeight="29.0" prefWidth="800.0" style="-fx-background-color: orange;">
          <children>
-            <ImageView fx:id="exitApp" fitHeight="25.0" fitWidth="22.0" layoutX="775.0" layoutY="5.0" onMouseClicked="#exitX" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="exitApp" fitHeight="25.0" fitWidth="22.0" layoutX="775.0" layoutY="5.0" onMouseClicked="#exitX" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@../Resources/close-button.png" />
                </image>
