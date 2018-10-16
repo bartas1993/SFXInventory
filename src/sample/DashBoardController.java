@@ -232,6 +232,8 @@ public class DashBoardController implements Initializable {
 
     }
 
+    public boolean isLoggedAdmin;
+
 
     public void setLoginM() {
         login.setOnMouseClicked(event -> {
@@ -247,25 +249,25 @@ public class DashBoardController implements Initializable {
                 if (rs.next())
                 {
                     try {
-
+                        isLoggedAdmin = true;
                         user.setStyle("-fx-background-color: #69ff59;");
                         pass.setStyle("-fx-background-color: #69ff59;");
-                        String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 3.mp3";
+                       /* String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 3.mp3";
                         Media sound = new Media(new File(musicFile).toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-                        mediaPlayer.play();
+                        mediaPlayer.play();*/
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("WELCOME " + username.toUpperCase() + " !");
                         alert.setHeight(100);
                         alert.setWidth(200);
                         alert.setContentText("You gained access to the Stock");
                         alert.showAndWait();
-                        AnchorPane pane = FXMLLoader.load(getClass().getResource("Inova.fxml"));
+                        AnchorPane pane = FXMLLoader.load(getClass().getResource("Main.fxml"));
                         stpPane.getChildren().addAll(pane);
-                        String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
+                       /* String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
                         Media sound1 = new Media(new File(musicFile1).toURI().toString());
                         mediaPlayer = new MediaPlayer(sound1);
-                        mediaPlayer.play();
+                        mediaPlayer.play();*/
 
 
                     } catch (IOException ab) {
@@ -274,14 +276,15 @@ public class DashBoardController implements Initializable {
                 }
                 else
                 {
+                    isLoggedAdmin = false;
                     user.setText("");
                     user.setStyle("-fx-background-color: RED;");
                     pass.setText("");
                     pass.setStyle("-fx-background-color: RED;");
-                    String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
+                    /*String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
                     Media sound = new Media(new File(musicFile).toURI().toString());
                     MediaPlayer mediaPlayer = new MediaPlayer(sound);
-                    mediaPlayer.play();
+                    mediaPlayer.play();*/
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("USER!");
                     alert.setHeight(100);
@@ -389,11 +392,7 @@ public class DashBoardController implements Initializable {
                 transport.close();
             } catch (AddressException ae) {
                 ae.printStackTrace();
-            } catch (MessagingException me) {
-                me.printStackTrace();
             }
-
-
         } catch (SQLException a) {
             a.printStackTrace();
             System.err.println(a);
@@ -402,7 +401,6 @@ public class DashBoardController implements Initializable {
             alert.setTitle("Dear User!");
             alert.setHeaderText("Validation");
             alert.setContentText("Email or Password already Exist");
-
             alert.showAndWait();
 
         }

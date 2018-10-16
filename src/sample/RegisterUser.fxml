@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="697.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="697.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.UserRegistrationController">
    <children>
-      <Pane layoutX="12.0" layoutY="-6.0" prefHeight="615.0" prefWidth="687.0" style="-fx-background-color: white;">
+      <Pane layoutX="-4.0" layoutY="-6.0" prefHeight="615.0" prefWidth="703.0" style="-fx-background-color: #7fd6ff;">
          <children>
-            <GridPane layoutX="53.0" layoutY="37.0" prefHeight="415.0" prefWidth="581.0">
+            <GridPane alignment="BOTTOM_LEFT" layoutX="53.0" layoutY="37.0" prefHeight="415.0" prefWidth="581.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.33331298828125" minWidth="10.0" prefWidth="321.66664632161456" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="502.3333282470703" minWidth="10.0" prefWidth="317.33335367838544" />
@@ -39,58 +39,58 @@
                         <Font name="Arial Nova Cond Light" size="18.0" />
                      </font>
                   </Label>
-                  <TextField GridPane.columnIndex="1" />
+                  <TextField fx:id="username1" promptText="Create Username" style="-fx-background-color: null;" text="Username" GridPane.columnIndex="1" />
                   <Label text="Password *" GridPane.rowIndex="1">
                      <font>
                         <Font name="Arial Nova Cond Light" size="18.0" />
                      </font>
                   </Label>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="email1" promptText="Your Email Address" style="-fx-background-color: null;" text="example@email.com" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Email *" GridPane.rowIndex="2">
                      <font>
                         <Font name="Arial Nova Cond Light" size="18.0" />
                      </font>
                   </Label>
-                  <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <Label text="Company" GridPane.rowIndex="3">
+                  <PasswordField fx:id="password1" promptText="Create Password" style="-fx-background-color: null;" text="Pass" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField disable="true" promptText="Company" style="-fx-background-color: null;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField disable="true" promptText="Your Contact Number" style="-fx-background-color: null;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField disable="true" promptText="First Name" style="-fx-background-color: null;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField disable="true" promptText="Last Name" style="-fx-background-color: null;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField disable="true" promptText="Country" style="-fx-background-color: null;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField disable="true" promptText="State/County" style="-fx-background-color: null;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label disable="true" opacity="0.13" text="Company" GridPane.rowIndex="3">
                      <font>
                         <Font name="Arial Nova Cond Light" size="18.0" />
                      </font>
                   </Label>
-                  <Label text="Contact tel" GridPane.rowIndex="4">
+                  <Label disable="true" opacity="0.13" text="Contact tel" GridPane.rowIndex="4">
                      <font>
                         <Font name="Arial Nova Cond Light" size="18.0" />
                      </font>
                   </Label>
-                  <Label text="First Name" GridPane.rowIndex="5">
+                  <Label disable="true" opacity="0.13" text="First Name" GridPane.rowIndex="5">
                      <font>
                         <Font name="Arial Nova Cond Light" size="18.0" />
                      </font>
                   </Label>
-                  <Label text="Last Name" GridPane.rowIndex="6">
+                  <Label disable="true" opacity="0.13" text="Last Name" GridPane.rowIndex="6">
                      <font>
                         <Font name="Arial Nova Cond Light" size="18.0" />
                      </font>
                   </Label>
-                  <Label text="Country" GridPane.rowIndex="7">
+                  <Label disable="true" opacity="0.13" text="Country" GridPane.rowIndex="7">
                      <font>
                         <Font name="Arial Nova Cond Light" size="18.0" />
                      </font>
                   </Label>
-                  <Label text="State/County" GridPane.rowIndex="8">
+                  <Label disable="true" opacity="0.13" text="State/County" GridPane.rowIndex="8">
                      <font>
                         <Font name="Arial Nova Cond Light" size="18.0" />
                      </font>
                   </Label>
                </children>
             </GridPane>
-            <ImageView fitHeight="43.0" fitWidth="61.0" layoutX="591.0" layoutY="452.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="login" fitHeight="43.0" fitWidth="61.0" layoutX="591.0" layoutY="452.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Resources/follow.png" />
                </image>
@@ -98,7 +98,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Label layoutX="585.0" layoutY="495.0" text="Register" underline="true">
+            <Label layoutX="370.0" layoutY="596.0" text="*This is demo version, you can only use fields marked with star" underline="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

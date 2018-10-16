@@ -12,7 +12,7 @@ public class StockWindowDbConnectionModel {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            con = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false","bartoszkepke09","bartoszkepke00099912");
             return con;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

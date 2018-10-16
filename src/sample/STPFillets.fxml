@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="stpPane" prefHeight="629.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSTPFillets">
+<AnchorPane fx:id="stpPane" minHeight="607.0" minWidth="697.0" prefHeight="607.0" prefWidth="697.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerSTPFillets">
    <children>
-      <GridPane centerShape="false" focusTraversable="true" layoutY="22.0" prefHeight="430.0" prefWidth="800.0" scaleShape="false">
+      <GridPane centerShape="false" focusTraversable="true" layoutY="22.0" prefHeight="430.0" prefWidth="790.0" scaleShape="false">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -62,7 +62,7 @@
                   <Label fx:id="weightHelp" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="140.0" prefHeight="19.0" prefWidth="384.0" style="-fx-border-color: black; -fx-background-color: yellow;" text="MANUAL WEIGHT INPUT MODE ENTER VALUE (000.000) AND ENTER" textAlignment="CENTER" />
                </children>
             </Pane>
-            <Pane prefHeight="177.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <Pane prefHeight="193.0" prefWidth="351.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <children>
                   <CheckBox fx:id="checkLab" layoutX="4.0" layoutY="8.0" mnemonicParsing="false" onAction="#setCheckLab" selected="true" text="Case Labels">
                      <font>
@@ -74,7 +74,7 @@
                         <Font size="18.0" />
                      </font>
                   </CheckBox>
-                  <Button fx:id="Record" layoutY="211.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="391.0" text="SCAN">
+                  <Button fx:id="Record" layoutY="211.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="292.0" text="SCAN">
                      <font>
                         <Font size="39.0" />
                      </font>
@@ -82,7 +82,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Pane fx:id="panePrevLab" layoutX="4.0" layoutY="40.0" prefHeight="100.0" prefWidth="391.0" style="-fx-border-color: black; -fx-border-width: 2;">
+                  <Pane fx:id="panePrevLab" layoutX="4.0" layoutY="40.0" prefHeight="100.0" prefWidth="292.0" style="-fx-border-color: black; -fx-border-width: 2;">
                      <children>
                         <Label layoutX="9.0" layoutY="3.0" text="D.O.K:" />
                         <Label layoutX="124.0" layoutY="2.0" text="BATCH:" />
@@ -102,11 +102,6 @@
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <Label fx:id="flockLB" layoutX="199.0" layoutY="24.0" prefHeight="12.0" prefWidth="85.0">
-                           <font>
-                              <Font size="8.0" />
-                           </font>
-                        </Label>
                         <Label layoutX="126.0" layoutY="41.0" text="USE BY:" />
                         <Label fx:id="useDate" layoutX="171.0" layoutY="44.0" prefHeight="12.0" prefWidth="46.0">
                            <font>
@@ -114,6 +109,11 @@
                            </font>
                         </Label>
                         <Label layoutX="9.0" layoutY="21.0" prefHeight="17.0" prefWidth="27.0" text="CUT:" />
+                        <Label fx:id="flockLB" layoutX="199.0" layoutY="24.0" prefHeight="12.0" prefWidth="85.0">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Label>
                         <Label fx:id="cutDate" layoutX="37.0" layoutY="24.0" prefHeight="12.0" prefWidth="46.0">
                            <font>
                               <Font size="8.0" />
@@ -125,44 +125,39 @@
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <Label fx:id="scan" layoutX="278.0" layoutY="65.0" prefHeight="12.0" prefWidth="23.0">
+                        <Label fx:id="scan" layoutX="72.0" layoutY="80.0" prefHeight="12.0" prefWidth="23.0">
                            <font>
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <Label fx:id="flockk" layoutX="300.0" layoutY="65.0" prefHeight="12.0" prefWidth="35.0">
+                        <Label fx:id="flockk" layoutX="126.0" layoutY="80.0" prefHeight="12.0" prefWidth="35.0">
                            <font>
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <Label fx:id="locc" layoutX="276.0" layoutY="24.0" prefHeight="12.0" prefWidth="25.0" text="3" visible="false">
+                        <Label fx:id="locc" layoutX="13.0" layoutY="80.0" prefHeight="12.0" prefWidth="25.0" text="3">
                            <font>
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <Label fx:id="loccc" layoutX="276.0" layoutY="35.0" prefHeight="12.0" prefWidth="27.0" text="4" visible="false">
+                        <Label fx:id="loccc" layoutX="42.0" layoutY="80.0" prefHeight="12.0" prefWidth="27.0" text="4">
                            <font>
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <Label fx:id="locccc" layoutX="225.0" layoutY="75.0" prefHeight="12.0" prefWidth="55.0" visible="false">
+                        <Label fx:id="locccc" layoutX="224.0" layoutY="80.0" prefHeight="12.0" prefWidth="55.0">
                            <font>
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="recordDetails" fitHeight="57.0" fitWidth="72.0" layoutX="312.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="recordDetails" fitHeight="60.0" fitWidth="67.0" layoutX="220.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label layoutX="210.0" layoutY="61.0" style="-fx-border-color: black;" text="PALLET ID  ">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Label>
                      </children>
                   </Pane>
-                  <Label layoutX="296.0" layoutY="140.0" prefHeight="15.0" prefWidth="95.0" text="Print out Preview">
+                  <Label layoutX="200.0" layoutY="140.0" prefHeight="15.0" prefWidth="95.0" text="Print out Preview">
                      <font>
                         <Font name="Arial Nova" size="12.0" />
                      </font>
@@ -186,7 +181,7 @@
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Pane onMouseClicked="#getLabel" onMouseReleased="#getLabel" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <TextArea fx:id="operationField" centerShape="false" editable="false" layoutX="4.0" layoutY="7.0" prefHeight="226.0" prefWidth="391.0" promptText="Activity Log" scaleShape="false" wrapText="true" />
+                  <TextArea fx:id="operationField" centerShape="false" editable="false" layoutX="4.0" layoutY="7.0" prefHeight="226.0" prefWidth="292.0" promptText="Activity Log" scaleShape="false" wrapText="true" />
                </children></Pane>
             <Label alignment="CENTER" prefHeight="23.0" prefWidth="403.0" text="YOUR DEP NAME">
                <font>
@@ -240,7 +235,7 @@
             <Label layoutX="109.0" layoutY="94.0" text="MIN &gt;0.5 MAX &gt;999.999" />
          </children>
       </Pane>
-      <Pane layoutY="-4.0" prefHeight="29.0" prefWidth="800.0" style="-fx-background-color: orange;">
+      <Pane layoutY="-4.0" prefHeight="29.0" prefWidth="697.0" style="-fx-background-color: #7fd6ff;">
          <children>
             <ImageView fx:id="exitApp" fitHeight="25.0" fitWidth="22.0" layoutX="775.0" layoutY="5.0" onMouseClicked="#exitX" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
@@ -265,6 +260,6 @@
             </ImageView>
          </children>
       </Pane>
-      <Label fx:id="savedRecord" layoutX="386.0" layoutY="508.0" text="-&gt;" />
+      <Label fx:id="savedRecord" layoutX="535.0" layoutY="455.0" text="-&gt;" />
    </children>
 </AnchorPane>

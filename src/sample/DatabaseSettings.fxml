@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="697.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="697.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SettingsController">
    <children>
-      <Pane layoutX="2.0" layoutY="-6.0" prefHeight="615.0" prefWidth="697.0" style="-fx-background-color: white;">
+      <Pane layoutX="-4.0" layoutY="-6.0" prefHeight="615.0" prefWidth="703.0" style="-fx-background-color: #7fd6ff;">
          <children>
-            <ImageView fitHeight="81.0" fitWidth="61.0" layoutX="29.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="dbconico" fitHeight="81.0" fitWidth="61.0" layoutX="32.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Resources/database.png" />
                </image>
@@ -19,11 +19,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Label layoutX="29.0" layoutY="106.0" text="Connection" underline="true">
+            <Label layoutX="30.0" layoutY="106.0" text="Connection" underline="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
+            <Label layoutX="340.0" layoutY="59.0" />
          </children></Pane>
    </children>
 </AnchorPane>

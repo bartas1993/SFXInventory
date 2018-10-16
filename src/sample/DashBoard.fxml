@@ -5,47 +5,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="stpPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DashBoardController">
+<AnchorPane fx:id="stpPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #7fd6ff;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DashBoardController">
    <children>
+      <Label layoutX="240.0" layoutY="50.0" prefHeight="114.0" prefWidth="327.0" text="STOCKFX" textFill="WHITE">
+         <font>
+            <Font size="79.0" />
+         </font>
+      </Label>
       <ImageView fitHeight="606.0" fitWidth="800.0" layoutX="1.0" layoutY="-5.0" pickOnBounds="true" visible="false">
          <image>
             <Image url="@../Resources/69120019-technology-wallpapers.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="244.0" layoutY="91.0" prefHeight="93.0" prefWidth="328.0" text="STOCKFX" textFill="WHITE" AnchorPane.leftAnchor="244.0" AnchorPane.rightAnchor="228.0" AnchorPane.topAnchor="91.0">
-         <font>
-            <Font size="79.0" />
-         </font>
-      </Label>
-      <Label layoutX="160.0" layoutY="55.0" prefHeight="21.0" prefWidth="55.0" text="Simple" textFill="WHITE" AnchorPane.bottomAnchor="431.0" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="585.0" AnchorPane.topAnchor="147.66666666666666">
-         <font>
-            <Font name="Berlin Sans FB" size="19.0" />
-         </font></Label>
-      <GridPane layoutX="283.0" layoutY="188.0" prefHeight="60.0" prefWidth="235.0" AnchorPane.leftAnchor="283.0" AnchorPane.rightAnchor="282.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <TextField fx:id="user" onAction="#setLoginM" promptText="Username/ID" style="-fx-background-color: cyan; -fx-font: Robot;" />
-            <PasswordField fx:id="pass" onAction="#setLoginM" promptText="Password" style="-fx-background-color: cyan;" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-      <Button fx:id="login" layoutX="283.0" layoutY="250.0" mnemonicParsing="false" onAction="#setLoginM" prefHeight="25.0" prefWidth="235.0" text="Login" AnchorPane.bottomAnchor="324.6666666666667" AnchorPane.leftAnchor="283.0" AnchorPane.rightAnchor="281.66666666666663" AnchorPane.topAnchor="249.99999999999997" />
-      <Label fx:id="register" layoutX="283.0" layoutY="288.0" onMouseClicked="#handleRegister" onMouseEntered="#handleRegister" onMouseExited="#handleRegister" prefHeight="20.0" prefWidth="182.0" text="Need account? Click here" underline="true" AnchorPane.bottomAnchor="292.0" AnchorPane.leftAnchor="283.0" AnchorPane.rightAnchor="325.66666666666663">
+      <Label fx:id="register" layoutX="283.0" layoutY="288.0" onMouseClicked="#handleRegister" onMouseEntered="#handleRegister" onMouseExited="#handleRegister" prefHeight="20.0" prefWidth="182.0" text="Need account? Click here" underline="true" visible="false" AnchorPane.bottomAnchor="292.0" AnchorPane.leftAnchor="283.0" AnchorPane.rightAnchor="325.66666666666663">
          <font>
             <Font size="14.0" />
          </font>
@@ -53,11 +32,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Label>
-      <Label layoutX="420.0" layoutY="76.0" prefHeight="16.0" prefWidth="250.0" text="Inventory Manager Demo Online" textFill="WHITE" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="76.0">
-         <font>
-            <Font name="Berlin Sans FB" size="14.0" />
-         </font></Label>
-      <ImageView fx:id="exitApp" fitHeight="25.0" fitWidth="22.0" layoutX="774.0" layoutY="3.0" onMouseClicked="#handleExit" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="exitApp" fitHeight="25.0" fitWidth="22.0" layoutX="774.0" layoutY="3.0" onMouseClicked="#handleExit" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/close-button.png" />
          </image>
@@ -158,50 +133,31 @@
             <PasswordField fx:id="textPass" layoutX="24.0" layoutY="316.0" onAction="#registerUser" promptText="Password" />
          </children>
       </Pane>
-      <ImageView fx:id="minimize" fitHeight="22.0" fitWidth="22.0" layoutX="748.0" layoutY="3.0" onMouseClicked="#handlemin" pickOnBounds="true" preserveRatio="true" visible="false">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <image>
-            <Image url="@../Resources/minimize%20(2).png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="plus" fitHeight="43.0" fitWidth="37.0" layoutX="283.0" layoutY="469.0" onMouseClicked="#handlePlus" onMouseEntered="#handlePlus" onMouseExited="#handlePlus" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="https://image.ibb.co/mQCBJp/google_plus_1.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <effect>
-            <Glow />
-         </effect>
-      </ImageView>
-      <ImageView fx:id="git" fitHeight="37.0" fitWidth="37.0" layoutX="383.0" layoutY="469.0" onMouseClicked="#handleGit" onMouseEntered="#handleGit" onMouseExited="#handleGit" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../Resources/github-sign.png" />
-         </image>
+      <PasswordField fx:id="pass" layoutX="283.0" layoutY="252.0" onAction="#setLoginM" prefHeight="60.0" prefWidth="327.0" promptText="Password" style="-fx-background-color: cyan; -fx-background-color: null; -fx-border-color: null;">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </PasswordField>
+      <TextField fx:id="user" layoutX="283.0" layoutY="183.0" onAction="#setLoginM" prefHeight="60.0" prefWidth="327.0" promptText="Username/ID" style="-fx-background-color: cyan; -fx-font: Robot; -fx-background-color: null;">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Button fx:id="login" layoutX="328.0" layoutY="312.0" mnemonicParsing="false" onAction="#setLoginM" prefHeight="37.0" prefWidth="144.0" style="-fx-background-color: white;" text="Login" AnchorPane.bottomAnchor="251.0" AnchorPane.leftAnchor="328.0" AnchorPane.rightAnchor="328.0" AnchorPane.topAnchor="312.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <effect>
-            <Glow />
-         </effect>
-      </ImageView>
-      <ImageView fx:id="face" fitHeight="37.0" fitWidth="40.0" layoutX="481.0" layoutY="469.0" onMouseClicked="#handleFace" onMouseEntered="#handleFace" onMouseExited="#handleFace" pickOnBounds="true" preserveRatio="true" visible="false">
+            <DropShadow />
+         </effect></Button>
+      <ImageView fitHeight="52.0" fitWidth="63.0" layoutX="220.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Resources/facebook.png" />
+            <Image url="https://image.ibb.co/eJzmWL/user.png" />
          </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <effect>
-            <Glow />
-         </effect>
       </ImageView>
-      <ImageView fx:id="stat" fitHeight="37.0" fitWidth="40.0" layoutX="762.0" layoutY="563.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="1.0">
+      <ImageView fitHeight="52.0" fitWidth="63.0" layoutX="220.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="https://image.ibb.co/d46z4U/database5.png" />
+            <Image url="https://image.ibb.co/fvwN5f/lock.png" />
          </image>
       </ImageView>
    </children>

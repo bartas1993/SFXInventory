@@ -3,7 +3,10 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -14,6 +17,7 @@ import java.util.ResourceBundle;
 public class MainWindController implements Initializable {
     @FXML
     javafx.scene.image.ImageView startApp;
+
     @FXML
     AnchorPane anchpane;
     @FXML
@@ -32,14 +36,20 @@ public class MainWindController implements Initializable {
     javafx.scene.image.ImageView stockHub;
 
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
+
 
         exitApp.setOnMouseEntered(e->{
 
             exitApp.setScaleZ(1.1);
             exitApp.setScaleX(1.1);
             exitApp.setScaleY(1.1);
+            exitApp.setRotate(3.2);
+
 
         });
         exitApp.setOnMouseExited(e->{
@@ -47,10 +57,11 @@ public class MainWindController implements Initializable {
             exitApp.setScaleZ(1);
             exitApp.setScaleX(1);
             exitApp.setScaleY(1);
+            exitApp.setRotate(0);
 
         });
         exitApp.setOnMouseClicked(e->{
-
+            settings.setRotate(3.2);
             System.exit(0);
 
         });
@@ -75,6 +86,7 @@ public class MainWindController implements Initializable {
             home.setScaleY(1.1);
             home.setScaleX(1.1);
             home.setScaleZ(1.1);
+            home.setRotate(3.2);
 
         });
         home.setOnMouseExited(e->{
@@ -83,6 +95,7 @@ public class MainWindController implements Initializable {
             home.setScaleY(1);
             home.setScaleX(1);
             home.setScaleZ(1);
+            home.setRotate(0);
 
         });
         startApp.setOnMouseClicked(e->{
@@ -90,8 +103,8 @@ public class MainWindController implements Initializable {
 
             AnchorPane pane = null;
             try {
-                pane = FXMLLoader.load(getClass().getResource("DashBoard.fxml"));
-                anchpane.getChildren().addAll(pane);
+                pane = FXMLLoader.load(getClass().getResource("Inova.fxml"));
+                anchorpane.getChildren().addAll(pane);
 
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -116,7 +129,8 @@ public class MainWindController implements Initializable {
         startApp.setScaleY(1.1);
         startApp.setScaleX(1.1);
         startApp.setScaleZ(1.1);
-        stockLB.setText("Click to run");
+        startApp.setRotate(3.6);
+
 
 
         });
@@ -125,8 +139,7 @@ public class MainWindController implements Initializable {
             startApp.setScaleY(1);
             startApp.setScaleX(1);
             startApp.setScaleZ(1);
-            stockLB.setText("Run StockFX");
-
+            startApp.setRotate(0);
 
         });
         stockLB.setOnMouseEntered(e->{
@@ -134,7 +147,6 @@ public class MainWindController implements Initializable {
             startApp.setScaleY(1.1);
             startApp.setScaleX(1.1);
             startApp.setScaleZ(1.1);
-            stockLB.setText("Click to run");
 
         });
         stockLB.setOnMouseExited(e->{
@@ -142,12 +154,9 @@ public class MainWindController implements Initializable {
             startApp.setScaleY(1);
             startApp.setScaleX(1);
             startApp.setScaleZ(1);
-            stockLB.setText("Run StockFX");
-
 
         });
         settings.setOnMouseClicked(e->{
-
 
             AnchorPane pane = null;
             try {
@@ -164,6 +173,7 @@ public class MainWindController implements Initializable {
             settings.setScaleZ(1.1);
             settings.setScaleX(1.1);
             settings.setScaleY(1.1);
+            settings.setRotate(2.2);
 
         });
         settings.setOnMouseExited(e->{
@@ -171,6 +181,7 @@ public class MainWindController implements Initializable {
             settings.setScaleZ(1);
             settings.setScaleX(1);
             settings.setScaleY(1);
+            settings.setRotate(0);
 
         });
         addUser.setOnMouseClicked(e->{
@@ -190,11 +201,13 @@ public class MainWindController implements Initializable {
             addUser.setScaleZ(1.1);
             addUser.setScaleY(1.1);
             addUser.setScaleX(1.1);
+            addUser.setRotate(2.2);
         });
         addUser.setOnMouseExited(e->{
             addUser.setScaleZ(1);
             addUser.setScaleY(1);
             addUser.setScaleX(1);
+            addUser.setRotate(0);
         });
         stockHub.setOnMouseClicked(e->{
 
@@ -213,12 +226,14 @@ public class MainWindController implements Initializable {
             stockHub.setScaleZ(1.1);
             stockHub.setScaleX(1.1);
             stockHub.setScaleY(1.1);
+            stockHub.setRotate(3.2);
         });
         stockHub.setOnMouseExited(e->
         {
             stockHub.setScaleZ(1);
             stockHub.setScaleX(1);
             stockHub.setScaleY(1);
+            stockHub.setRotate(0);
         });
 
     }

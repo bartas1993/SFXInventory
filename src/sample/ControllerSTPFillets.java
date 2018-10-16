@@ -182,11 +182,11 @@ public class ControllerSTPFillets implements Initializable {
                         psth.setString(6, WeightOutput.getText());
                         psth.setString(8, status);
                         psth.executeUpdate();
-                        String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
+                        /*String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
                         Media sound1 = new Media(new File(musicFile1).toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound1);
-                        mediaPlayer.play();
-
+                        mediaPlayer.play();*/
+                        Date dat = new Date();
                         System.out.println("Product Added");
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Product Added");
@@ -195,7 +195,8 @@ public class ControllerSTPFillets implements Initializable {
                         alert.showAndWait();
                         conHold.close();
                         database.setImage(new Image(im1));
-                        operationField.appendText("Product Name: "+name.getText() + "\n" +"Product ID: "+ scan.getText()+flockk.getText()+" Successfully Uploaded \n");
+                        operationField.appendText("Product Name: "+name.getText() + "\n" +"Product ID: "+ scan.getText()+flockk.getText()+
+                                "Time Stamp: "+dat.toGMTString().toUpperCase()+ " Successfully Uploaded \n");
                     } catch (ClassNotFoundException | SQLException e1) {
                         e1.printStackTrace();
                     }
@@ -223,10 +224,10 @@ public class ControllerSTPFillets implements Initializable {
                         pst2.setString(6, WeightOutput.getText());
                         pst2.setString(8, status);
                         pst2.execute();
-                        String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
+                        /*String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
                         Media sound1 = new Media(new File(musicFile1).toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound1);
-                        mediaPlayer.play();
+                        mediaPlayer.play();*/
                         Date dat = new Date();
                         System.out.println("Product Added");
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);

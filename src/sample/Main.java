@@ -12,10 +12,10 @@ public class Main extends Application {
     @Override
     public void start(Stage UI) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("DashBoard.fxml"));
         UI.setTitle("DIREXT SCANNER (DEMO VER 1.0)");
-        UI.setScene(new Scene(root, 789, 588));
-        UI.initStyle(StageStyle.DECORATED);
+        UI.setScene(new Scene(root, 800, 600));
+        UI.initStyle(StageStyle.UNDECORATED);
         UI.setResizable(false);
         UI.show();
 
