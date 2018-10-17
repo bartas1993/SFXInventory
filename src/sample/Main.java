@@ -13,8 +13,8 @@ public class Main extends Application {
     public void start(Stage UI) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("DashBoard.fxml"));
-        UI.setTitle("DIREXT SCANNER (VER 1.1)");
-        UI.setScene(new Scene(root, 800, 600));
+        UI.setTitle("STOCKFX DEMO TEST (VER 1.1)");
+        UI.setScene(new Scene(root, 800, 602));
         UI.initStyle(StageStyle.UNDECORATED);
         UI.setResizable(false);
         UI.show();

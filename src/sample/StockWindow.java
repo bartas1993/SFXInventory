@@ -48,6 +48,7 @@ public class StockWindow implements Initializable {
     @FXML private TextField prname;
     @FXML private TextField sc;
     @FXML private Button update;
+    @FXML private Button allLocations;
 
 
     public void handleWIpStock(ActionEvent ea)
@@ -63,6 +64,93 @@ public class StockWindow implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
+            allLocations.setOnMouseClicked(alllocations->
+            {
+
+                try
+                {
+                    obList.clear();
+                    ResultSet rs;
+                    Connection con = StockWindowDbConnectionModel.getConnection();
+                    if (con != null) {
+                        rs = con.createStatement().executeQuery("Select * From holdingchill,wipchill");
+                        while(rs.next())
+                        {
+                            obList.add(new StockTableModel(rs.getString("Product"),rs.getString("Kill"),rs.getString("Cut"),
+                                    rs.getString("Pack"),rs.getString("Use"),rs.getString("Amount"),rs.getString("ID")));
+                            Table.setItems(obList);
+                        }
+                    }
+
+
+                }
+                catch(SQLException a)
+                {
+                    a.printStackTrace();
+                }
+
+            });
+
+
+
+        wip.setOnMouseClicked(action->
+        {
+
+            try
+            {
+                obList.clear();
+                ResultSet rs;
+                Connection con = StockWindowDbConnectionModel.getConnection();
+                if (con != null) {
+                    rs = con.createStatement().executeQuery("Select * From wipchill");
+                    while(rs.next())
+                    {
+                        obList.add(new StockTableModel(rs.getString("Product"),rs.getString("Kill"),rs.getString("Cut"),
+                                rs.getString("Pack"),rs.getString("Use"),rs.getString("Amount"),rs.getString("ID")));
+                        Table.setItems(obList);
+                    }
+                }
+
+
+            }
+            catch(SQLException a)
+            {
+                a.printStackTrace();
+            }
+
+        });
+        wipbtn.setOnMouseClicked(action->
+        {
+
+            try
+            {
+                obList.clear();
+                ResultSet rs;
+                Connection con = StockWindowDbConnectionModel.getConnection();
+                if (con != null) {
+                    rs = con.createStatement().executeQuery("Select * From holdingchill");
+                    while(rs.next())
+                    {
+                        obList.add(new StockTableModel(rs.getString("Product"),rs.getString("Kill"),rs.getString("Cut"),
+                                rs.getString("Pack"),rs.getString("Use"),rs.getString("Amount"),rs.getString("ID")));
+                        Table.setItems(obList);
+                    }
+                }
+
+
+            }
+            catch(SQLException a)
+            {
+                a.printStackTrace();
+            }
+
+        });
+
+
+
+
 
         try {
             Connection con = StockWindowDbConnectionModel.getConnection();
@@ -97,16 +185,22 @@ public class StockWindow implements Initializable {
                 prname.setText("Couldn't get data");
                    sc.setText("Couldn't get data");
                }
-               assert newValue != null;
-               prname.setText(newValue.getProductName());
-               sc.setText(newValue.getScan());
+
+               if (newValue != null) {
+                   prname.setText(newValue.getProductName());
+               }
+               if (newValue != null) {
+                   sc.setText(newValue.getScan());
+               }
                update.setOnMouseClicked(a->{
                    Connection con = StockWindowDbConnectionModel.getConnection();
                String querry="UPDATE stpfillets set ProductName='"+prname.getText()+"' where ProductName=?";
                try {
                    assert con != null;
                    PreparedStatement pst = con.prepareStatement(querry);
-                   prname.setText(newValue.getProductName());
+                   if (newValue != null) {
+                       prname.setText(newValue.getProductName());
+                   }
                    String getProduct = prname.getText();
                    pst.setString(1,getProduct);
                    pst.executeUpdate();
@@ -129,18 +223,21 @@ public class StockWindow implements Initializable {
         {
             ResultSet rs;
             Connection con = StockWindowDbConnectionModel.getConnection();
-            assert con != null;
-            rs = con.createStatement().executeQuery("Select * From wipchill");
-
-            while(rs.next())
-            {
-                obList.add(new StockTableModel(rs.getString("Product"),rs.getString("Kill"),rs.getString("Cut"),
-                       rs.getString("Pack"),rs.getString("Use"),rs.getString("Amount"),rs.getString("ID")));
-                Table.setItems(obList);
+            if (con != null) {
+                rs = con.createStatement().executeQuery("Select * From wipchill");
+                while(rs.next())
+                {
+                    obList.add(new StockTableModel(rs.getString("Product"),rs.getString("Kill"),rs.getString("Cut"),
+                            rs.getString("Pack"),rs.getString("Use"),rs.getString("Amount"),rs.getString("ID")));
+                    Table.setItems(obList);
+                }
             }
+
+
         }
         catch(SQLException a)
         {
+            a.printStackTrace();
         }
         Col_Product.setCellValueFactory(new PropertyValueFactory<>("Product"));
         Col_Kill.setCellValueFactory(new PropertyValueFactory<>("Kill"));
@@ -247,48 +344,8 @@ public class StockWindow implements Initializable {
 
     }
 
-    public void handleWipClick(){
-        wipbtn.setOnMouseClicked(e->{try
-        {
-            ResultSet rs;
-            Connection con = StockWindowDbConnectionModel.getConnection();
-            rs = con.createStatement().executeQuery("Select * From wipchill");
 
-            while(rs.next())
-            {
-                obList.removeAll(new StockTableModel(rs.getString("Product"),rs.getString("Kill"),rs.getString("Cut"),
-                        rs.getString("Pack"),rs.getString("Use"),rs.getString("Amount"),rs.getString("ID")));
-                Table.setItems(obList);
-                obList.addAll(new StockTableModel(rs.getString("Product"),rs.getString("Kill"),rs.getString("Cut"),
-                        rs.getString("Pack"),rs.getString("Use"),rs.getString("Amount"),rs.getString("ID")));
-                Table.setItems(obList);
-            }
-        }
-        catch(SQLException a)
-        {
-        }
-        });
 
-    }
-    public void handleHoldingClick() {
-        holdingbtn.setOnMouseClicked(e -> {
-            try {
-                ResultSet rs;
-                Connection con = StockWindowDbConnectionModel.getConnection();
-                rs = con.createStatement().executeQuery("Select * From holdingchill");
-
-                while (rs.next()) {
-                    obList.removeAll(new StockTableModel(rs.getString("Product"), rs.getString("Kill"), rs.getString("Cut"),
-                            rs.getString("Pack"), rs.getString("Use"), rs.getString("Amount"), rs.getString("ID")));
-                    Table.setItems(obList);
-                    obList.addAll(new StockTableModel(rs.getString("Product"), rs.getString("Kill"), rs.getString("Cut"),
-                            rs.getString("Pack"), rs.getString("Use"), rs.getString("Amount"), rs.getString("ID")));
-                    Table.setItems(obList);
-                }
-            } catch (SQLException a) {
-            }
-        });
-    }
 
     public void addNewProduct(javafx.event.ActionEvent abc)  {
 
