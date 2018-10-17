@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 
@@ -46,6 +45,9 @@ public class StockWindow implements Initializable {
     @FXML private TableColumn <AddProductsTableModel,String> Col_ScanCode;
     ObservableList <StockTableModel> obList = FXCollections.observableArrayList();
     ObservableList <AddProductsTableModel> oblist2 = FXCollections.observableArrayList();
+    @FXML private TextField prname;
+    @FXML private TextField sc;
+    @FXML private Button update;
 
 
     public void handleWIpStock(ActionEvent ea)
@@ -62,11 +64,73 @@ public class StockWindow implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        try {
+            Connection con = StockWindowDbConnectionModel.getConnection();
+            String querry = "SELECT * from stpfillets";
+            PreparedStatement ps = con.prepareStatement(querry);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                oblist2.add(new AddProductsTableModel(
+                        rs.getString("ID"),
+                        rs.getString("ProductName"),
+                        rs.getString("ScanCode")
+
+                ));
+                AddTable.setItems(oblist2);
+
+            }
+
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+
+
+       AddTable.setOnMouseClicked(e->{
+
+           AddTable.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) ->
+           {
+
+
+               if(newValue!=null){
+
+                prname.setText("Couldn't get data");
+                   sc.setText("Couldn't get data");
+               }
+               assert newValue != null;
+               prname.setText(newValue.getProductName());
+               sc.setText(newValue.getScan());
+               update.setOnMouseClicked(a->{
+                   Connection con = StockWindowDbConnectionModel.getConnection();
+               String querry="UPDATE stpfillets set ProductName='"+prname.getText()+"' where ProductName=?";
+               try {
+                   assert con != null;
+                   PreparedStatement pst = con.prepareStatement(querry);
+                   prname.setText(newValue.getProductName());
+                   String getProduct = prname.getText();
+                   pst.setString(1,getProduct);
+                   pst.executeUpdate();
+                   clearFields();
+                   pst.close();
+                   System.out.println("SUCCESS!");
+
+
+               } catch (SQLException e1) {
+                   e1.printStackTrace();
+               }
+           });
+
+
+           }));
+       });
+
+
         try
         {
             ResultSet rs;
             Connection con = StockWindowDbConnectionModel.getConnection();
-                rs = con.createStatement().executeQuery("Select * From wipchill");
+            assert con != null;
+            rs = con.createStatement().executeQuery("Select * From wipchill");
 
             while(rs.next())
             {
@@ -89,18 +153,39 @@ public class StockWindow implements Initializable {
         Col_iD.setCellValueFactory(new PropertyValueFactory<>("ID"));
         Col_ProductName.setCellValueFactory(new PropertyValueFactory<>("ProductName"));
         Col_ScanCode.setCellValueFactory(new PropertyValueFactory<>("ScanCode"));
+        AddTable.setItems(oblist2);
 
     }
+    private void afterAdd()
     {
+        try {
+            oblist2.clear();
+            Connection con = StockWindowDbConnectionModel.getConnection();
+            String querry = "SELECT * from stpfillets";
+            PreparedStatement ps = con.prepareStatement(querry);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                oblist2.add(new AddProductsTableModel(
+                        rs.getString("ID"),
+                        rs.getString("ProductName"),
+                        rs.getString("ScanCode")
+
+                ));
+                AddTable.setItems(oblist2);
+
+            }
 
 
-
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
     }
     public void getData(javafx.event.ActionEvent a){
         getdataf.setOnMouseClicked(e->{
             try {
                 ResultSet rs2;
                 Connection con2 = StockWindowDbConnectionModel.getConnection();
+                assert con2 != null;
                 rs2 = con2.createStatement().executeQuery("Select * From stpfillets");
                 while(rs2.next())
                 {
@@ -110,13 +195,37 @@ public class StockWindow implements Initializable {
             } catch (SQLException ea) {
                 ea.printStackTrace();
             }
-            getdataf.setVisible(false);
+            getdataf.setVisible(true);
         });
 
     }
+    private void clearFields()
+    {
 
 
+        try {
+            oblist2.clear();
+            Connection con = StockWindowDbConnectionModel.getConnection();
+            String querry = "SELECT * from stpfillets";
+            assert con != null;
+            PreparedStatement ps = con.prepareStatement(querry);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                oblist2.add(new AddProductsTableModel(
+                        rs.getString("ID"),
+                        rs.getString("ProductName"),
+                        rs.getString("ScanCode")
 
+                ));
+                AddTable.setItems(oblist2);
+
+            }
+
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+    }
 
     public void handleExit() {
        exitApp.setOnMouseClicked(e->{
@@ -201,6 +310,7 @@ public class StockWindow implements Initializable {
             alert.setHeight(300);
             alert.setTitle("Information");
             alert.setContentText("Product Added");
+            afterAdd();
         } catch (SQLException e) {
             Alert alert2 = new Alert(Alert.AlertType.ERROR);
             alert2.setResizable(false);
