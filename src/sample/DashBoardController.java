@@ -8,6 +8,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.*;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -191,23 +193,21 @@ public class DashBoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UserDataBaseModel obj = new UserDataBaseModel();
 
+        exitApp.setOnMouseClicked(event -> {
 
+            Platform.exit();
+        });
 
         try {
-            obj.connectUsers();
-
-
-            if(obj.connectUsers() == null)
+            UserDataBaseModel.connectUsers();
+            if(UserDataBaseModel.connectUsers() == null)
             {
                 stat.setImage(new Image("https://image.ibb.co/d46z4U/database5.png"));
             }
             else
                 {
-
                     stat.setImage(new Image("https://image.ibb.co/e5Jhr9/database1.png"));
-
                 }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -222,16 +222,6 @@ public class DashBoardController implements Initializable {
 
     }
     }
-
-    public void handleExit() {
-        exitApp.setOnMouseClicked(e ->
-        {
-            System.exit(1);
-
-        });
-
-    }
-
     public boolean isLoggedAdmin;
 
 

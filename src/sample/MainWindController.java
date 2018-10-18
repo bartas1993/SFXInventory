@@ -1,15 +1,13 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,23 +32,26 @@ public class MainWindController implements Initializable {
     javafx.scene.image.ImageView addUser;
     @FXML
     javafx.scene.image.ImageView stockHub;
-
+    @FXML
+    ImageView seller;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
-
-
+        seller.setOnMouseClicked(e->{
+            AnchorPane pane;
+            try {
+                pane = FXMLLoader.load(getClass().getResource("FXSeller.fxml"));
+                anchpane.getChildren().addAll(pane);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
         exitApp.setOnMouseEntered(e->{
-
             exitApp.setScaleZ(1.1);
             exitApp.setScaleX(1.1);
             exitApp.setScaleY(1.1);
             exitApp.setRotate(3.2);
-
-
         });
         exitApp.setOnMouseExited(e->{
 
@@ -58,19 +59,13 @@ public class MainWindController implements Initializable {
             exitApp.setScaleX(1);
             exitApp.setScaleY(1);
             exitApp.setRotate(0);
-
         });
         exitApp.setOnMouseClicked(e->{
             settings.setRotate(3.2);
-            System.exit(0);
-
+            Platform.exit();
         });
-
-
         home.setOnMouseClicked(e->{
-
-
-            AnchorPane pane = null;
+            AnchorPane pane;
             try {
                 pane = FXMLLoader.load(getClass().getResource("Main.fxml"));
                 anchpane.getChildren().addAll(pane);
@@ -78,20 +73,14 @@ public class MainWindController implements Initializable {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
         });
         home.setOnMouseEntered(e->{
-
-
             home.setScaleY(1.1);
             home.setScaleX(1.1);
             home.setScaleZ(1.1);
             home.setRotate(3.2);
-
         });
         home.setOnMouseExited(e->{
-
-
             home.setScaleY(1);
             home.setScaleX(1);
             home.setScaleZ(1);
@@ -99,103 +88,75 @@ public class MainWindController implements Initializable {
 
         });
         startApp.setOnMouseClicked(e->{
-
-
-            AnchorPane pane = null;
+            AnchorPane pane;
             try {
                 pane = FXMLLoader.load(getClass().getResource("Inova.fxml"));
                 anchorpane.getChildren().addAll(pane);
-
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
         });
         stockLB.setOnMouseClicked(e->{
-
-
-            AnchorPane pane = null;
+            AnchorPane pane;
             try {
                 pane = FXMLLoader.load(getClass().getResource("DashBoard.fxml"));
                 anchpane.getChildren().addAll(pane);
-
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
         });
         startApp.setOnMouseEntered(e->{
-
         startApp.setScaleY(1.1);
         startApp.setScaleX(1.1);
         startApp.setScaleZ(1.1);
         startApp.setRotate(3.6);
-
-
-
         });
         startApp.setOnMouseExited(e->{
-
             startApp.setScaleY(1);
             startApp.setScaleX(1);
             startApp.setScaleZ(1);
             startApp.setRotate(0);
-
         });
         stockLB.setOnMouseEntered(e->{
-
             startApp.setScaleY(1.1);
             startApp.setScaleX(1.1);
             startApp.setScaleZ(1.1);
-
         });
         stockLB.setOnMouseExited(e->{
-
             startApp.setScaleY(1);
             startApp.setScaleX(1);
             startApp.setScaleZ(1);
-
         });
         settings.setOnMouseClicked(e->{
 
-            AnchorPane pane = null;
+            AnchorPane pane;
             try {
                 pane = FXMLLoader.load(getClass().getResource("DatabaseSettings.fxml"));
                 anchorpane.getChildren().addAll(pane);
-
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
         });
         settings.setOnMouseEntered(e->{
-
             settings.setScaleZ(1.1);
             settings.setScaleX(1.1);
             settings.setScaleY(1.1);
             settings.setRotate(2.2);
-
         });
         settings.setOnMouseExited(e->{
-
             settings.setScaleZ(1);
             settings.setScaleX(1);
             settings.setScaleY(1);
             settings.setRotate(0);
-
         });
         addUser.setOnMouseClicked(e->{
-
-
-            AnchorPane pane = null;
+            AnchorPane pane;
             try {
                 pane = FXMLLoader.load(getClass().getResource("RegisterUser.fxml"));
                 anchorpane.getChildren().addAll(pane);
-
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
         });
         addUser.setOnMouseEntered(e->{
             addUser.setScaleZ(1.1);
@@ -210,8 +171,7 @@ public class MainWindController implements Initializable {
             addUser.setRotate(0);
         });
         stockHub.setOnMouseClicked(e->{
-
-            Pane pane = null;
+            Pane pane;
             try {
                 pane = FXMLLoader.load(getClass().getResource("Stock.fxml"));
                 anchorpane.getChildren().addAll(pane);
@@ -219,7 +179,6 @@ public class MainWindController implements Initializable {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
         });
         stockHub.setOnMouseEntered(e->
         {
@@ -235,6 +194,5 @@ public class MainWindController implements Initializable {
             stockHub.setScaleY(1);
             stockHub.setRotate(0);
         });
-
     }
 }

@@ -571,27 +571,23 @@ public class ControllerSTPFillets implements Initializable {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void weightInputAction() {
         String out = WeightInput.getText();
-        WeightInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.ENTER) {
+        WeightInput.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
 
-                    weightPane.setStyle("-fx-background-color: #5ced4b;");
-                    weightPane.setStyle("-fx-border-color: black;");
-                    WeightOutput.setText(out);
-                    manual.setStyle("-fx-background-color: #5ced4b;");
-                    manual.setText("GOT WEIGHT");
-                    weightHelp.setText("WEIGHT ENTERED");
+                weightPane.setStyle("-fx-background-color: #5ced4b;");
+                weightPane.setStyle("-fx-border-color: black;");
+                WeightOutput.setText(out);
+                manual.setStyle("-fx-background-color: #5ced4b;");
+                manual.setText("GOT WEIGHT");
+                weightHelp.setText("WEIGHT ENTERED");
 
 
-                }
             }
         });
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void setLoc() throws ClassNotFoundException {
         Connection connecttt;
-        connecttt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
@@ -611,7 +607,7 @@ public class ControllerSTPFillets implements Initializable {
         }
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public void getLocLab(ActionEvent event) {
+    public void getLocLab() {
         String getFo = (String) locationn.getValue();
         flockLB.setText(getFo);
         Random barcodeGenOneF = new Random();

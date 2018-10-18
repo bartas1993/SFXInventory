@@ -10,8 +10,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -35,7 +33,6 @@ public class StockWindow implements Initializable {
     @FXML private ImageView back;
     @FXML private Button wipbtn;
     @FXML private Button getdataf;
-    @FXML private Button holdingbtn;
     @FXML private TextField addProductName;
     @FXML private TextField addScancode;
     @FXML private TextField addID;
@@ -43,23 +40,12 @@ public class StockWindow implements Initializable {
     @FXML private TableColumn <AddProductsTableModel,String> Col_ProductName;
     @FXML private TableColumn <AddProductsTableModel,String> Col_iD;
     @FXML private TableColumn <AddProductsTableModel,String> Col_ScanCode;
-    ObservableList <StockTableModel> obList = FXCollections.observableArrayList();
-    ObservableList <AddProductsTableModel> oblist2 = FXCollections.observableArrayList();
+    private ObservableList <StockTableModel> obList = FXCollections.observableArrayList();
+    private ObservableList <AddProductsTableModel> oblist2 = FXCollections.observableArrayList();
     @FXML private TextField prname;
     @FXML private TextField sc;
     @FXML private Button update;
     @FXML private Button allLocations;
-
-
-    public void handleWIpStock(ActionEvent ea)
-    {
-
-        wip.setOnMouseClicked(e->{
-
-            Table.setItems(obList);
-        });
-
-    }
 
 
     @Override
@@ -155,17 +141,25 @@ public class StockWindow implements Initializable {
         try {
             Connection con = StockWindowDbConnectionModel.getConnection();
             String querry = "SELECT * from stpfillets";
-            PreparedStatement ps = con.prepareStatement(querry);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                oblist2.add(new AddProductsTableModel(
-                        rs.getString("ID"),
-                        rs.getString("ProductName"),
-                        rs.getString("ScanCode")
+            PreparedStatement ps = null;
+            if (con != null) {
+                ps = con.prepareStatement(querry);
+            }
+            ResultSet rs = null;
+            if (ps != null) {
+                rs = ps.executeQuery();
+            }
+            if (rs != null) {
+                while(rs.next()){
+                    oblist2.add(new AddProductsTableModel(
+                            rs.getString("ID"),
+                            rs.getString("ProductName"),
+                            rs.getString("ScanCode")
 
-                ));
-                AddTable.setItems(oblist2);
+                    ));
+                    AddTable.setItems(oblist2);
 
+                }
             }
 
 
@@ -174,49 +168,44 @@ public class StockWindow implements Initializable {
         }
 
 
-       AddTable.setOnMouseClicked(e->{
+       AddTable.setOnMouseClicked(e-> AddTable.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) ->
+       {
+           if(newValue!=null){
 
-           AddTable.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) ->
-           {
+            prname.setText("Couldn't get data");
+               sc.setText("Couldn't get data");
+           }
 
-
-               if(newValue!=null){
-
-                prname.setText("Couldn't get data");
-                   sc.setText("Couldn't get data");
-               }
-
+           if (newValue != null) {
+               prname.setText(newValue.getProductName());
+           }
+           if (newValue != null) {
+               sc.setText(newValue.getScan());
+           }
+           update.setOnMouseClicked(a->{
+               Connection con = StockWindowDbConnectionModel.getConnection();
+           String querry="UPDATE stpfillets set ProductName='"+prname.getText()+"' where ProductName=?";
+           try {
+               assert con != null;
+               PreparedStatement pst = con.prepareStatement(querry);
                if (newValue != null) {
                    prname.setText(newValue.getProductName());
                }
-               if (newValue != null) {
-                   sc.setText(newValue.getScan());
-               }
-               update.setOnMouseClicked(a->{
-                   Connection con = StockWindowDbConnectionModel.getConnection();
-               String querry="UPDATE stpfillets set ProductName='"+prname.getText()+"' where ProductName=?";
-               try {
-                   assert con != null;
-                   PreparedStatement pst = con.prepareStatement(querry);
-                   if (newValue != null) {
-                       prname.setText(newValue.getProductName());
-                   }
-                   String getProduct = prname.getText();
-                   pst.setString(1,getProduct);
-                   pst.executeUpdate();
-                   clearFields();
-                   pst.close();
-                   System.out.println("SUCCESS!");
+               String getProduct = prname.getText();
+               pst.setString(1,getProduct);
+               pst.executeUpdate();
+               clearFields();
+               pst.close();
+               System.out.println("SUCCESS!");
 
 
-               } catch (SQLException e1) {
-                   e1.printStackTrace();
-               }
-           });
-
-
-           }));
+           } catch (SQLException e1) {
+               e1.printStackTrace();
+           }
        });
+
+
+       })));
 
 
         try
@@ -259,17 +248,25 @@ public class StockWindow implements Initializable {
             oblist2.clear();
             Connection con = StockWindowDbConnectionModel.getConnection();
             String querry = "SELECT * from stpfillets";
-            PreparedStatement ps = con.prepareStatement(querry);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                oblist2.add(new AddProductsTableModel(
-                        rs.getString("ID"),
-                        rs.getString("ProductName"),
-                        rs.getString("ScanCode")
+            PreparedStatement ps = null;
+            if (con != null) {
+                ps = con.prepareStatement(querry);
+            }
+            ResultSet rs = null;
+            if (ps != null) {
+                rs = ps.executeQuery();
+            }
+            if (rs != null) {
+                while(rs.next()){
+                    oblist2.add(new AddProductsTableModel(
+                            rs.getString("ID"),
+                            rs.getString("ProductName"),
+                            rs.getString("ScanCode")
 
-                ));
-                AddTable.setItems(oblist2);
+                    ));
+                    AddTable.setItems(oblist2);
 
+                }
             }
 
 
@@ -277,7 +274,7 @@ public class StockWindow implements Initializable {
             e1.printStackTrace();
         }
     }
-    public void getData(javafx.event.ActionEvent a){
+    public void getData(){
         getdataf.setOnMouseClicked(e->{
             try {
                 ResultSet rs2;
@@ -325,10 +322,7 @@ public class StockWindow implements Initializable {
     }
 
     public void handleExit() {
-       exitApp.setOnMouseClicked(e->{
-
-           System.exit(1);
-       });
+       exitApp.setOnMouseClicked(e-> System.exit(1));
 
     }
     public void handleBack() {
@@ -338,6 +332,7 @@ public class StockWindow implements Initializable {
                 AnchorPane pane = FXMLLoader.load(getClass().getResource("Inova.fxml"));
                 stpPane.getChildren().addAll(pane);
             } catch (IOException ab) {
+                ab.printStackTrace();
             }
 
         });
@@ -347,20 +342,30 @@ public class StockWindow implements Initializable {
 
 
 
-    public void addNewProduct(javafx.event.ActionEvent abc)  {
+    public void addNewProduct()  {
 
         String SQLCommand = "INSERT INTO stpfillets (ID,ProductName,ScanCode) VALUES (?,?,?)";
-        Connection con = null;
+        Connection con;
         con = StockWindowDbConnectionModel.getConnection();
         PreparedStatement prepare = null;
         try {
-            prepare = con.prepareStatement(SQLCommand);
-            prepare.setString(1,addID.getText());
-            prepare.setString(2,addProductName.getText());
-            prepare.setString(3,addScancode.getText());
+            if (con != null) {
+                prepare = con.prepareStatement(SQLCommand);
+            }
+            if (prepare != null) {
+                prepare.setString(1,addID.getText());
+            }
+            if (prepare != null) {
+                prepare.setString(2,addProductName.getText());
+            }
+            if (prepare != null) {
+                prepare.setString(3,addScancode.getText());
+            }
             recordTxt.appendText("ID: "+addID.getText() + "\n" +"Prodcut Name: "+ addProductName.getText() + "\n" +"Scan Code: "+ addScancode.getText() +"\n"
             + "Added \n \n");
-            prepare.executeUpdate();
+            if (prepare != null) {
+                prepare.executeUpdate();
+            }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setResizable(false);
             alert.setWidth(400);
