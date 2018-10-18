@@ -42,10 +42,20 @@ public class MainWindController implements Initializable {
             AnchorPane pane;
             try {
                 pane = FXMLLoader.load(getClass().getResource("FXSeller.fxml"));
-                anchpane.getChildren().addAll(pane);
+                anchorpane.getChildren().addAll(pane);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+        });
+        seller.setOnMouseEntered(e->{
+            seller.setScaleZ(1.1);
+            seller.setScaleY(1.1);
+            seller.setScaleZ(1.1);
+        });
+        seller.setOnMouseExited(e->{
+            seller.setScaleZ(1);
+            seller.setScaleY(1);
+            seller.setScaleZ(1);
         });
         exitApp.setOnMouseEntered(e->{
             exitApp.setScaleZ(1.1);
