@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane fx:id="anchpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainWindController">
+   <children>
+      <Pane prefHeight="600.0" prefWidth="103.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="696.6666666666666" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="home" fitHeight="68.0" fitWidth="75.0" layoutX="19.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/home.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <AnchorPane fx:id="anchorpane" layoutX="103.0" layoutY="1.0" prefHeight="600.0" prefWidth="697.0" style="-fx-background-color: white;">
+               <children>
+                  <Pane fx:id="pane1" layoutY="-7.0" prefHeight="607.0" prefWidth="697.0" style="-fx-background-color: #7fd6ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-7.0">
+                     <children>
+                        <ImageView fx:id="startApp" fitHeight="77.0" fitWidth="89.0" layoutX="45.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Resources/enterapp.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label fx:id="stockLB" layoutX="45.0" layoutY="91.0" prefHeight="17.0" prefWidth="147.0" text="Departments" textFill="#0c00ff">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <ImageView fx:id="stockHub" fitHeight="77.0" fitWidth="68.0" layoutX="50.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Resources/electronic-circular-printed-circuit.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label layoutX="46.0" layoutY="229.0" text="Manage Stock">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+            <ImageView fx:id="exitApp" fitHeight="32.0" fitWidth="43.0" layoutX="6.0" layoutY="556.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/icon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <Separator layoutX="83.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="43.0" visible="false" />
+            <ImageView fx:id="settings" fitHeight="32.0" fitWidth="32.0" layoutX="37.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/tools-cross-settings-symbol-for-interface.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="addUser" fitHeight="32.0" fitWidth="32.0" layoutX="37.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/addproducts.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
