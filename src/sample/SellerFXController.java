@@ -1,14 +1,19 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class SellerFXController implements Initializable {
+
     @FXML
     TextField prize;
     @FXML
@@ -21,11 +26,33 @@ public class SellerFXController implements Initializable {
     TextArea formulas;
     @FXML
     Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0,btnClear,sell;
+    @FXML
+    private ComboBox comboDelivery;
+    ObservableList<String> deliveryOptions = FXCollections.observableArrayList(
+         "Home","In Shop"
+    );
+    @FXML
+    private ComboBox comboProduct;
+    ObservableList<String> productOptions = FXCollections.observableArrayList(
+            "No products yet"
+    );
+    public void getProductData()
+    {
+        try {
+            Connection con = UserDataBaseModel.connectUsers();
 
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    sell.setOnMouseClicked(e->
+    comboDelivery.setItems(deliveryOptions);
+    comboProduct.setItems(productOptions);
+
+
+        sell.setOnMouseClicked(e->
     {
         try{
         Double prizess = Double.parseDouble(prize.getText());
@@ -118,5 +145,6 @@ public class SellerFXController implements Initializable {
             btnClear.setOnMouseClicked(a->
                     quantity.setText(""));
         });
+    ;
     }
 }

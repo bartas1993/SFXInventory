@@ -8,7 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,14 +19,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -108,21 +104,21 @@ public class ControllerSTPFillets implements Initializable {
     private Button Record;
     @FXML
     ImageView recordDetails;
-    @FXML
+    /*@FXML
     private Label savedRecord;
     @FXML private ImageView exitApp;
-    @FXML private ImageView back;
+    @FXML private ImageView back;*/
     @FXML private ImageView database;
     @FXML private TextArea operationField;
-    @FXML private Button save;
-    @FXML private Button clear;
+   /* @FXML private Button save;
+    @FXML private Button clear; */
 
     String im1 = "https://image.ibb.co/e5Jhr9/database1.png";
     String im2 = "https://image.ibb.co/fNbP4U/database2.png";
     String im3 = "https://image.ibb.co/fNbP4U/database3.png";
     String im4 = "https://image.ibb.co/fNbP4U/database4.png";
-    FileChooser choose = new FileChooser();
-    private Desktop desk = Desktop.getDesktop();
+    /*FileChooser choose = new FileChooser();
+    private Desktop desk = Desktop.getDesktop();*/
 
     public void exitSTP() {
         exit.setOnMouseClicked(this::handle);

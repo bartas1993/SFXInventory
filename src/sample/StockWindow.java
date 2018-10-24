@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -27,7 +28,7 @@ public class StockWindow implements Initializable {
     @FXML private TableColumn <StockTableModel,String> Col_Use;
     @FXML private TableColumn <StockTableModel,String> Col_Amount;
     @FXML private TableColumn <StockTableModel,String> Col_ID;
-    @FXML private Button wip;
+    @FXML private Button wip,pushbtn;
     @FXML private Pane stpPane;
     @FXML private ImageView exitApp;
     @FXML private ImageView back;
@@ -207,6 +208,44 @@ public class StockWindow implements Initializable {
 
        })));
 
+        Table.setOnMouseClicked(e-> {
+            Table.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) ->
+            {
+                if (newValue != null) {
+                    pushbtn.setOnMouseClicked(a -> {
+                        Connection con = StockWindowDbConnectionModel.getConnection();
+                        try {
+                            Alert alerto = new Alert(Alert.AlertType.WARNING);
+                            alerto.setTitle("Would you like to push product for sale?");
+                            ButtonType Yes = new ButtonType("YES");
+                            ButtonType No = new ButtonType("NO");
+                            ButtonType Cancel = new ButtonType("CANCEL");
+                            alerto.getButtonTypes().addAll(Yes,No);
+                            Optional<ButtonType>result = alerto.showAndWait();
+                            if(result.get()==Yes){
+                                String querry = "INSERT INTO ";
+                            PreparedStatement ps = con.prepareStatement(querry);
+                            ps.setString(1,"ProductName");
+                            ps.setString(2,"ScanCode");
+                            ps.execute();
+
+                            }
+                            if(result.get()==No){
+
+                            }
+                            if(result.get()==Cancel){
+                            alerto.close();
+                            }
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                    });
+
+                }
+
+
+            }));
+        });
 
         try
         {
