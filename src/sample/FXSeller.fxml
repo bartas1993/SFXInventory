@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,12 +16,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="697.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SellerFXController">
    <children>
       <Pane layoutX="-4.0" layoutY="-6.0" prefHeight="615.0" prefWidth="703.0" style="-fx-background-color: #7fd6ff;">
          <children>
-            <GridPane gridLinesVisible="true" layoutX="87.0" layoutY="299.0" prefHeight="219.0" prefWidth="551.0" style="-fx-border-color: black; -fx-border-width: 2;">
+            <GridPane layoutX="14.0" layoutY="373.0" prefHeight="104.0" prefWidth="385.0" style="-fx-border-width: 2;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -26,11 +33,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Button fx:id="btn1" mnemonicParsing="false" prefHeight="73.0" prefWidth="203.0" text="1" />
                   <Button fx:id="btn2" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="2" GridPane.columnIndex="1" />
-                  <Button fx:id="btn3" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="3" GridPane.columnIndex="2" />
+                  <Button fx:id="btn3" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="3" GridPane.columnIndex="2">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button fx:id="btn4" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="4" GridPane.rowIndex="1" />
                   <Button fx:id="btn5" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Button fx:id="btn6" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -38,20 +49,48 @@
                   <Button fx:id="btn8" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="8" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Button fx:id="btn9" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="9" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Button fx:id="btn0" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Button fx:id="sell" defaultButton="true" mnemonicParsing="false" prefHeight="67.0" prefWidth="213.0" text="SELL" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Button fx:id="btnClear" defaultButton="true" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="CLEAR" GridPane.rowIndex="3" />
+                  <Button fx:id="btnClear" defaultButton="true" mnemonicParsing="false" prefHeight="142.0" prefWidth="189.0" text="CLEAR" GridPane.rowIndex="4" />
+                  <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="183.0" text="." GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="157.0" GridPane.rowIndex="3" />
+                  <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="157.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Button fx:id="sell" defaultButton="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="385.0" style="-fx-background-color: green;" text="SELL" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                </children>
             </GridPane>
-            <TextArea fx:id="formulas" editable="false" layoutX="87.0" layoutY="27.0" prefHeight="155.0" prefWidth="551.0" style="-fx-background-color: black;" />
-            <ComboBox fx:id="comboProduct" layoutX="87.0" layoutY="200.0" prefWidth="150.0" promptText="Product" />
-            <TextField fx:id="prize" layoutX="253.0" layoutY="200.0" prefHeight="25.0" prefWidth="69.0" promptText="Prize" />
-            <TextField fx:id="quantity" layoutX="450.0" layoutY="200.0" prefHeight="25.0" prefWidth="69.0" promptText="Quantity" />
-            <TextField fx:id="discount" layoutX="352.0" layoutY="200.0" prefHeight="25.0" prefWidth="69.0" promptText="Discount" />
-            <TextField fx:id="total" editable="false" layoutX="568.0" layoutY="200.0" opacity="0.76" prefHeight="25.0" prefWidth="69.0" promptText="Total" />
-            <Label layoutX="333.0" layoutY="204.0" text="+" />
-            <Label layoutX="431.0" layoutY="204.0" text="x" />
-            <Label layoutX="542.0" layoutY="204.0" text="=" />
-            <ComboBox fx:id="comboDelivery" layoutX="87.0" layoutY="234.0" prefWidth="150.0" promptText="Delivery" />
+            <TextArea fx:id="formulas" editable="false" layoutX="438.0" layoutY="31.0" prefHeight="567.0" prefWidth="253.0" promptText="Reciept" style="-fx-background-color: white;" />
+            <TextField fx:id="prize" layoutX="215.0" layoutY="120.0" prefHeight="33.0" prefWidth="51.0" promptText="£$" />
+            <TextField fx:id="quantity" layoutX="284.0" layoutY="120.0" prefHeight="33.0" prefWidth="51.0" promptText="QTY" />
+            <TextField fx:id="discount" layoutX="352.0" layoutY="120.0" prefHeight="33.0" prefWidth="51.0" promptText="DISC" />
+            <ComboBox fx:id="comboProduct" layoutX="14.0" layoutY="120.0" prefHeight="33.0" prefWidth="184.0" promptText="Product Name" />
+            <ComboBox fx:id="comboDelivery" layoutX="14.0" layoutY="134.0" prefHeight="33.0" prefWidth="184.0" promptText="Delivery" visible="false" />
+            <ComboBox fx:id="custommerBox" layoutX="14.0" layoutY="76.0" prefHeight="33.0" prefWidth="184.0" promptText="Customer" />
+            <CheckBox layoutX="215.0" layoutY="32.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="120.0" selected="true" text="Existing Customer" />
+            <TextField fx:id="total" editable="false" layoutX="8.0" layoutY="532.0" prefHeight="66.0" prefWidth="385.0" promptText="Total">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </TextField>
+            <ComboBox layoutX="14.0" layoutY="32.0" prefHeight="33.0" prefWidth="184.0" promptText="Customer Service" />
+            <CheckBox layoutX="339.0" layoutY="32.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="77.0" selected="true" text="Delivery" />
+            <DatePicker layoutX="14.0" layoutY="167.0" prefHeight="33.0" prefWidth="184.0" promptText="Delivery Date" />
+            <Label layoutX="17.0" layoutY="258.0" text="Payment Methods:" />
+            <CheckBox layoutX="14.0" layoutY="302.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="90.0" text="Debit Card" />
+            <CheckBox layoutX="14.0" layoutY="321.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="90.0" text="Credit Card" />
+            <CheckBox layoutX="14.0" layoutY="283.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="58.0" text="Cash" />
+            <CheckBox layoutX="14.0" layoutY="340.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="90.0" text="Store Credit" />
+            <ComboBox layoutX="14.0" layoutY="213.0" prefHeight="33.0" prefWidth="184.0" promptText="Payment Plan" />
+            <Button defaultButton="true" layoutX="215.0" layoutY="76.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="184.0" text="Add New Customer" />
+            <ScrollPane layoutX="199.0" layoutY="213.0" prefHeight="147.0" prefWidth="201.0">
+               <content>
+                  <TableView prefHeight="200.0" prefWidth="229.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Product" />
+                      <TableColumn prefWidth="75.0" text="QTY" />
+                        <TableColumn prefWidth="75.0" text="£" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <Button defaultButton="true" layoutX="266.0" layoutY="167.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Add Product" />
          </children></Pane>
    </children>
 </AnchorPane>

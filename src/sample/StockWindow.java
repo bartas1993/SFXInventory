@@ -141,7 +141,7 @@ public class StockWindow implements Initializable {
 
         try {
             Connection con = StockWindowDbConnectionModel.getConnection();
-            String querry = "SELECT * from stpfillets";
+            String querry = "SELECT * from STPFillets";
             PreparedStatement ps = null;
             if (con != null) {
                 ps = con.prepareStatement(querry);
@@ -154,7 +154,7 @@ public class StockWindow implements Initializable {
                 while(rs.next()){
                     oblist2.add(new AddProductsTableModel(
                             rs.getString("ID"),
-                            rs.getString("ProductName"),
+                            rs.getString("Name"),
                             rs.getString("ScanCode")
 
                     ));
@@ -185,7 +185,7 @@ public class StockWindow implements Initializable {
            }
            update.setOnMouseClicked(a->{
                Connection con = StockWindowDbConnectionModel.getConnection();
-           String querry="UPDATE stpfillets set ProductName='"+prname.getText()+"' where ProductName=?";
+           String querry="UPDATE STPFillets set Name='"+prname.getText()+"' where Name=?";
            try {
                assert con != null;
                PreparedStatement pst = con.prepareStatement(querry);
@@ -208,44 +208,47 @@ public class StockWindow implements Initializable {
 
        })));
 
-        Table.setOnMouseClicked(e-> {
-            Table.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) ->
-            {
-                if (newValue != null) {
-                    pushbtn.setOnMouseClicked(a -> {
-                        Connection con = StockWindowDbConnectionModel.getConnection();
-                        try {
-                            Alert alerto = new Alert(Alert.AlertType.WARNING);
-                            alerto.setTitle("Would you like to push product for sale?");
-                            ButtonType Yes = new ButtonType("YES");
-                            ButtonType No = new ButtonType("NO");
-                            ButtonType Cancel = new ButtonType("CANCEL");
-                            alerto.getButtonTypes().addAll(Yes,No);
-                            Optional<ButtonType>result = alerto.showAndWait();
-                            if(result.get()==Yes){
-                                String querry = "INSERT INTO ";
-                            PreparedStatement ps = con.prepareStatement(querry);
-                            ps.setString(1,"ProductName");
-                            ps.setString(2,"ScanCode");
-                            ps.execute();
-
-                            }
-                            if(result.get()==No){
-
-                            }
-                            if(result.get()==Cancel){
-                            alerto.close();
-                            }
-                        } catch (SQLException e1) {
-                            e1.printStackTrace();
+        Table.setOnMouseClicked(e-> Table.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) ->
+        {
+            if (newValue != null) {
+                pushbtn.setOnMouseClicked(a -> {
+                    Connection con = StockWindowDbConnectionModel.getConnection();
+                    try {
+                        Alert alerto = new Alert(Alert.AlertType.INFORMATION);
+                        alerto.setTitle("Take Action");
+                        alerto.setHeaderText("User Approval Required");
+                        alerto.setContentText("Would you like to push the product to sale?");
+                        ButtonType Yes = new ButtonType("YES");
+                        ButtonType No = new ButtonType("NO");
+                        alerto.getButtonTypes().addAll(Yes,No);
+                        Optional<ButtonType>result = alerto.showAndWait();
+                        if(result.get()==Yes){
+                            String querry = "INSERT INTO Products(ProductName,ScanCode) values(?,?) ";
+                        PreparedStatement ps = con.prepareStatement(querry);
+                        ps.setString(1,newValue.getProduct());
+                        ps.setString(2,newValue.getID());
+                        ps.execute();
+                        Alert alerto1  = new Alert(Alert.AlertType.INFORMATION);
+                        alerto1.setTitle("Success !!");
+                        alerto1.setContentText("Succesfull Operation!" + "\n"+ newValue.getProduct() +
+                         " added to retailer");
+                        alerto1.showAndWait();
+                        ps.close();
                         }
-                    });
+                        if(result.get()==No){
 
-                }
+                           alerto.close();
+                        }
+
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                });
+
+            }
 
 
-            }));
-        });
+        })));
 
         try
         {
@@ -286,7 +289,7 @@ public class StockWindow implements Initializable {
         try {
             oblist2.clear();
             Connection con = StockWindowDbConnectionModel.getConnection();
-            String querry = "SELECT * from stpfillets";
+            String querry = "SELECT * from STPFillets";
             PreparedStatement ps = null;
             if (con != null) {
                 ps = con.prepareStatement(querry);
@@ -299,7 +302,7 @@ public class StockWindow implements Initializable {
                 while(rs.next()){
                     oblist2.add(new AddProductsTableModel(
                             rs.getString("ID"),
-                            rs.getString("ProductName"),
+                            rs.getString("Name"),
                             rs.getString("ScanCode")
 
                     ));
@@ -339,14 +342,14 @@ public class StockWindow implements Initializable {
         try {
             oblist2.clear();
             Connection con = StockWindowDbConnectionModel.getConnection();
-            String querry = "SELECT * from stpfillets";
+            String querry = "SELECT * from STPFillets";
             assert con != null;
             PreparedStatement ps = con.prepareStatement(querry);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 oblist2.add(new AddProductsTableModel(
                         rs.getString("ID"),
-                        rs.getString("ProductName"),
+                        rs.getString("Name"),
                         rs.getString("ScanCode")
 
                 ));
@@ -383,7 +386,7 @@ public class StockWindow implements Initializable {
 
     public void addNewProduct()  {
 
-        String SQLCommand = "INSERT INTO stpfillets (ID,ProductName,ScanCode) VALUES (?,?,?)";
+        String SQLCommand = "INSERT INTO STPFillets (ID,Name,ScanCode) VALUES (?,?,?)";
         Connection con;
         con = StockWindowDbConnectionModel.getConnection();
         PreparedStatement prepare = null;

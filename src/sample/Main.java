@@ -11,7 +11,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage UI) throws IOException {
+        System.setProperty( "javafx.userAgentStylesheetUrl", "CASPIAN" );
         Parent root = FXMLLoader.load(getClass().getResource("DashBoard.fxml"));
+        root.setStyle(STYLESHEET_CASPIAN);
         UI.setTitle("STOCKFX DEMO TEST (VER 1.2)");
         UI.setScene(new Scene(root, 800, 600));
         UI.initStyle(StageStyle.UNDECORATED);

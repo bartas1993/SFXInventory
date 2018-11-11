@@ -74,7 +74,7 @@
                         <Font size="18.0" />
                      </font>
                   </CheckBox>
-                  <Button fx:id="Record" layoutY="211.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="292.0" text="SCAN">
+                  <Button fx:id="Record" layoutY="211.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="292.0" text="Send">
                      <font>
                         <Font size="39.0" />
                      </font>
@@ -84,7 +84,7 @@
                   </Button>
                   <Pane fx:id="panePrevLab" layoutX="4.0" layoutY="40.0" prefHeight="100.0" prefWidth="292.0" style="-fx-border-color: black; -fx-border-width: 2;">
                      <children>
-                        <Label layoutX="9.0" layoutY="3.0" text="D.O.K:" />
+                        <Label layoutX="9.0" layoutY="3.0" text="DOM" />
                         <Label layoutX="124.0" layoutY="2.0" text="BATCH:" />
                         <Label layoutX="125.0" layoutY="21.0" text="FLOCK CODE:" />
                         <Label fx:id="name" alignment="CENTER" layoutX="8.0" layoutY="62.0" prefHeight="17.0" prefWidth="199.0" style="-fx-border-color: black; -fx-border-width: 0.7;">
@@ -102,13 +102,13 @@
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <Label layoutX="126.0" layoutY="41.0" text="USE BY:" />
+                        <Label layoutX="126.0" layoutY="41.0" text="USE BY:" visible="false" />
                         <Label fx:id="useDate" layoutX="171.0" layoutY="44.0" prefHeight="12.0" prefWidth="46.0">
                            <font>
                               <Font size="8.0" />
                            </font>
                         </Label>
-                        <Label layoutX="9.0" layoutY="21.0" prefHeight="17.0" prefWidth="27.0" text="CUT:" />
+                        <Label layoutX="9.0" layoutY="21.0" prefHeight="17.0" prefWidth="27.0" text="CUT:" visible="false" />
                         <Label fx:id="flockLB" layoutX="199.0" layoutY="24.0" prefHeight="12.0" prefWidth="85.0">
                            <font>
                               <Font size="8.0" />
@@ -171,11 +171,11 @@
                      <font>
                         <Font size="8.0" />
                      </font></Label>
-                  <Label layoutX="200.0" layoutY="13.0" text="FLOCK/GROUP NO">
+                  <Label layoutX="200.0" layoutY="13.0" text="FLOCK/GROUP NO" visible="false">
                      <font>
                         <Font size="8.0" />
                      </font></Label>
-                  <ComboBox fx:id="flockCode" editable="true" layoutX="275.0" layoutY="7.0" onAction="#getFC" onKeyPressed="#getFC" prefHeight="25.0" prefWidth="125.0" />
+                  <ComboBox fx:id="flockCode" editable="true" layoutX="275.0" layoutY="7.0" onAction="#getFC" onKeyPressed="#getFC" prefHeight="25.0" prefWidth="125.0" visible="false" />
                </children></Pane>
             <Pane prefHeight="16.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -191,20 +191,20 @@
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
                <children>
-                  <DatePicker fx:id="kill" editable="false" onAction="#setKillDate" prefHeight="25.0" prefWidth="193.0" promptText="KILL DATE" showWeekNumbers="true" />
-                  <DatePicker fx:id="pack" editable="false" layoutX="200.0" onAction="#setPackDate" prefHeight="25.0" prefWidth="199.0" promptText="PACK DATE" />
+                  <DatePicker fx:id="kill" editable="false" onAction="#setKillDate" prefHeight="25.0" prefWidth="193.0" promptText="Date of Make" showWeekNumbers="true" />
+                  <DatePicker fx:id="pack" editable="false" layoutX="200.0" onAction="#setPackDate" prefHeight="25.0" prefWidth="199.0" promptText="Date of pack" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="7">
                <children>
-                  <DatePicker fx:id="cut" editable="false" layoutY="5.0" onAction="#setCutDate" prefHeight="25.0" prefWidth="193.0" promptText="CUT DATE" />
-                  <DatePicker fx:id="useby" editable="false" layoutX="200.0" layoutY="5.0" onAction="#setUseDate" prefHeight="25.0" prefWidth="199.0" promptText="USE BY" />
+                  <DatePicker fx:id="cut" editable="false" layoutY="5.0" onAction="#setCutDate" prefHeight="25.0" prefWidth="193.0" promptText="Material Delivery" />
+                  <DatePicker fx:id="useby" editable="false" layoutX="200.0" layoutY="5.0" onAction="#setUseDate" prefHeight="25.0" prefWidth="199.0" promptText="Shelf Life" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="update" centerShape="false" defaultButton="true" focusTraversable="false" layoutX="125.0" mnemonicParsing="false" onAction="#updateBTN" prefHeight="25.0" prefWidth="150.0" scaleShape="false" text="Reload your Database">
+                  <Button fx:id="update" centerShape="false" defaultButton="true" focusTraversable="false" layoutX="125.0" mnemonicParsing="false" onAction="#updateBTN" prefHeight="25.0" prefWidth="150.0" scaleShape="false" text="Reload">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

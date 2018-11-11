@@ -160,7 +160,7 @@ public class ControllerSTPFillets implements Initializable {
                     }
                 }
                 Connection conHold = null;
-                if(locationn.getValue().equals("LOCATION 2")) {
+                if(locationn.getValue().equals("WAREHOUSE2")) {
 
                     try {
                         database.setImage(new Image(im2));
@@ -196,14 +196,11 @@ public class ControllerSTPFillets implements Initializable {
                     } catch (ClassNotFoundException | SQLException e1) {
                         e1.printStackTrace();
                     }
-                    finally {
 
-
-                    }
 
                 }
                 Connection conWIP = null;
-                if(locationn.getValue().equals("LOCATION")){
+                if(locationn.getValue().equals("WAREHOUSE")){
 
                     try {
                         database.setImage(new Image(im2));
@@ -286,16 +283,19 @@ public class ControllerSTPFillets implements Initializable {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
+            connect = StockWindowDbConnectionModel.getConnection();
 
-            String s = "SELECT ProductName FROM stpfillets";
-            PreparedStatement pst = connect.prepareStatement(s);
+            String s = "SELECT Name FROM STPFillets";
+            PreparedStatement pst = null;
+            if (connect != null) {
+                pst = connect.prepareStatement(s);
+            }
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
 
 
 
-                productList.add(rs.getString("ProductName"));
+                productList.add(rs.getString("Name"));
 
 
 
@@ -315,7 +315,7 @@ public class ControllerSTPFillets implements Initializable {
         Connection connectt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
+            connectt = StockWindowDbConnectionModel.getConnection();
 
             String s = "SELECT FlockCode FROM FlockCodes";
             PreparedStatement pstt = connectt.prepareStatement(s);
@@ -338,7 +338,7 @@ public class ControllerSTPFillets implements Initializable {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
+            connecttt = StockWindowDbConnectionModel.getConnection();
 
             String s = "SELECT * FROM BatchCodes";
             PreparedStatement psttt = connecttt.prepareStatement(s);
@@ -359,7 +359,7 @@ public class ControllerSTPFillets implements Initializable {
         connectttt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connectttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
+            connectttt = StockWindowDbConnectionModel.getConnection();
             String s = "SELECT * FROM Locations";
             PreparedStatement psttttt = connecttt.prepareStatement(s);
             ResultSet rsssss = psttttt.executeQuery();
@@ -407,7 +407,7 @@ public class ControllerSTPFillets implements Initializable {
         Connection connect = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
+            connect = StockWindowDbConnectionModel.getConnection();
 
             String s = "SELECT ProductName,ScanCode FROM stpfillets";
             PreparedStatement pst = connect.prepareStatement(s);
@@ -453,10 +453,13 @@ public class ControllerSTPFillets implements Initializable {
         Connection connectt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
+            connectt = StockWindowDbConnectionModel.getConnection();
 
             String s = "SELECT FlockCode FROM FlockCodes";
-            PreparedStatement pstt = connectt.prepareStatement(s);
+            PreparedStatement pstt = null;
+            if (connectt != null) {
+                pstt = connectt.prepareStatement(s);
+            }
             ResultSet rss = pstt.executeQuery();
             while (rss.next()) {
                 System.out.println("Fetching Column Label element:FlockCode from FlockCodes Database");
@@ -488,11 +491,17 @@ public class ControllerSTPFillets implements Initializable {
         connecttt = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
+            connecttt = StockWindowDbConnectionModel.getConnection();
 
             String s = "SELECT * FROM BatchCodes";
-            PreparedStatement psttt = connecttt.prepareStatement(s);
-            ResultSet rsss = psttt.executeQuery();
+            PreparedStatement psttt = null;
+            if (connecttt != null) {
+                psttt = connecttt.prepareStatement(s);
+            }
+            ResultSet rsss = null;
+            if (psttt != null) {
+                rsss = psttt.executeQuery();
+            }
             while (rsss.next()) {
                 batchList.removeAll(rsss.getString("BatchID").toUpperCase());
                 System.out.println("Fetching Column Label element:Batch from BatchCodes Database");
@@ -586,11 +595,17 @@ public class ControllerSTPFillets implements Initializable {
         Connection connecttt;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connecttt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=true","bartoszkepke09","bartoszkepke00099912");
+            connecttt = StockWindowDbConnectionModel.getConnection();
 
             String s = "SELECT * FROM Locations";
-            PreparedStatement pstttt = connecttt.prepareStatement(s);
-            ResultSet rssss = pstttt.executeQuery();
+            PreparedStatement pstttt = null;
+            if (connecttt != null) {
+                pstttt = connecttt.prepareStatement(s);
+            }
+            ResultSet rssss = null;
+            if (pstttt != null) {
+                rssss = pstttt.executeQuery();
+            }
             while (rssss.next()) {
                 locationList.add(rssss.getString("LocationName").toUpperCase());
                 System.out.println("Fetching Column Label element:LocationName from BatchCodes Database");

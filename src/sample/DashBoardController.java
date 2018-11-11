@@ -116,9 +116,7 @@ public class DashBoardController implements Initializable {
             Desktop desktop = Desktop.getDesktop();
             try {
                 desktop.browse(new URI("https://www.facebook.com/bepositiv3"));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (URISyntaxException e1) {
+            } catch (IOException | URISyntaxException e1) {
                 e1.printStackTrace();
             }
         });
@@ -199,28 +197,15 @@ public class DashBoardController implements Initializable {
             Platform.exit();
         });
 
-        try {
-            UserDataBaseModel.connectUsers();
-            if(UserDataBaseModel.connectUsers() == null)
+        StockWindowDbConnectionModel.getConnection();
+        if(StockWindowDbConnectionModel.getConnection() == null)
+        {
+            stat.setImage(new Image("https://image.ibb.co/d46z4U/database5.png"));
+        }
+        else
             {
-                stat.setImage(new Image("https://image.ibb.co/d46z4U/database5.png"));
+                stat.setImage(new Image("https://image.ibb.co/e5Jhr9/database1.png"));
             }
-            else
-                {
-                    stat.setImage(new Image("https://image.ibb.co/e5Jhr9/database1.png"));
-                }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("User Information");
-            alert.setHeight(200);
-            alert.setWidth(400);
-            alert.setHeaderText("Can't connect to server ");
-            alert.setContentText(String.valueOf(e));
-            alert.showAndWait();
-            e.printStackTrace();
-
-    }
     }
     public boolean isLoggedAdmin;
 
@@ -233,65 +218,71 @@ public class DashBoardController implements Initializable {
                 String username = user.getText();
                 String password = pass.getText();
                 String id = user.getText();
-                Connection getData = UserDataBaseModel.connectUsers();
-                Statement st = getData.createStatement();
-                ResultSet rs = st.executeQuery("SELECT * FROM Users where UserID='"+username+"' OR Username='"+username+"' AND Password='"+password+"'");
-                if (rs.next())
-                {
-                    try {
-                        isLoggedAdmin = true;
-                        user.setStyle("-fx-background-color: #69ff59;");
-                        pass.setStyle("-fx-background-color: #69ff59;");
-                       /* String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 3.mp3";
+                Connection getData = StockWindowDbConnectionModel.getConnection();
+                Statement st = null;
+                if (getData != null) {
+                    st = getData.createStatement();
+                }
+                ResultSet rs = null;
+                if (st != null) {
+                    rs = st.executeQuery("SELECT * FROM Users where Username='"+username+"' AND Password='"+password+"'");
+                }
+                if (rs != null) {
+                    if (rs.next())
+                    {
+                        try {
+                            isLoggedAdmin = true;
+                            user.setStyle("-fx-background-color: #69ff59;");
+                            pass.setStyle("-fx-background-color: #69ff59;");
+                           /* String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 3.mp3";
+                            Media sound = new Media(new File(musicFile).toURI().toString());
+                            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                            mediaPlayer.play();*/
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("WELCOME " + username.toUpperCase() + " !");
+                            alert.setHeight(100);
+                            alert.setWidth(200);
+                            alert.setContentText("You gained access to the Stock");
+                            alert.showAndWait();
+                            AnchorPane pane = FXMLLoader.load(getClass().getResource("Main.fxml"));
+                            stpPane.getChildren().addAll(pane);
+                           /* String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
+                            Media sound1 = new Media(new File(musicFile1).toURI().toString());
+                            mediaPlayer = new MediaPlayer(sound1);
+                            mediaPlayer.play();*/
+
+
+                        } catch (IOException ab) {
+                            ab.printStackTrace();
+                        }
+                    }
+                    else
+                    {
+                        isLoggedAdmin = false;
+                        user.setText("");
+                        user.setStyle("-fx-background-color: RED;");
+                        pass.setText("");
+                        pass.setStyle("-fx-background-color: RED;");
+                        /*String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
                         Media sound = new Media(new File(musicFile).toURI().toString());
                         MediaPlayer mediaPlayer = new MediaPlayer(sound);
                         mediaPlayer.play();*/
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("WELCOME " + username.toUpperCase() + " !");
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("USER!");
                         alert.setHeight(100);
                         alert.setWidth(200);
-                        alert.setContentText("You gained access to the Stock");
+                        alert.setContentText("Check if your Username and Password are correct");
                         alert.showAndWait();
-                        AnchorPane pane = FXMLLoader.load(getClass().getResource("Main.fxml"));
-                        stpPane.getChildren().addAll(pane);
-                       /* String musicFile1 = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 2.mp3";
-                        Media sound1 = new Media(new File(musicFile1).toURI().toString());
-                        mediaPlayer = new MediaPlayer(sound1);
-                        mediaPlayer.play();*/
+                        user.setText("");
+                        user.setStyle("-fx-background-color: CYAN;");
+                        pass.setText("");
+                        pass.setStyle("-fx-background-color: CYAN;");
 
 
-                    } catch (IOException ab) {
-                        ab.printStackTrace();
                     }
                 }
-                else
-                {
-                    isLoggedAdmin = false;
-                    user.setText("");
-                    user.setStyle("-fx-background-color: RED;");
-                    pass.setText("");
-                    pass.setStyle("-fx-background-color: RED;");
-                    /*String musicFile = "C:\\Users\\barte\\OneDrive\\Desktop\\myINOVA\\src\\Resources\\UI 6.mp3";
-                    Media sound = new Media(new File(musicFile).toURI().toString());
-                    MediaPlayer mediaPlayer = new MediaPlayer(sound);
-                    mediaPlayer.play();*/
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("USER!");
-                    alert.setHeight(100);
-                    alert.setWidth(200);
-                    alert.setContentText("Check if your Username and Password are correct");
-                    alert.showAndWait();
-                    user.setText("");
-                    user.setStyle("-fx-background-color: CYAN;");
-                    pass.setText("");
-                    pass.setStyle("-fx-background-color: CYAN;");
 
-
-                }
-
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+            }  catch (SQLException e) {
                 e.printStackTrace();
             }
 
@@ -320,7 +311,7 @@ public class DashBoardController implements Initializable {
         int ID = rd.nextInt(999999999);
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connectt = DriverManager.getConnection("jdbc:mysql://stockcontrolldb.cv19wxrr0zdu.us-east-2.rds.amazonaws.com/inventorycontrollfx?verifyServerCertificate=false&useSSL=false&requireSSL=false","bartoszkepke09","bartoszkepke00099912");
+            connectt = StockWindowDbConnectionModel.getConnection();
             String s = "INSERT INTO Users VALUES (?,?,?,?) ";
             PreparedStatement register = connectt.prepareStatement(s);
             register.setString(1,username);

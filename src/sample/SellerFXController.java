@@ -1,15 +1,20 @@
 package sample;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+
 import java.net.URL;
-import java.sql.Connection;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class SellerFXController implements Initializable {
@@ -29,28 +34,26 @@ public class SellerFXController implements Initializable {
     @FXML
     private ComboBox comboDelivery;
     ObservableList<String> deliveryOptions = FXCollections.observableArrayList(
-         "Home","In Shop"
+         "Yes","No"
     );
     @FXML
-    private ComboBox comboProduct;
+    private ComboBox<String> comboProduct;
     ObservableList<String> productOptions = FXCollections.observableArrayList(
-            "No products yet"
     );
-    public void getProductData()
-    {
-        try {
-            Connection con = UserDataBaseModel.connectUsers();
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    @FXML
+    public ComboBox<String> custommerBox;
+
+    ObservableList<String> customList = FXCollections.observableArrayList();
+
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    comboDelivery.setItems(deliveryOptions);
-    comboProduct.setItems(productOptions);
 
+        getUsers();
+        getProduct();
 
         sell.setOnMouseClicked(e->
     {
@@ -60,7 +63,7 @@ public class SellerFXController implements Initializable {
         Double quant = Double.parseDouble(quantity.getText());
         Double totall = prizess * quant;
         Double totallP = totall -  totall*discounts ;
-        total.setText(String.valueOf(totallP));
+        total.setText("£ "+String.valueOf(totallP));
         prize.setText(null);
         discount.setText(null);
         quantity.setText(null);}
@@ -145,6 +148,58 @@ public class SellerFXController implements Initializable {
             btnClear.setOnMouseClicked(a->
                     quantity.setText(""));
         });
-    ;
+
+
+    }
+
+    public void getUsers()
+    {
+        Connection con;
+        con = StockWindowDbConnectionModel.getConnection();
+        String s = "SELECT Name,Surname FROM Customers";
+        try {
+            PreparedStatement pst = null;
+            if (con != null) {
+                pst = con.prepareStatement(s);
+            }
+            ResultSet rs = null;
+            if (pst != null) {
+                rs = pst.executeQuery();
+            }
+            if (rs != null) {
+                while (rs.next())
+                {
+                    customList.addAll(rs.getString("Name")+" "+rs.getString("Surname"));
+                    custommerBox.setItems(customList);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void getProduct()
+    {
+        Connection con;
+        con = StockWindowDbConnectionModel.getConnection();
+        String s = "SELECT ProductName FROM Products";
+        try {
+            PreparedStatement pst = null;
+            if (con != null) {
+                pst = con.prepareStatement(s);
+            }
+            ResultSet rs = null;
+            if (pst != null) {
+                rs = pst.executeQuery();
+            }
+            if (rs != null) {
+                while (rs.next())
+                {
+                    productOptions.add(rs.getString("ProductName"));
+                    comboProduct.setItems(productOptions);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
